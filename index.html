@@ -191,6 +191,35 @@ input{
   letter-spacing:2px;
 }
 
+.codeBox{
+  border:1px solid #3f3d38;
+  padding:18px;
+  margin:22px 0;
+  background:#0b0d10;
+}
+
+.codeBox .codeTitle{
+  font:10px Arial,sans-serif;
+  letter-spacing:2px;
+  color:#777;
+  margin-bottom:10px;
+}
+
+.codeBox .codeText{
+  font-size:24px;
+  letter-spacing:5px;
+  color:#e8e2d7;
+}
+
+.evidenceNote{
+  font:11px Arial,sans-serif;
+  color:#777;
+  line-height:1.7;
+  border-top:1px solid #333;
+  padding-top:15px;
+  margin-top:25px;
+}
+
 @media(max-width:500px){
   .cards{
     grid-template-columns:1fr;
@@ -250,7 +279,7 @@ input{
 </section>
 
 
-<!-- DOMANDA SONO FURBO -->
+<!-- CONTROLLO -->
 <section id="control" class="hidden">
 
   <div class="label">CONTROLLO PRELIMINARE · 00</div>
@@ -319,39 +348,60 @@ input{
 </section>
 
 
-<!-- EPISODIO 1 -->
+<!-- EVIDENZA 01 -->
 <section id="episode1" class="hidden">
 
-  <div class="label">EVIDENZA 01 · PROVA SCOLASTICA</div>
+  <div class="label">EVIDENZA 01 · DOCUMENTO CARTACEO</div>
 
-  <h2>La prima traccia</h2>
+  <h2>La lettera della scuola</h2>
 
   <div class="stamp">
-    DOCUMENTAZIONE NECESSARIA
+    PROVA DI DECODIFICA
   </div>
 
   <p>
-    La prima evidenza non si trova all'interno del sistema.
+    La prima evidenza non è contenuta nel sistema.
   </p>
 
   <p>
-    È stata consegnata all'agente sotto forma di
-    <strong>documento cartaceo</strong>.
+    Il documento originale è stato consegnato
+    all'agente in formato cartaceo.
   </p>
 
   <div class="warning">
-    <strong>ISTRUZIONE</strong><br><br>
-    Recupera la lettera ricevuta dall'agente.
-    Al suo interno è nascosto il primo codice.
+
+    <strong>PROCEDURA</strong><br><br>
+
+    Recupera il documento contenuto nella busta.
+    <br><br>
+    Al suo interno troverai una sequenza di coordinate.
+    Dovrai seguirle nell'ordine corretto per ottenere
+    il primo codice del fascicolo.
+
+  </div>
+
+  <div class="codeBox">
+
+    <div class="codeTitle">
+      SISTEMA DI INSERIMENTO
+    </div>
+
+    <div class="codeText">
+      _ _ _ _
+    </div>
+
   </div>
 
   <p>
-    Quando avrai trovato il codice, inseriscilo qui sotto.
+    Quando avrai ricostruito il codice,
+    inseriscilo qui sotto.
   </p>
 
   <input
     id="code1"
     autocomplete="off"
+    inputmode="numeric"
+    maxlength="4"
     placeholder="Inserisci il codice"
   >
 
@@ -361,10 +411,16 @@ input{
 
   <div id="result1" class="status hidden"></div>
 
+  <div class="evidenceNote">
+    NOTA D'ARCHIVIO · Alcuni reperti recuperati durante
+    l'operazione dovranno essere conservati anche dopo
+    la conclusione della singola evidenza.
+  </div>
+
 </section>
 
 
-<!-- EPISODIO 2 -->
+<!-- EVIDENZA 02 -->
 <section id="episode2" class="hidden">
 
   <div class="label">EVIDENZA 02 · INCIDENTE SCOLASTICO</div>
@@ -387,66 +443,69 @@ input{
 
   <div class="warning">
     Il sistema non fornirà ulteriori spiegazioni.
-    Il soggetto dovrebbe essere in grado di riconoscere
-    autonomamente l'episodio.
+    Il soggetto dovrebbe essere in grado di ricostruire
+    autonomamente ciò che è accaduto.
   </div>
 
   <p>
-    Questa evidenza verrà completata in seguito.
+    La prova richiederà una ricostruzione logica
+    dell'episodio.
   </p>
 
   <button id="unlock2">
-    HO IDENTIFICATO L'EPISODIO →
+    HO RISOLTO LA PROVA →
   </button>
 
 </section>
 
 
-<!-- EPISODIO 3 -->
+<!-- EVIDENZA 03 -->
 <section id="episode3" class="hidden">
 
   <div class="label">EVIDENZA 03 · REGISTRAZIONE</div>
 
-  <h2>La musica</h2>
+  <h2>Il pianoforte</h2>
 
   <div class="stamp">
     FILE VIDEO · ANALISI RICHIESTA
   </div>
 
   <p>
-    È stata recuperata una registrazione video.
+    È stata recuperata una registrazione video
+    appartenente all'archivio dell'agente.
   </p>
 
   <p>
-    Il contenuto principale del video potrebbe non essere
-    l'elemento realmente importante.
+    La registrazione contiene una sequenza di elementi
+    che dovranno essere analizzati nell'ordine corretto.
   </p>
 
   <div class="warning">
     <strong>ISTRUZIONE</strong><br><br>
-    Osserva attentamente il video.
-    Un elemento presente nella registrazione dovrà essere
-    identificato.
+    Guarda il filmato con attenzione.
+    Non cercare semplicemente un errore:
+    il video contiene le informazioni necessarie
+    per ricostruire la prova.
   </div>
 
   <p>
-    Il file video verrà inserito qui quando il fascicolo
-    sarà completato.
+    Il file video verrà collegato al fascicolo
+    nella versione definitiva.
   </p>
 
   <button id="unlock3">
-    HO TROVATO L'ELEMENTO →
+    HO RISOLTO LA PROVA →
   </button>
 
 </section>
 
 
-<!-- EPISODIO 4 -->
+<!-- EVIDENZA 04 -->
 <section id="episode4" class="hidden">
 
   <div class="label">EVIDENZA 04 · RAPPORTO INCIDENTE</div>
 
-  <h2>Il sinistro</h2>
+  <h2>L'incidente</h2>
 
   <div class="stamp">
     PROVA AUDIOVISIVA
@@ -462,27 +521,29 @@ input{
 
   <div class="warning">
     <strong>ATTENZIONE</strong><br><br>
-    Non concentrarti esclusivamente sull'incidente.
-    Cerca ciò che non dovrebbe trovarsi nel filmato.
+    Ricostruisci la sequenza degli avvenimenti.
+    Una delle informazioni ottenute durante l'analisi
+    sarà necessaria per una prova successiva.
   </div>
 
   <p>
-    Il video verrà inserito qui nella versione definitiva.
+    Il materiale audiovisivo verrà inserito
+    nella versione definitiva.
   </p>
 
   <button id="unlock4">
-    HO INDIVIDUATO L'ANOMALIA →
+    HO RISOLTO LA RICOSTRUZIONE →
   </button>
 
 </section>
 
 
-<!-- EPISODIO 5 -->
+<!-- EVIDENZA 05 -->
 <section id="episode5" class="hidden">
 
   <div class="label">EVIDENZA 05 · PROVA DEL CASO</div>
 
-  <h2>La giocata</h2>
+  <h2>Il gratta e vinci</h2>
 
   <div class="stamp">
     ACCESSO PARZIALE
@@ -494,14 +555,20 @@ input{
   </p>
 
   <p>
-    Sembra un normale gratta e vinci.
+    A prima vista sembra un normale gratta e vinci.
   </p>
 
   <div class="warning">
     <strong>MA NON LO È.</strong><br><br>
     Le caselle corrette dovranno essere individuate
-    utilizzando informazioni ottenute nelle prove precedenti.
+    utilizzando informazioni recuperate durante
+    le prove precedenti.
   </div>
+
+  <p>
+    Il risultato della giocata costituirà una nuova
+    informazione per il fascicolo.
+  </p>
 
   <button id="unlock5">
     HO COMPLETATO LA GIOCATA →
@@ -510,37 +577,47 @@ input{
 </section>
 
 
-<!-- EPISODIO 6 -->
+<!-- EVIDENZA 06 -->
 <section id="episode6" class="hidden">
 
   <div class="label">EVIDENZA 06 · OGGETTO RECUPERATO</div>
 
-  <h2>Valore sconosciuto</h2>
+  <h2>I gettoni</h2>
 
   <div class="stamp">
     OGGETTO FISICO
   </div>
 
   <p>
-    Il fascicolo segnala il recupero di alcuni oggetti
-    metallici.
+    Durante l'operazione sono stati recuperati
+    alcuni oggetti metallici.
   </p>
 
   <div class="collect">
-    <strong>OGGETTO</strong>
-    <p>
-      🪙 GETTONI
+
+    <strong>REPERTO</strong>
+
+    <p style="font-size:22px;color:#e8e2d7;">
+      GETTONI
     </p>
+
   </div>
 
   <p>
-    Il loro utilizzo non è ancora stato autorizzato.
+    Il loro valore non è ancora determinabile.
   </p>
 
   <div class="warning">
+
     <strong>ORDINE DEL SISTEMA</strong><br><br>
+
     Conservare i gettoni.
-    Non utilizzarli fino a nuova autorizzazione.
+    <br><br>
+    <strong>NON UTILIZZARLI.</strong>
+    <br><br>
+    L'autorizzazione all'utilizzo verrà fornita
+    esclusivamente dal fascicolo.
+
   </div>
 
   <button id="unlock6">
@@ -550,20 +627,19 @@ input{
 </section>
 
 
-<!-- EPISODIO 7 -->
+<!-- EVIDENZA 07 -->
 <section id="episode7" class="hidden">
 
   <div class="label">EVIDENZA 07 · SALA DA GIOCO</div>
 
-  <h2>Il banco</h2>
+  <h2>Il Blackjack</h2>
 
   <div class="stamp">
     GIOCO AUTORIZZATO
   </div>
 
   <p>
-    Finalmente il sistema ha autorizzato l'utilizzo
-    dei gettoni recuperati.
+    L'utilizzo dei gettoni è stato finalmente autorizzato.
   </p>
 
   <p>
@@ -572,15 +648,20 @@ input{
   </p>
 
   <div class="collect">
-    <strong>REGOLA</strong>
+
+    <strong>REGOLA DEL BANCO</strong>
+
     <p>
-      I gettoni trovati nelle prove precedenti
-      sono necessari per completare questa fase.
+      La fortuna non è necessaria.
+      I gettoni recuperati durante l'operazione
+      sono parte integrante della soluzione.
     </p>
+
   </div>
 
   <p>
-    La partita verrà costruita nella versione definitiva.
+    Le istruzioni della partita verranno fornite
+    direttamente dal fascicolo.
   </p>
 
   <button id="unlock7">
@@ -590,12 +671,12 @@ input{
 </section>
 
 
-<!-- EPISODIO 8 -->
+<!-- EVIDENZA 08 -->
 <section id="episode8" class="hidden">
 
   <div class="label">EVIDENZA 08 · ULTIMA MANO</div>
 
-  <h2>La conclusione</h2>
+  <h2>L'ultima mano</h2>
 
   <div class="stamp">
     ULTIMA EVIDENZA
@@ -607,14 +688,20 @@ input{
   </p>
 
   <p>
-    Il fascicolo è quasi completo.
+    I reperti raccolti durante l'operazione
+    devono ora essere riesaminati.
   </p>
 
   <div class="warning">
+
     <strong>ULTIMA ISTRUZIONE</strong><br><br>
-    Completa l'ultima prova.
-    La procedura di chiusura verrà attivata
-    solo dopo la verifica.
+
+    Nulla di ciò che è stato recuperato
+    deve essere ignorato.
+    <br><br>
+    La soluzione finale non verrà fornita
+    direttamente dal sistema.
+
   </div>
 
   <button id="finishBtn">
@@ -651,7 +738,9 @@ input{
      PROGRESSO
   ----------------------------- */
 
-  let progress = Number(localStorage.getItem('matteoProgress') || 0);
+  let progress = Number(
+    localStorage.getItem('matteoProgress') || 0
+  );
 
   const titles = [
     'La lettera della scuola',
@@ -681,27 +770,36 @@ input{
       const d=document.createElement('div');
 
       if(i < progress){
+
         d.className='ep done';
+
         d.innerHTML=
           'EVIDENZA '+String(i+1).padStart(2,'0')+
           ' · '+title+
           '<br><span style="color:#999;">✓ RECUPERATA</span>';
+
       }
 
       else if(i === progress){
+
         d.className='ep active';
+
         d.innerHTML=
           'EVIDENZA '+String(i+1).padStart(2,'0')+
           ' · '+title+
           '<br><span style="color:#aaa;">DISPONIBILE</span>';
+
       }
 
       else{
+
         d.className='ep lock';
+
         d.innerHTML=
           'EVIDENZA '+String(i+1).padStart(2,'0')+
           ' · '+title+
           '<br><span>BLOCCATA</span>';
+
       }
 
       cards.appendChild(d);
@@ -749,9 +847,11 @@ input{
   function backToDashboard(){
 
     document.querySelectorAll('main section').forEach(function(s){
+
       if(s.id!=='home'){
         s.classList.add('hidden');
       }
+
     });
 
     show('dashboard');
@@ -779,12 +879,12 @@ input{
   $('checkBtn').addEventListener('click',function(){
 
     const value=$('answer').value.trim().toLowerCase();
+
     const result=$('result');
 
     show('result');
 
     if(
-      value.includes('coglione') ||
       value.includes('coglione') ||
       value.includes('no')
     ){
@@ -835,6 +935,7 @@ input{
 
   /* -----------------------------
      EVIDENZA 01
+     CODICE DELLA LETTERA
   ----------------------------- */
 
   $('check1').addEventListener('click',function(){
@@ -845,11 +946,6 @@ input{
 
     show('result1');
 
-    /*
-      CODICE PROVVISORIO.
-      Lo cambieremo quando costruiamo
-      l'enigma vero della lettera.
-    */
 
     if(value === '4729'){
 
@@ -857,21 +953,34 @@ input{
 
       result.innerHTML=
         '<strong>EVIDENZA 01 RECUPERATA.</strong><br><br>'+
-        'Il primo frammento del fascicolo è stato acquisito.<br><br>'+
-        'Conserva ciò che hai trovato. '+
-        'Potrebbe servire più avanti.';
+        'Codice verificato: <strong>4729</strong>.<br><br>'+
+        'La prima informazione del fascicolo è stata acquisita.'+
+        '<br><br>'+
+        '<strong>NUOVO REPERTO REGISTRATO:</strong><br>'+
+        'FRAMMENTO E · CONSERVARE';
+
+      /*
+        Registrazione del primo reperto.
+        Non viene ancora spiegato il suo utilizzo.
+      */
+
+      localStorage.setItem('repertoE','acquisito');
 
       progress=1;
+
       save();
 
-      setTimeout(backToDashboard,2200);
+      setTimeout(backToDashboard,2800);
 
     }else{
 
       result.className='status';
 
-      result.textContent=
-        'CODICE ERRATO. La lettera contiene tutte le informazioni necessarie.';
+      result.innerHTML=
+        '<strong>CODICE ERRATO.</strong><br><br>'+
+        'La documentazione cartacea contiene '+
+        'tutte le informazioni necessarie.<br><br>'+
+        'Controlla nuovamente la sequenza.';
 
     }
 
@@ -981,6 +1090,7 @@ input{
       '<strong>ATTENDERE IL 25 DICEMBRE.</strong>';
 
     progress=8;
+
     save();
 
   });
