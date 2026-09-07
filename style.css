@@ -10,7 +10,8 @@ body {
   color: #f4eee1;
 }
 
-button {
+button,
+input {
   font: inherit;
 }
 
@@ -194,10 +195,6 @@ h1 span {
   margin-bottom: 14px;
 }
 
-.indietro:hover {
-  color: white;
-}
-
 .documento {
   background: #f4eee1;
   color: #292621;
@@ -214,7 +211,14 @@ h2 {
   font-size: clamp(38px, 9vw, 58px);
   font-weight: normal;
   line-height: 1;
-  margin: 8px 0 20px;
+  margin: 8px 0 10px;
+}
+
+h4 {
+  color: #8e2929;
+  letter-spacing: 3px;
+  font: bold 12px Arial, sans-serif;
+  margin: 0 0 25px;
 }
 
 .separatore {
@@ -228,34 +232,86 @@ h2 {
   line-height: 1.65;
 }
 
-.dati {
+.avviso {
+  margin: 30px 0;
+  padding: 18px;
   border: 1px solid #c8bdab;
-  margin: 28px 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  background: #eee6d7;
 }
 
-.dati div {
-  padding: 15px 8px;
-  text-align: center;
-  border-right: 1px solid #c8bdab;
-}
-
-.dati div:last-child {
-  border-right: 0;
-}
-
-.dati span {
+.avviso strong {
   display: block;
-  font: 9px Arial, sans-serif;
+  color: #8e2929;
+  font: bold 11px Arial, sans-serif;
   letter-spacing: 2px;
-  color: #756d61;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
-.dati b {
-  font: bold 13px Arial, sans-serif;
+.avviso span {
+  font-size: 14px;
+}
+
+.dossier-testo {
+  margin: 25px 0;
+}
+
+.dossier-testo p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.indizio {
+  margin-top: 30px;
+  padding-left: 15px;
+  border-left: 3px solid #8e2929;
+  font-style: italic;
+}
+
+.verifica {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px dashed #bdb19e;
+  text-align: center;
+}
+
+.titolo-verifica {
+  margin: 0;
+  font: bold 11px Arial, sans-serif;
+  letter-spacing: 3px;
   color: #8e2929;
+}
+
+.formato {
+  margin: 8px 0 20px;
+  font: 11px Arial, sans-serif;
+  color: #756d61;
+}
+
+.codice-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.codice-box input {
+  width: 58px;
+  height: 52px;
+  border: 1px solid #aaa08f;
+  background: #fffaf0;
+  text-align: center;
+  font-size: 24px;
+  color: #292621;
+  outline: none;
+}
+
+.codice-box input:focus {
+  border-color: #8e2929;
+}
+
+.codice-box span {
+  font-size: 22px;
+  color: #756d61;
 }
 
 .bottone {
@@ -269,39 +325,120 @@ h2 {
   letter-spacing: 1px;
 }
 
-.bottone:hover {
-  background: #651c1c;
+.errore {
+  min-height: 20px;
+  margin-top: 18px;
+  color: #8e2929;
+  font: bold 12px Arial, sans-serif;
 }
 
-.segreto {
+.sbloccato {
   display: none;
   text-align: center;
-  border-top: 1px dashed #bdb19e;
   margin-top: 30px;
-  padding-top: 28px;
+  padding-top: 30px;
+  border-top: 1px dashed #bdb19e;
 }
 
-.emoji {
-  font-size: 35px;
+.grande-check {
+  width: 55px;
+  height: 55px;
+  border: 2px solid #8e2929;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8e2929;
+  font-size: 28px;
 }
 
-.segreto h3 {
+.sbloccato h3 {
   font-size: 27px;
   font-weight: normal;
+  letter-spacing: 2px;
 }
 
-.segreto p {
+.sbloccato p {
   font-size: 17px;
   line-height: 1.5;
 }
 
-.segreto .piccolo {
+.sbloccato .piccolo {
   font-size: 13px;
   color: #756d61;
   font-style: italic;
 }
 
+.origine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 25px 0;
+  font-family: Arial, sans-serif;
+}
+
+.origine span,
+.origine b {
+  border: 1px solid #aaa08f;
+  padding: 12px 17px;
+  font-size: 20px;
+}
+
+.origine b {
+  color: #8e2929;
+  border-color: #8e2929;
+}
+
+.frase-finale {
+  font-style: italic;
+}
+
+.frammento {
+  margin: 30px auto;
+  padding: 22px;
+  max-width: 260px;
+  border: 2px solid #292621;
+}
+
+.frammento p {
+  margin: 0 0 10px;
+  font: bold 9px Arial, sans-serif;
+  letter-spacing: 3px;
+}
+
+.frammento strong {
+  display: block;
+  font: normal 52px Georgia, serif;
+  color: #8e2929;
+  margin: 5px;
+}
+
+.frammento small {
+  display: block;
+  font: 9px Arial, sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.prossimo {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px dashed #bdb19e;
+  text-align: center;
+}
+
+.prossimo span {
+  display: inline-block;
+  margin-top: 15px;
+  color: #8e2929;
+  font: bold 10px Arial, sans-serif;
+  letter-spacing: 2px;
+}
+
 @media (max-width: 500px) {
+
   .timbro {
     top: 14px;
     right: 12px;
@@ -311,16 +448,16 @@ h2 {
     padding-top: 70px;
   }
 
-  .dati {
-    grid-template-columns: 1fr;
+  .codice-box input {
+    width: 52px;
   }
 
-  .dati div {
-    border-right: 0;
-    border-bottom: 1px solid #c8bdab;
+  .origine {
+    gap: 10px;
   }
 
-  .dati div:last-child {
-    border-bottom: 0;
+  .origine span,
+  .origine b {
+    padding: 10px 13px;
   }
 }
