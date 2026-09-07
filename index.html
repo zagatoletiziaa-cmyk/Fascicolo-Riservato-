@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fascicolo 09</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="pagina">
+
+    <div class="timbro">RISERVATO</div>
+
+    <section class="copertina">
+      <p class="sopra">DOCUMENTO CONFIDENZIALE</p>
+
+      <h1>FASCICOLO <span>09</span></h1>
+
+      <p class="sottotitolo">
+        Un piccolo fascicolo contiene una grande sorpresa.
+      </p>
+
+      <button class="fascicolo" onclick="apriFascicolo()">
+        <div class="linguetta"></div>
+
+        <div class="foglio">
+          <div class="linea"></div>
+          <p>FASCICOLO</p>
+          <strong>09</strong>
+          <small>TOP SECRET</small>
+        </div>
+
+        <div class="etichetta">
+          OPERAZIONE 09
+        </div>
+      </button>
+
+      <p class="istruzioni">
+        Tocca il fascicolo per accedere →
+      </p>
+    </section>
+
+
+    <section class="contenuto" id="contenuto">
+
+      <button class="indietro" onclick="chiudiFascicolo()">
+        ← Torna indietro
+      </button>
+
+      <div class="documento">
+
+        <p class="sopra rosso">ACCESSO AUTORIZZATO</p>
+
+        <h2>Fascicolo 09</h2>
+
+        <div class="separatore"></div>
+
+        <p>
+          Se stai leggendo questo documento, significa che hai
+          finalmente trovato il fascicolo giusto.
+        </p>
+
+        <div class="dati">
+          <div>
+            <span>CODICE</span>
+            <b>09</b>
+          </div>
+
+          <div>
+            <span>STATO</span>
+            <b>ATTIVO</b>
+          </div>
+
+          <div>
+            <span>LIVELLO</span>
+            <b>SEGRETO</b>
+          </div>
+        </div>
+
+        <button class="bottone" onclick="sblocca()">
+          🔐 SBLOCCA IL FASCICOLO
+        </button>
+
+        <div class="segreto" id="segreto">
+
+          <div class="emoji">🎄</div>
+
+          <h3>ACCESSO RIUSCITO</h3>
+
+          <p>
+            Complimenti.<br>
+            Hai trovato il contenuto segreto.
+          </p>
+
+          <p class="piccolo">
+            Ma questa è soltanto la prima parte...
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
