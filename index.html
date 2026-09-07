@@ -49,11 +49,6 @@ h2{
   margin:0 0 20px;
 }
 
-h3{
-  font-size:18px;
-  margin:0 0 10px;
-}
-
 p{
   font-size:17px;
   line-height:1.65;
@@ -481,11 +476,14 @@ input{
   </p>
 
   <div class="warning">
+
     <strong>ISTRUZIONE</strong><br><br>
+
     Guarda il filmato con attenzione.
     Non cercare semplicemente un errore:
     il video contiene le informazioni necessarie
     per ricostruire la prova.
+
   </div>
 
   <p>
@@ -520,10 +518,13 @@ input{
   </p>
 
   <div class="warning">
+
     <strong>ATTENZIONE</strong><br><br>
+
     Ricostruisci la sequenza degli avvenimenti.
     Una delle informazioni ottenute durante l'analisi
     sarà necessaria per una prova successiva.
+
   </div>
 
   <p>
@@ -559,10 +560,13 @@ input{
   </p>
 
   <div class="warning">
+
     <strong>MA NON LO È.</strong><br><br>
+
     Le caselle corrette dovranno essere individuate
     utilizzando informazioni recuperate durante
     le prove precedenti.
+
   </div>
 
   <p>
@@ -712,7 +716,6 @@ input{
 
 </section>
 
-
 </main>
 </div>
 
@@ -736,11 +739,14 @@ input{
 
   /* -----------------------------
      PROGRESSO
+     RESET TEMPORANEO DI SVILUPPO
   ----------------------------- */
 
-  let progress = Number(
-    localStorage.getItem('matteoProgress') || 0
-  );
+  let progress = 0;
+
+  localStorage.setItem('matteoProgress','0');
+  localStorage.removeItem('repertoE');
+
 
   const titles = [
     'La lettera della scuola',
@@ -935,7 +941,6 @@ input{
 
   /* -----------------------------
      EVIDENZA 01
-     CODICE DELLA LETTERA
   ----------------------------- */
 
   $('check1').addEventListener('click',function(){
@@ -958,11 +963,6 @@ input{
         '<br><br>'+
         '<strong>NUOVO REPERTO REGISTRATO:</strong><br>'+
         'FRAMMENTO E · CONSERVARE';
-
-      /*
-        Registrazione del primo reperto.
-        Non viene ancora spiegato il suo utilizzo.
-      */
 
       localStorage.setItem('repertoE','acquisito');
 
