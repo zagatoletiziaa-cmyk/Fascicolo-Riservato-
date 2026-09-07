@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <title>FASCICOLO RISERVATO</title>
 
 <style>
@@ -47,6 +48,11 @@ h1{
 h2{
   font-size:25px;
   margin:0 0 20px;
+}
+
+h3{
+  font-size:18px;
+  margin:0 0 10px;
 }
 
 p{
@@ -186,33 +192,12 @@ input{
   letter-spacing:2px;
 }
 
-.codeBox{
-  border:1px solid #3f3d38;
-  padding:18px;
-  margin:22px 0;
-  background:#0b0d10;
-}
-
-.codeBox .codeTitle{
-  font:10px Arial,sans-serif;
+.version{
+  margin-top:20px;
+  text-align:center;
+  font:9px Arial,sans-serif;
   letter-spacing:2px;
-  color:#777;
-  margin-bottom:10px;
-}
-
-.codeBox .codeText{
-  font-size:24px;
-  letter-spacing:5px;
-  color:#e8e2d7;
-}
-
-.evidenceNote{
-  font:11px Arial,sans-serif;
-  color:#777;
-  line-height:1.7;
-  border-top:1px solid #333;
-  padding-top:15px;
-  margin-top:25px;
+  color:#4f4c47;
 }
 
 @media(max-width:500px){
@@ -232,12 +217,18 @@ input{
 <div class="wrap">
 <main class="card">
 
-<!-- HOME -->
+<!-- =========================
+     HOME
+========================= -->
+
 <section id="home">
 
-  <div class="label">ARCHIVIO RISERVATO · ACCESSO LIMITATO</div>
+  <div class="label">
+    ARCHIVIO RISERVATO · ACCESSO LIMITATO
+  </div>
 
   <h1>FASCICOLO</h1>
+
   <h2>Il caso del soggetto Matteo</h2>
 
   <div class="meta">
@@ -268,16 +259,25 @@ input{
   </button>
 
   <div class="small">
-    Sistema locale · Progressi salvati sul dispositivo
+    Sistema locale · Versione di verifica
+  </div>
+
+  <div class="version">
+    BUILD TEST · 02
   </div>
 
 </section>
 
 
-<!-- CONTROLLO -->
+<!-- =========================
+     CONTROLLO 00
+========================= -->
+
 <section id="control" class="hidden">
 
-  <div class="label">CONTROLLO PRELIMINARE · 00</div>
+  <div class="label">
+    CONTROLLO PRELIMINARE · 00
+  </div>
 
   <h2>Verifica dell'agente</h2>
 
@@ -316,10 +316,15 @@ input{
 </section>
 
 
-<!-- DASHBOARD -->
+<!-- =========================
+     DASHBOARD
+========================= -->
+
 <section id="dashboard" class="hidden">
 
-  <div class="label">FASCICOLO · DASHBOARD</div>
+  <div class="label">
+    FASCICOLO · DASHBOARD
+  </div>
 
   <h2>Le otto evidenze</h2>
 
@@ -343,10 +348,15 @@ input{
 </section>
 
 
-<!-- EVIDENZA 01 -->
+<!-- =========================
+     EVIDENZA 01
+========================= -->
+
 <section id="episode1" class="hidden">
 
-  <div class="label">EVIDENZA 01 · DOCUMENTO CARTACEO</div>
+  <div class="label">
+    EVIDENZA 01 · DOCUMENTO CARTACEO
+  </div>
 
   <h2>La lettera della scuola</h2>
 
@@ -355,48 +365,42 @@ input{
   </div>
 
   <p>
-    La prima evidenza non è contenuta nel sistema.
+    La prima evidenza non si trova all'interno del sistema.
   </p>
 
   <p>
-    Il documento originale è stato consegnato
-    all'agente in formato cartaceo.
+    È stata consegnata all'agente sotto forma di
+    <strong>documento cartaceo</strong>.
   </p>
 
   <div class="warning">
 
-    <strong>PROCEDURA</strong><br><br>
+    <strong>ISTRUZIONE</strong><br><br>
 
     Recupera il documento contenuto nella busta.
-    <br><br>
-    Al suo interno troverai una sequenza di coordinate.
-    Dovrai seguirle nell'ordine corretto per ottenere
-    il primo codice del fascicolo.
-
-  </div>
-
-  <div class="codeBox">
-
-    <div class="codeTitle">
-      SISTEMA DI INSERIMENTO
-    </div>
-
-    <div class="codeText">
-      _ _ _ _
-    </div>
+    Al suo interno è nascosta una sequenza di coordinate.
+    Segui l'ordine corretto per ottenere il primo codice.
 
   </div>
 
   <p>
-    Quando avrai ricostruito il codice,
-    inseriscilo qui sotto.
+    Quando avrai trovato il codice, inseriscilo qui sotto.
   </p>
+
+  <div class="collect">
+
+    <strong>CODICE DI ACCESSO</strong>
+
+    <p style="font-size:25px;letter-spacing:7px;color:#e8e2d7;">
+      _ _ _ _
+    </p>
+
+  </div>
 
   <input
     id="code1"
     autocomplete="off"
     inputmode="numeric"
-    maxlength="4"
     placeholder="Inserisci il codice"
   >
 
@@ -406,102 +410,112 @@ input{
 
   <div id="result1" class="status hidden"></div>
 
-  <div class="evidenceNote">
-    NOTA D'ARCHIVIO · Alcuni reperti recuperati durante
-    l'operazione dovranno essere conservati anche dopo
-    la conclusione della singola evidenza.
-  </div>
-
 </section>
 
 
-<!-- EVIDENZA 02 -->
+<!-- =========================
+     EVIDENZA 02
+========================= -->
+
 <section id="episode2" class="hidden">
 
-  <div class="label">EVIDENZA 02 · INCIDENTE SCOLASTICO</div>
+  <div class="label">
+    EVIDENZA 02 · INCIDENTE SCOLASTICO
+  </div>
 
   <h2>La caduta</h2>
 
   <div class="stamp">
-    ARCHIVIO PERSONALE
+    RICOSTRUZIONE DEL FATTO
   </div>
 
   <p>
-    Una seconda prova è stata recuperata dagli archivi
-    personali dell'agente.
+    Il fascicolo contiene una seconda ricostruzione.
   </p>
 
   <p>
-    Il documento riguarda un episodio avvenuto
-    <strong>a scuola</strong>.
-  </p>
-
-  <div class="warning">
-    Il sistema non fornirà ulteriori spiegazioni.
-    Il soggetto dovrebbe essere in grado di ricostruire
-    autonomamente ciò che è accaduto.
-  </div>
-
-  <p>
-    La prova richiederà una ricostruzione logica
-    dell'episodio.
-  </p>
-
-  <button id="unlock2">
-    HO RISOLTO LA PROVA →
-  </button>
-
-</section>
-
-
-<!-- EVIDENZA 03 -->
-<section id="episode3" class="hidden">
-
-  <div class="label">EVIDENZA 03 · REGISTRAZIONE</div>
-
-  <h2>Il pianoforte</h2>
-
-  <div class="stamp">
-    FILE VIDEO · ANALISI RICHIESTA
-  </div>
-
-  <p>
-    È stata recuperata una registrazione video
-    appartenente all'archivio dell'agente.
-  </p>
-
-  <p>
-    La registrazione contiene una sequenza di elementi
-    che dovranno essere analizzati nell'ordine corretto.
+    L'episodio è avvenuto durante gli anni di scuola.
   </p>
 
   <div class="warning">
 
     <strong>ISTRUZIONE</strong><br><br>
 
-    Guarda il filmato con attenzione.
-    Non cercare semplicemente un errore:
-    il video contiene le informazioni necessarie
-    per ricostruire la prova.
+    Ricostruisci l'episodio utilizzando gli elementi
+    forniti nel documento fisico.
+
+    Non sarà sufficiente ricordare semplicemente
+    cosa è successo.
 
   </div>
 
   <p>
-    Il file video verrà collegato al fascicolo
-    nella versione definitiva.
+    Questa evidenza verrà completata nella versione
+    definitiva del fascicolo.
   </p>
 
-  <button id="unlock3">
-    HO RISOLTO LA PROVA →
+  <button id="unlock2">
+    VERIFICA EVIDENZA 02 →
   </button>
 
 </section>
 
 
-<!-- EVIDENZA 04 -->
+<!-- =========================
+     EVIDENZA 03
+========================= -->
+
+<section id="episode3" class="hidden">
+
+  <div class="label">
+    EVIDENZA 03 · REGISTRAZIONE
+  </div>
+
+  <h2>Il pianoforte</h2>
+
+  <div class="stamp">
+    FILE VIDEO · ANALISI
+  </div>
+
+  <p>
+    È stata recuperata una registrazione video.
+  </p>
+
+  <p>
+    Il video dovrà essere analizzato seguendo
+    un preciso ordine di osservazione.
+  </p>
+
+  <div class="warning">
+
+    <strong>ISTRUZIONE</strong><br><br>
+
+    Osserva attentamente la sequenza.
+    Gli elementi importanti dovranno essere
+    messi nell'ordine corretto.
+
+  </div>
+
+  <p>
+    Il file video verrà inserito nella versione definitiva.
+  </p>
+
+  <button id="unlock3">
+    VERIFICA EVIDENZA 03 →
+  </button>
+
+</section>
+
+
+<!-- =========================
+     EVIDENZA 04
+========================= -->
+
 <section id="episode4" class="hidden">
 
-  <div class="label">EVIDENZA 04 · RAPPORTO INCIDENTE</div>
+  <div class="label">
+    EVIDENZA 04 · RAPPORTO INCIDENTE
+  </div>
 
   <h2>L'incidente</h2>
 
@@ -514,35 +528,40 @@ input{
   </p>
 
   <p>
-    Il rapporto ufficiale presenta alcune incongruenze.
+    Il rapporto ufficiale presenta alcune
+    informazioni da ricostruire.
   </p>
 
   <div class="warning">
 
-    <strong>ATTENZIONE</strong><br><br>
+    <strong>ISTRUZIONE</strong><br><br>
 
-    Ricostruisci la sequenza degli avvenimenti.
-    Una delle informazioni ottenute durante l'analisi
-    sarà necessaria per una prova successiva.
+    Ricostruisci la sequenza degli eventi.
+    Non tutte le informazioni devono essere
+    interpretate nello stesso modo.
 
   </div>
 
   <p>
-    Il materiale audiovisivo verrà inserito
-    nella versione definitiva.
+    Il video verrà inserito nella versione definitiva.
   </p>
 
   <button id="unlock4">
-    HO RISOLTO LA RICOSTRUZIONE →
+    VERIFICA EVIDENZA 04 →
   </button>
 
 </section>
 
 
-<!-- EVIDENZA 05 -->
+<!-- =========================
+     EVIDENZA 05
+========================= -->
+
 <section id="episode5" class="hidden">
 
-  <div class="label">EVIDENZA 05 · PROVA DEL CASO</div>
+  <div class="label">
+    EVIDENZA 05 · PROVA DEL CASO
+  </div>
 
   <h2>Il gratta e vinci</h2>
 
@@ -564,27 +583,32 @@ input{
     <strong>MA NON LO È.</strong><br><br>
 
     Le caselle corrette dovranno essere individuate
-    utilizzando informazioni recuperate durante
-    le prove precedenti.
+    utilizzando informazioni ottenute nelle prove
+    precedenti.
 
   </div>
 
   <p>
-    Il risultato della giocata costituirà una nuova
-    informazione per il fascicolo.
+    Il risultato della giocata costituirà un nuovo
+    frammento del fascicolo.
   </p>
 
   <button id="unlock5">
-    HO COMPLETATO LA GIOCATA →
+    VERIFICA EVIDENZA 05 →
   </button>
 
 </section>
 
 
-<!-- EVIDENZA 06 -->
+<!-- =========================
+     EVIDENZA 06
+========================= -->
+
 <section id="episode6" class="hidden">
 
-  <div class="label">EVIDENZA 06 · OGGETTO RECUPERATO</div>
+  <div class="label">
+    EVIDENZA 06 · OGGETTO RECUPERATO
+  </div>
 
   <h2>I gettoni</h2>
 
@@ -593,22 +617,22 @@ input{
   </div>
 
   <p>
-    Durante l'operazione sono stati recuperati
-    alcuni oggetti metallici.
+    Il fascicolo segnala il recupero di alcuni
+    oggetti metallici.
   </p>
 
   <div class="collect">
 
     <strong>REPERTO</strong>
 
-    <p style="font-size:22px;color:#e8e2d7;">
+    <p style="font-size:24px;color:#e8e2d7;">
       GETTONI
     </p>
 
   </div>
 
   <p>
-    Il loro valore non è ancora determinabile.
+    Il loro utilizzo non è ancora stato autorizzato.
   </p>
 
   <div class="warning">
@@ -616,25 +640,26 @@ input{
     <strong>ORDINE DEL SISTEMA</strong><br><br>
 
     Conservare i gettoni.
-    <br><br>
-    <strong>NON UTILIZZARLI.</strong>
-    <br><br>
-    L'autorizzazione all'utilizzo verrà fornita
-    esclusivamente dal fascicolo.
+    Non utilizzarli fino a nuova autorizzazione.
 
   </div>
 
   <button id="unlock6">
-    GETTONI RECUPERATI →
+    CONFERMA RECUPERO GETTONI →
   </button>
 
 </section>
 
 
-<!-- EVIDENZA 07 -->
+<!-- =========================
+     EVIDENZA 07
+========================= -->
+
 <section id="episode7" class="hidden">
 
-  <div class="label">EVIDENZA 07 · SALA DA GIOCO</div>
+  <div class="label">
+    EVIDENZA 07 · SALA DA GIOCO
+  </div>
 
   <h2>Il Blackjack</h2>
 
@@ -643,30 +668,26 @@ input{
   </div>
 
   <p>
-    L'utilizzo dei gettoni è stato finalmente autorizzato.
+    Finalmente il sistema ha autorizzato
+    l'utilizzo dei gettoni recuperati.
   </p>
 
   <p>
-    La prova richiede una partita di
+    La prova richiederà una partita di
     <strong>Blackjack</strong>.
   </p>
 
   <div class="collect">
 
-    <strong>REGOLA DEL BANCO</strong>
+    <strong>ATTENZIONE</strong>
 
     <p>
-      La fortuna non è necessaria.
-      I gettoni recuperati durante l'operazione
-      sono parte integrante della soluzione.
+      Non sarà una partita basata sulla fortuna.
+      Le informazioni raccolte nelle prove precedenti
+      determineranno le mosse corrette.
     </p>
 
   </div>
-
-  <p>
-    Le istruzioni della partita verranno fornite
-    direttamente dal fascicolo.
-  </p>
 
   <button id="unlock7">
     INIZIARE LA PARTITA →
@@ -675,10 +696,15 @@ input{
 </section>
 
 
-<!-- EVIDENZA 08 -->
+<!-- =========================
+     EVIDENZA 08
+========================= -->
+
 <section id="episode8" class="hidden">
 
-  <div class="label">EVIDENZA 08 · ULTIMA MANO</div>
+  <div class="label">
+    EVIDENZA 08 · ULTIMA MANO
+  </div>
 
   <h2>L'ultima mano</h2>
 
@@ -692,19 +718,17 @@ input{
   </p>
 
   <p>
-    I reperti raccolti durante l'operazione
-    devono ora essere riesaminati.
+    I frammenti raccolti dovranno essere
+    ricomposti per completare il fascicolo.
   </p>
 
   <div class="warning">
 
     <strong>ULTIMA ISTRUZIONE</strong><br><br>
 
-    Nulla di ciò che è stato recuperato
-    deve essere ignorato.
-    <br><br>
-    La soluzione finale non verrà fornita
-    direttamente dal sistema.
+    Completa l'ultima prova.
+    La procedura di chiusura verrà attivata
+    solo dopo la verifica.
 
   </div>
 
@@ -715,6 +739,7 @@ input{
   <div id="finalResult" class="status hidden"></div>
 
 </section>
+
 
 </main>
 </div>
@@ -728,27 +753,39 @@ input{
     return document.getElementById(id);
   }
 
+
   function show(id){
     $(id).classList.remove('hidden');
   }
 
-  function hide(id){
-    $(id).classList.add('hidden');
+
+  function only(id){
+
+    document
+      .querySelectorAll('main section')
+      .forEach(function(section){
+
+        section.classList.add('hidden');
+
+      });
+
+    show(id);
+
   }
 
 
-  /* -----------------------------
+  /* ==================================
      PROGRESSO
-     RESET TEMPORANEO DI SVILUPPO
-  ----------------------------- */
+     
+     PER ORA È SOLO TEMPORANEO.
+     NON VIENE SALVATO NEL BROWSER.
+  ================================== */
 
   let progress = 0;
 
-  localStorage.setItem('matteoProgress','0');
-  localStorage.removeItem('repertoE');
-
 
   const titles = [
+
     'La lettera della scuola',
     'La caduta',
     'Il pianoforte',
@@ -757,346 +794,418 @@ input{
     'I gettoni',
     'Il Blackjack',
     'L’ultima mano'
+
   ];
 
 
-  function save(){
-    localStorage.setItem('matteoProgress',progress);
-  }
-
+  /* ==================================
+     DASHBOARD
+  ================================== */
 
   function render(){
 
     const cards = $('cards');
 
-    cards.innerHTML='';
+    cards.innerHTML = '';
+
 
     titles.forEach(function(title,i){
 
-      const d=document.createElement('div');
+      const d = document.createElement('div');
+
 
       if(i < progress){
 
-        d.className='ep done';
+        d.className = 'ep done';
 
-        d.innerHTML=
-          'EVIDENZA '+String(i+1).padStart(2,'0')+
-          ' · '+title+
+        d.innerHTML =
+          'EVIDENZA ' +
+          String(i+1).padStart(2,'0') +
+          ' · ' +
+          title +
           '<br><span style="color:#999;">✓ RECUPERATA</span>';
 
       }
 
       else if(i === progress){
 
-        d.className='ep active';
+        d.className = 'ep active';
 
-        d.innerHTML=
-          'EVIDENZA '+String(i+1).padStart(2,'0')+
-          ' · '+title+
+        d.innerHTML =
+          'EVIDENZA ' +
+          String(i+1).padStart(2,'0') +
+          ' · ' +
+          title +
           '<br><span style="color:#aaa;">DISPONIBILE</span>';
 
       }
 
       else{
 
-        d.className='ep lock';
+        d.className = 'ep lock';
 
-        d.innerHTML=
-          'EVIDENZA '+String(i+1).padStart(2,'0')+
-          ' · '+title+
+        d.innerHTML =
+          'EVIDENZA ' +
+          String(i+1).padStart(2,'0') +
+          ' · ' +
+          title +
           '<br><span>BLOCCATA</span>';
 
       }
+
 
       cards.appendChild(d);
 
     });
 
 
-    const percent=(progress/8)*100;
-
-    $('progressBar').style.width=percent+'%';
-
-    $('progressText').textContent=
-      progress+' / 8 evidenze recuperate';
-
-    $('openBtn').textContent=
-      progress < 8
-      ? 'APRIRE EVIDENZA '+String(progress+1).padStart(2,'0')
-      : 'FASCICOLO COMPLETATO';
-
-  }
+    $('progressBar').style.width =
+      (progress / 8 * 100) + '%';
 
 
-  /* -----------------------------
-     NAVIGAZIONE
-  ----------------------------- */
+    $('progressText').textContent =
+      progress + ' / 8 evidenze recuperate';
 
-  function openCurrent(){
 
-    hide('dashboard');
+    if(progress < 8){
 
-    const n=progress+1;
+      $('openBtn').textContent =
+        'APRIRE EVIDENZA ' +
+        String(progress+1).padStart(2,'0');
 
-    if(n===1) show('episode1');
-    if(n===2) show('episode2');
-    if(n===3) show('episode3');
-    if(n===4) show('episode4');
-    if(n===5) show('episode5');
-    if(n===6) show('episode6');
-    if(n===7) show('episode7');
-    if(n===8) show('episode8');
+    }
+
+    else{
+
+      $('openBtn').textContent =
+        'FASCICOLO COMPLETATO';
+
+    }
 
   }
 
 
-  function backToDashboard(){
-
-    document.querySelectorAll('main section').forEach(function(s){
-
-      if(s.id!=='home'){
-        s.classList.add('hidden');
-      }
-
-    });
-
-    show('dashboard');
-    render();
-
-  }
-
-
-  /* -----------------------------
-     APERTURA
-  ----------------------------- */
+  /* ==================================
+     HOME
+  ================================== */
 
   $('enterBtn').addEventListener('click',function(){
 
-    hide('home');
-    show('control');
+    only('control');
 
   });
 
 
-  /* -----------------------------
-     SONO FURBO?
-  ----------------------------- */
+  /* ==================================
+     CONTROLLO 00
+     
+     RISPOSTA CORRETTA:
+     "no sei un coglione"
+     
+     DEVE ESSERE ESATTA.
+  ================================== */
 
   $('checkBtn').addEventListener('click',function(){
 
-    const value=$('answer').value.trim().toLowerCase();
+    const value =
+      $('answer').value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g,' ');
 
-    const result=$('result');
+
+    const result =
+      $('result');
+
 
     show('result');
 
-    if(
-      value.includes('coglione') ||
-      value.includes('no')
-    ){
 
-      result.className='status good';
+    if(value === 'no sei un coglione'){
 
-      result.innerHTML=
-        '<strong>RISPOSTA CONVALIDATA.</strong><br><br>'+
-        'La risposta coincide con gli archivi dell’agente.<br><br>'+
-        'È stato stabilito che il soggetto non è autorizzato '+
-        'a contestare tale valutazione.<br><br>'+
+      result.className =
+        'status good';
+
+
+      result.innerHTML =
+        '<strong>RISPOSTA CONVALIDATA.</strong><br><br>' +
+
+        'La risposta coincide con gli archivi dell’agente.' +
+        '<br><br>' +
+
         '<strong>ACCESSO AL FASCICOLO AUTORIZZATO.</strong>';
+
 
       setTimeout(function(){
 
-        hide('control');
-        show('dashboard');
-        render();
+        /*
+          SI PARTE SEMPRE DA ZERO.
+          L'utente entra direttamente
+          nella prima evidenza.
+        */
 
-      },1800);
+        progress = 0;
 
-    }else{
+        only('episode1');
 
-      result.className='status';
+      },1500);
 
-      result.innerHTML=
-        'RISPOSTA NON CONVALIDATA.<br><br>'+
-        'Il sistema suggerisce di riprovare '+
-        'ricordando le precedenti conversazioni con l’agente.';
+
+    }
+
+    else{
+
+      result.className =
+        'status';
+
+
+      result.innerHTML =
+        '<strong>RISPOSTA NON CONVALIDATA.</strong><br><br>' +
+
+        'Qualcosa non torna.<br><br>' +
+
+        'Il sistema suggerisce di ricordare ' +
+        'la risposta abituale dell’agente.';
 
     }
 
   });
 
 
-  /* -----------------------------
-     APERTURA EVIDENZA
-  ----------------------------- */
+  /* ==================================
+     DASHBOARD → EVIDENZA CORRENTE
+  ================================== */
 
   $('openBtn').addEventListener('click',function(){
 
-    if(progress<8){
-      openCurrent();
+    if(progress === 0){
+      only('episode1');
+    }
+
+    else if(progress === 1){
+      only('episode2');
+    }
+
+    else if(progress === 2){
+      only('episode3');
+    }
+
+    else if(progress === 3){
+      only('episode4');
+    }
+
+    else if(progress === 4){
+      only('episode5');
+    }
+
+    else if(progress === 5){
+      only('episode6');
+    }
+
+    else if(progress === 6){
+      only('episode7');
+    }
+
+    else if(progress === 7){
+      only('episode8');
     }
 
   });
 
 
-  /* -----------------------------
+  /* ==================================
      EVIDENZA 01
-  ----------------------------- */
+     
+     CODICE DI TEST: 4729
+  ================================== */
 
   $('check1').addEventListener('click',function(){
 
-    const value=$('code1').value.trim();
+    const value =
+      $('code1').value.trim();
 
-    const result=$('result1');
+
+    const result =
+      $('result1');
+
 
     show('result1');
 
 
     if(value === '4729'){
 
-      result.className='status good';
+      result.className =
+        'status good';
 
-      result.innerHTML=
-        '<strong>EVIDENZA 01 RECUPERATA.</strong><br><br>'+
-        'Codice verificato: <strong>4729</strong>.<br><br>'+
-        'La prima informazione del fascicolo è stata acquisita.'+
-        '<br><br>'+
-        '<strong>NUOVO REPERTO REGISTRATO:</strong><br>'+
+
+      result.innerHTML =
+        '<strong>EVIDENZA 01 RECUPERATA.</strong><br><br>' +
+
+        'Il primo frammento del fascicolo è stato acquisito.' +
+        '<br><br>' +
+
+        '<strong>NUOVO REPERTO REGISTRATO:</strong><br>' +
+
         'FRAMMENTO E · CONSERVARE';
 
-      localStorage.setItem('repertoE','acquisito');
 
-      progress=1;
+      progress = 1;
 
-      save();
 
-      setTimeout(backToDashboard,2800);
+      setTimeout(function(){
 
-    }else{
+        only('dashboard');
 
-      result.className='status';
+        render();
 
-      result.innerHTML=
-        '<strong>CODICE ERRATO.</strong><br><br>'+
-        'La documentazione cartacea contiene '+
-        'tutte le informazioni necessarie.<br><br>'+
-        'Controlla nuovamente la sequenza.';
+      },1800);
+
+
+    }
+
+    else{
+
+      result.className =
+        'status';
+
+
+      result.innerHTML =
+        '<strong>CODICE ERRATO.</strong><br><br>' +
+
+        'La documentazione fornita contiene ' +
+        'tutte le informazioni necessarie.';
 
     }
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 02
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 02 — TEST
+  ================================== */
 
   $('unlock2').addEventListener('click',function(){
 
-    progress=2;
-    save();
+    progress = 2;
 
-    backToDashboard();
+    only('dashboard');
+
+    render();
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 03
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 03 — TEST
+  ================================== */
 
   $('unlock3').addEventListener('click',function(){
 
-    progress=3;
-    save();
+    progress = 3;
 
-    backToDashboard();
+    only('dashboard');
+
+    render();
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 04
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 04 — TEST
+  ================================== */
 
   $('unlock4').addEventListener('click',function(){
 
-    progress=4;
-    save();
+    progress = 4;
 
-    backToDashboard();
+    only('dashboard');
+
+    render();
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 05
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 05 — TEST
+  ================================== */
 
   $('unlock5').addEventListener('click',function(){
 
-    progress=5;
-    save();
+    progress = 5;
 
-    backToDashboard();
+    only('dashboard');
+
+    render();
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 06
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 06 — TEST
+  ================================== */
 
   $('unlock6').addEventListener('click',function(){
 
-    progress=6;
-    save();
+    progress = 6;
 
-    backToDashboard();
+    only('dashboard');
+
+    render();
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 07
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 07 — TEST
+  ================================== */
 
   $('unlock7').addEventListener('click',function(){
 
-    progress=7;
-    save();
+    progress = 7;
 
-    backToDashboard();
+    only('dashboard');
+
+    render();
 
   });
 
 
-  /* -----------------------------
-     EVIDENZA 08
-  ----------------------------- */
+  /* ==================================
+     EVIDENZA 08 — TEST
+  ================================== */
 
   $('finishBtn').addEventListener('click',function(){
 
-    const result=$('finalResult');
+    const result =
+      $('finalResult');
+
 
     show('finalResult');
 
-    result.className='status good';
 
-    result.innerHTML=
-      '<strong>FASCICOLO COMPLETATO.</strong><br><br>'+
-      'Tutte le otto evidenze sono state recuperate.<br><br>'+
-      'La pratica può essere chiusa.<br><br>'+
+    result.className =
+      'status good';
+
+
+    result.innerHTML =
+      '<strong>FASCICOLO COMPLETATO.</strong><br><br>' +
+
+      'Tutte le otto evidenze sono state recuperate.' +
+      '<br><br>' +
+
+      'La pratica può essere chiusa.' +
+      '<br><br>' +
+
       '<strong>ATTENDERE IL 25 DICEMBRE.</strong>';
-
-    progress=8;
-
-    save();
 
   });
 
 
-  render();
+  /* ==================================
+     AVVIO
+  ================================== */
+
+  only('home');
 
 })();
 
