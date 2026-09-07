@@ -13,7 +13,9 @@
 
     <div class="timbro">RISERVATO</div>
 
+    <!-- COPERTINA -->
     <section class="copertina">
+
       <p class="sopra">DOCUMENTO CONFIDENZIALE</p>
 
       <h1>FASCICOLO <span>09</span></h1>
@@ -40,9 +42,11 @@
       <p class="istruzioni">
         Tocca il fascicolo per accedere →
       </p>
+
     </section>
 
 
+    <!-- DOSSIER -->
     <section class="contenuto" id="contenuto">
 
       <button class="indietro" onclick="chiudiFascicolo()">
@@ -53,50 +57,152 @@
 
         <p class="sopra rosso">ACCESSO AUTORIZZATO</p>
 
-        <h2>Fascicolo 09</h2>
+        <h2>Dossier 01</h2>
 
         <div class="separatore"></div>
 
+        <h4>L'ORIGINE</h4>
+
         <p>
-          Se stai leggendo questo documento, significa che hai
-          finalmente trovato il fascicolo giusto.
+          Ogni operazione ha un punto d'origine.
         </p>
 
-        <div class="dati">
-          <div>
-            <span>CODICE</span>
-            <b>09</b>
-          </div>
+        <p>
+          Prima dei fascicoli, prima delle prove,
+          prima di tutto questo, ci sono state
+          due persone che hanno iniziato a trovarsi
+          nello stesso posto.
+        </p>
 
-          <div>
-            <span>STATO</span>
-            <b>ATTIVO</b>
-          </div>
-
-          <div>
-            <span>LIVELLO</span>
-            <b>SEGRETO</b>
-          </div>
+        <div class="avviso">
+          <strong>VERIFICA RICHIESTA</strong>
+          <span>Il sistema richiede tre elementi.</span>
         </div>
 
-        <button class="bottone" onclick="sblocca()">
-          🔐 SBLOCCA IL FASCICOLO
-        </button>
-
-        <div class="segreto" id="segreto">
-
-          <div class="emoji">🎄</div>
-
-          <h3>ACCESSO RIUSCITO</h3>
+        <div class="dossier-testo">
 
           <p>
-            Complimenti.<br>
-            Hai trovato il contenuto segreto.
+            Il primo elemento riguarda un <b>numero</b>.
+          </p>
+
+          <p>
+            Il secondo non è un numero.
+          </p>
+
+          <p>
+            Il terzo è nuovamente un <b>numero</b>.
+          </p>
+
+          <p class="indizio">
+            Non cercare una password.
+            Cerca l'inizio.
+          </p>
+
+        </div>
+
+
+        <!-- AREA CODICE -->
+
+        <div class="verifica">
+
+          <p class="titolo-verifica">
+            INSERISCI LA SEQUENZA
+          </p>
+
+          <p class="formato">
+            formato: numero – lettera – numero
+          </p>
+
+          <div class="codice-box">
+
+            <input id="codice1" maxlength="2" inputmode="numeric">
+            <span>–</span>
+
+            <input id="codice2" maxlength="1">
+            <span>–</span>
+
+            <input id="codice3" maxlength="2" inputmode="numeric">
+
+          </div>
+
+          <button class="bottone" onclick="verificaCodice()">
+            VERIFICA IDENTITÀ
+          </button>
+
+          <p id="errore" class="errore"></p>
+
+        </div>
+
+
+        <!-- RISULTATO -->
+
+        <div class="sbloccato" id="sbloccato">
+
+          <div class="grande-check">✓</div>
+
+          <p class="sopra rosso">
+            IDENTITÀ VERIFICATA
+          </p>
+
+          <h3>CERIANI, MATTEO</h3>
+
+          <p>
+            Il punto d'origine è stato identificato.
+          </p>
+
+          <div class="origine">
+            <span>04</span>
+            <b>E</b>
+            <span>05</span>
+          </div>
+
+          <p class="frase-finale">
+            Quarta.<br>
+            Sezione E.<br>
+            Quinta.
+          </p>
+
+          <div class="separatore"></div>
+
+          <p>
+            Adesso sai dove è iniziato tutto.
           </p>
 
           <p class="piccolo">
-            Ma questa è soltanto la prima parte...
+            Ma non sai ancora perché il sistema
+            ti abbia fatto ricordare proprio questo.
           </p>
+
+          <div class="frammento">
+
+            <p>FRAMMENTO 01</p>
+
+            <strong>E</strong>
+
+            <small>
+              NON TENTARE ANCORA DI INTERPRETARLO.<br>
+              CONSERVALO.
+            </small>
+
+          </div>
+
+          <div class="prossimo">
+
+            <p class="sopra">TRASMISSIONE SUCCESSIVA</p>
+
+            <p>
+              Il prossimo dossier non sarà basato
+              su ciò che ricordi.
+            </p>
+
+            <p>
+              Sarà basato su ciò che
+              <b>hai già visto.</b>
+            </p>
+
+            <span>▸ DOSSIER 02 — IN ATTESA</span>
+
+          </div>
 
         </div>
 
