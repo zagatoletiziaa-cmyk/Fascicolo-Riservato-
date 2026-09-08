@@ -6,7 +6,10 @@
 <title>OPERAZIONE 25 — IL BANCO</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -347,7 +350,9 @@ th{
     .cards{
         grid-template-columns:repeat(3,1fr);
     }
+
 }
+
 </style>
 </head>
 
@@ -374,38 +379,20 @@ FASCICOLO RISERVATO · IL BANCO · ACCESSO AUTORIZZATO
 
 <script>
 
+
 /* =========================================================
    OPERAZIONE 25
-   VERSIONE INTERATTIVA
+   VERSIONE DEFINITIVA — PROGRESSIONE SENZA DATE
 ========================================================= */
 
 
-/* =========================
-   IMPOSTAZIONI
-========================= */
-
-const TEST_MODE = false;
-
-const YEAR = 2026;
+/* =========================================================
+   STORAGE
+========================================================= */
 
 const STORAGE_KEY =
-"operazione25_progress_v1";
+"operazione25_progress_v2";
 
-
-/* =========================
-   ELEMENTI
-========================= */
-
-const A =
-document.getElementById("app");
-
-const P =
-document.getElementById("progress");
-
-
-/* =========================
-   STATO
-========================= */
 
 const DEFAULT_STATE = {
 
@@ -422,8 +409,7 @@ const DEFAULT_STATE = {
 };
 
 
-let state =
-loadState();
+let state = loadState();
 
 
 function loadState(){
@@ -480,6 +466,13 @@ function addItem(item){
 }
 
 
+function hasItem(item){
+
+    return state.inventory.includes(item);
+
+}
+
+
 function completeLevel(n){
 
     if(!state.completed.includes(n)){
@@ -493,16 +486,20 @@ function completeLevel(n){
 }
 
 
-function hasItem(item){
+/* =========================================================
+   ELEMENTI
+========================================================= */
 
-    return state.inventory.includes(item);
+const A =
+document.getElementById("app");
 
-}
+const P =
+document.getElementById("progress");
 
 
-/* =========================
+/* =========================================================
    UTILITÀ
-========================= */
+========================================================= */
 
 function norm(s){
 
@@ -562,37 +559,27 @@ function btn(id,text,cls=""){
 }
 
 
-/* =========================
-   SBLOCCO GIORNI
-========================= */
+/* =========================================================
+   SBLOCCO
+========================================================= */
+
+/*
+   NESSUNA DATA.
+
+   Il sito funziona sempre.
+
+   01 è sempre disponibile.
+   02 si apre dopo 01.
+   03 dopo 02.
+   ...
+   08 dopo 07.
+   Il finale dopo 08.
+
+   Il calendario lo gestisci tu
+   consegnando fisicamente le buste.
+*/
 
 function levelUnlocked(n){
-
-    if(TEST_MODE){
-
-        return true;
-
-    }
-
-    const today =
-    new Date();
-
-    if(
-        today.getFullYear() !== YEAR ||
-        today.getMonth() !== 11
-    ){
-
-        return false;
-
-    }
-
-    const day = n;
-
-    if(today.getDate() < day){
-
-        return false;
-
-    }
 
     if(n === 1){
 
@@ -600,14 +587,30 @@ function levelUnlocked(n){
 
     }
 
-    return state.completed.includes(n - 1);
+    if(n >= 2 && n <= 8){
+
+        return state.completed.includes(n - 1);
+
+    }
+
+    if(n === 9){
+
+        return [1,2,3,4,5,6,7,8]
+            .every(
+                x =>
+                state.completed.includes(x)
+            );
+
+    }
+
+    return false;
 
 }
 
 
-/* =========================
+/* =========================================================
    PROGRESSO
-========================= */
+========================================================= */
 
 function renderProgress(){
 
@@ -648,9 +651,9 @@ function renderProgress(){
 }
 
 
-/* =========================
+/* =========================================================
    INVENTARIO
-========================= */
+========================================================= */
 
 function inventoryHTML(){
 
@@ -665,7 +668,8 @@ function inventoryHTML(){
     }
 
     return state.inventory
-        .map(x =>
+        .map(
+            x =>
             `<span class="badge">${x}</span>`
         )
         .join("");
@@ -673,15 +677,16 @@ function inventoryHTML(){
 }
 
 
-/* =========================
+/* =========================================================
    HOME
-========================= */
+========================================================= */
 
 function home(){
 
     renderProgress();
 
     A.innerHTML = box(
+
         "CONTROLLO 00",
 
         `
@@ -692,7 +697,7 @@ function home(){
         </p>
 
         <p>
-            L'operazione è divisa in dossier.
+            L'operazione è divisa in otto dossier.
             Ogni dossier deve essere completato
             prima di poter accedere al successivo.
         </p>
@@ -706,7 +711,7 @@ function home(){
             Tutto ciò che viene recuperato
             deve essere conservato.
 
-            <br>
+            <br><br>
 
             Alcuni reperti serviranno
             nei dossier successivi.
@@ -724,6 +729,7 @@ function home(){
 
     );
 
+
     document
     .getElementById("start")
     .onclick = () => {
@@ -739,19 +745,22 @@ function home(){
 }
 
 
-/* =========================
+/* =========================================================
    DASHBOARD
-========================= */
+========================================================= */
 
 function dashboard(){
 
     renderProgress();
 
+
     const next =
     [1,2,3,4,5,6,7,8]
-    .find(n =>
+    .find(
+        n =>
         !state.completed.includes(n)
     );
+
 
     let content = `
 
@@ -800,8 +809,7 @@ function dashboard(){
 
                 <br><br>
 
-                Torna quando il BANCO
-                autorizzerà il prossimo accesso.
+                Completa prima il dossier precedente.
 
             </div>
 
@@ -817,27 +825,19 @@ function dashboard(){
             DOSSIER 01–08 COMPLETATI.
         </p>
 
+        <p>
+            Tutti i frammenti sono stati recuperati.
+        </p>
+
         `;
+
 
         if(levelUnlocked(9)){
 
             content += btn(
                 "final",
-                "25 DICEMBRE — ACCESSO FINALE"
+                "ACCESSO FINALE"
             );
-
-        }else{
-
-            content += `
-
-            <div class="alert">
-
-                Il fascicolo finale
-                si aprirà il 25 dicembre.
-
-            </div>
-
-            `;
 
         }
 
@@ -845,24 +845,31 @@ function dashboard(){
 
 
     A.innerHTML =
-    box("OPERAZIONE",content);
+    box(
+        "OPERAZIONE",
+        content
+    );
 
 
-    if(document.getElementById("openNext")){
+    const openNext =
+    document.getElementById("openNext");
 
-        document
-        .getElementById("openNext")
-        .onclick =
+
+    if(openNext){
+
+        openNext.onclick =
         () => go(next);
 
     }
 
 
-    if(document.getElementById("final")){
+    const finalButton =
+    document.getElementById("final");
 
-        document
-        .getElementById("final")
-        .onclick =
+
+    if(finalButton){
+
+        finalButton.onclick =
         final25;
 
     }
@@ -870,9 +877,9 @@ function dashboard(){
 }
 
 
-/* =========================
+/* =========================================================
    NAVIGAZIONE
-========================= */
+========================================================= */
 
 function go(n){
 
@@ -890,32 +897,29 @@ function go(n){
         null,
 
         level1,
-
         level2,
-
         level3,
-
         level4,
-
         level5,
-
         level6,
-
         level7,
-
         level8
 
     ];
 
 
-    levels[n]();
+    if(levels[n]){
+
+        levels[n]();
+
+    }
 
 }
 
 
-/* =========================
+/* =========================================================
    FINE LIVELLO
-========================= */
+========================================================= */
 
 function finish(
     n,
@@ -972,7 +976,8 @@ function finish(
 
 
 /* =========================================================
-   LIVELLO 01
+   DOSSIER 01
+   ARCHIVIO
 ========================================================= */
 
 function level1(){
@@ -1031,10 +1036,8 @@ function level1(){
 
 
         <p class="muted">
-
             Inserisci le quattro lettere
             nell'ordine corretto.
-
         </p>
 
 
@@ -1195,7 +1198,8 @@ function level1(){
 
 
 /* =========================================================
-   LIVELLO 02
+   DOSSIER 02
+   AUDIO + BINGO
 ========================================================= */
 
 function level2(){
@@ -1219,6 +1223,24 @@ function level2(){
         <p>
             Il reperto E è stato riconosciuto.
         </p>
+
+        <p>
+            Prima di continuare,
+            ascolta il messaggio del BANCO.
+        </p>
+
+
+        ${btn(
+            "audio",
+            "▶ ASCOLTA MESSAGGIO"
+        )}
+
+
+        <div id="audioText"></div>
+
+
+        <hr>
+
 
         <p>
             Il rapporto dice:
@@ -1268,8 +1290,7 @@ function level2(){
 
 
         <p>
-            Il solo oggetto che indica
-            una posizione precisa è quello da seguire.
+            Quale simbolo devi inserire?
         </p>
 
 
@@ -1290,6 +1311,50 @@ function level2(){
         `
 
     );
+
+
+    document
+    .getElementById("audio")
+    .onclick = () => {
+
+        const text =
+        "Il banco non guarda ciò che è scritto. Guarda ciò che indica. La risposta è già nella stanza.";
+
+
+        audioText.innerHTML = `
+
+        <p class="ok">
+            MESSAGGIO RIPRODOTTO.
+        </p>
+
+        `;
+
+
+        if(
+            "speechSynthesis"
+            in window
+        ){
+
+            speechSynthesis.cancel();
+
+            const speech =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+            speech.lang =
+            "it-IT";
+
+            speech.rate =
+            0.9;
+
+            speechSynthesis.speak(
+                speech
+            );
+
+        }
+
+    };
 
 
     document
@@ -1330,13 +1395,12 @@ function level2(){
             `
 
             <p>
-                La cassaforte si apre.
                 Il simbolo <b>♠</b>
                 viene trasferito.
             </p>
 
             <p>
-                Segna:
+                Completa la combinazione:
                 <b>1 · 13 · 19 · 25</b>
             </p>
 
@@ -1451,8 +1515,7 @@ function level2(){
                             `
 
                             Il simbolo ♠
-                            passa al tavolo
-                            del dossier 03.
+                            passa al dossier 03.
 
                             `
 
@@ -1472,7 +1535,8 @@ function level2(){
 
 
 /* =========================================================
-   LIVELLO 03 · PIANOFORTE
+   DOSSIER 03
+   PIANOFORTE
 ========================================================= */
 
 function level3(){
@@ -1642,7 +1706,8 @@ function level3(){
             `
 
             Il numero 26
-            viene trasferito al dossier 04.
+            viene trasferito
+            al dossier 04.
 
             `
 
@@ -1654,7 +1719,8 @@ function level3(){
 
 
 /* =========================================================
-   LIVELLO 04 · CODICE
+   DOSSIER 04
+   MASTERMIND
 ========================================================= */
 
 function level4(){
@@ -1671,72 +1737,50 @@ function level4(){
     A.innerHTML =
     box(
 
-        "04 · CODICE",
+        "04 · TERMINALE CORROTTO",
 
         `
 
+        <p class="danger mono">
+            SIGNAL LOST...
+        </p>
+
         <p>
-            Il pannello usa feedback
-            tipo Mastermind.
+            Il pannello è danneggiato.
+            Alcune righe risultano corrotte.
         </p>
 
 
-        <table>
+        <div class="alert mono">
 
-            <tr>
-                <th>Tentativo</th>
-                <th>Feedback</th>
-            </tr>
+            6821 → 2 CIFRE PRESENTI:
+            1 ESATTA · 1 POSIZIONE ERRATA
 
-            <tr>
-                <td>6821</td>
-                <td>
-                    1 corretta,
-                    posizione errata
-                </td>
-            </tr>
+            <br><br>
 
-            <tr>
-                <td>6147</td>
-                <td>
-                    1 corretta,
-                    posizione corretta
-                </td>
-            </tr>
+            6147 → 1 CIFRA PRESENTE:
+            POSIZIONE ERRATA
 
-            <tr>
-                <td>2069</td>
-                <td>
-                    1 corretta,
-                    posizione corretta
-                </td>
-            </tr>
+            <br><br>
 
-            <tr>
-                <td>7382</td>
-                <td>
-                    0 corrette
-                </td>
-            </tr>
+            2069 → NESSUNA CIFRA PRESENTE
 
-            <tr>
-                <td>7801</td>
-                <td>
-                    1 corretta,
-                    posizione corretta
-                </td>
-            </tr>
+            <br><br>
 
-        </table>
+            7382 → 2 CIFRE PRESENTI:
+            ENTRAMBE POSIZIONE ERRATA
+
+            <br><br>
+
+            7801 → 2 CIFRE PRESENTI:
+            1 ESATTA · 1 POSIZIONE ERRATA
+
+        </div>
 
 
         <p>
-            Le quattro cifre sono tutte diverse.
-        </p>
-
-
-        <p class="muted">
-            Il valore 26 è stato riconosciuto.
+            Quattro cifre.
+            Nessuna cifra si ripete.
         </p>
 
 
@@ -1800,7 +1844,7 @@ function level4(){
 
             <br><br>
 
-            Codice:
+            CODICE:
             <b>8531</b>
 
             <br><br>
@@ -1825,26 +1869,18 @@ function level4(){
 
 
 /* =========================================================
-   LIVELLO 05 · GRATTA E VINCI
+   DOSSIER 05
+   GRATTA E VINCI
 ========================================================= */
 
 
 /*
-   IMPORTANTE:
+   CODICE TEMPORANEO DEL BIGLIETTO.
 
-   Quando preparerai il vero gratta-e-vinci,
-   sostituiremo il codice di esempio:
-
-   BANCO-2510
-
-   con il codice reale stampato
-   sul tuo biglietto.
-
-   Il codice a barre/QR fisico
-   dovrà rimandare alla stessa
-   autorizzazione.
+   Quando prepariamo quello fisico,
+   questo valore verrà sostituito
+   con il codice definitivo.
 */
-
 
 const SCRATCH_CODE =
 "BANCO-2510";
@@ -1868,6 +1904,10 @@ function createScratch(){
 
         canvas.height =
         canvas.clientHeight;
+
+
+        ctx.globalCompositeOperation =
+        "source-over";
 
 
         ctx.fillStyle =
@@ -1962,7 +2002,9 @@ function createScratch(){
     canvas.addEventListener(
         "pointerup",
         () => {
+
             drawing = false;
+
         }
     );
 
@@ -1970,7 +2012,9 @@ function createScratch(){
     canvas.addEventListener(
         "pointercancel",
         () => {
+
             drawing = false;
+
         }
     );
 
@@ -2031,14 +2075,10 @@ function level5(){
 
 
         <p>
-            Sul gratta e vinci fisico
-            trova il codice a barre/QR.
-        </p>
-
-
-        <p class="muted">
-            La scansione serve a confermare
-            l'autorizzazione del biglietto.
+            Sul biglietto fisico
+            troverai il codice a barre
+            che dovrà essere verificato
+            nella versione definitiva.
         </p>
 
 
@@ -2117,6 +2157,7 @@ function level5(){
 
         state.scratch = true;
 
+
         addItem("FISH 1");
 
         addItem("FISH 5");
@@ -2139,7 +2180,7 @@ function level5(){
 
             <br><br>
 
-            Fish riconosciute:
+            FISH:
 
             <b>
             1 · 5 · 10 · 25
@@ -2155,8 +2196,8 @@ function level5(){
             `
 
             Le fish fisiche
-            saranno utilizzate nel
-            vero Blackjack del dossier 06.
+            saranno utilizzate
+            nel gioco del BANCO.
 
             `
 
@@ -2168,9 +2209,9 @@ function level5(){
 
 
 /* =========================================================
-   LIVELLO 06 · BLACKJACK VERO
+   DOSSIER 06
+   BLACKJACK
 ========================================================= */
-
 
 const SUITS =
 ["♠","♥","♦","♣"];
@@ -2212,7 +2253,11 @@ function createDeck(){
     }
 
 
-    for(let i=deck.length-1;i>0;i--){
+    for(
+        let i=deck.length-1;
+        i>0;
+        i--
+    ){
 
         const j =
         Math.floor(
@@ -2252,14 +2297,18 @@ function cardValue(cards){
 
             aces++;
 
-        }else if(
+        }
+
+        else if(
             ["J","Q","K"]
             .includes(card.rank)
         ){
 
             total += 10;
 
-        }else{
+        }
+
+        else{
 
             total +=
             Number(card.rank);
@@ -2338,7 +2387,6 @@ function level6(){
 
     let gameOver = false;
 
-
     let selectedChip = 0;
 
 
@@ -2352,22 +2400,21 @@ function level6(){
             `
 
             <p>
-                Questa volta non è una simulazione.
+                Il tavolo è aperto.
             </p>
-
-            <p>
-                Il banco gioca contro di te.
-            </p>
-
 
             <div class="alert">
 
-                <b>
-                OBIETTIVO:
-                </b>
+                <b>REGOLA:</b>
 
-                arrivare il più vicino possibile
+                <br><br>
+
+                Avvicinati il più possibile
                 a 21 senza superarlo.
+
+                <br><br>
+
+                Il banco pesca fino a 17.
 
             </div>
 
@@ -2420,8 +2467,7 @@ function level6(){
 
 
             <p>
-                Scegli la fish con cui
-                vuoi giocare.
+                Scegli la fish.
             </p>
 
 
@@ -2433,12 +2479,14 @@ function level6(){
                         n => `
 
                         <button
-                            class="chip
+                            class="
+                            chip
                             ${
                                 selectedChip === n
                                 ? "selected"
                                 : ""
-                            }"
+                            }
+                            "
                             data-chip="${n}"
                         >
 
@@ -2533,7 +2581,9 @@ function level6(){
 
                     finishBlackjack();
 
-                }else{
+                }
+
+                else{
 
                     renderBlackjack();
 
@@ -2645,7 +2695,7 @@ function level6(){
         cardValue(dealer);
 
 
-        let message = "";
+        let message;
 
 
         if(p > 21){
@@ -2653,22 +2703,30 @@ function level6(){
             message =
             "HAI SFORATO 21.";
 
-        }else if(d > 21){
+        }
+
+        else if(d > 21){
 
             message =
-            "IL BANCO HA SFORATO 21. HAI VINTO.";
+            "IL BANCO HA SFORATO 21.";
 
-        }else if(p > d){
+        }
+
+        else if(p > d){
 
             message =
             "HAI VINTO.";
 
-        }else if(p === d){
+        }
+
+        else if(p === d){
 
             message =
             "PAREGGIO.";
 
-        }else{
+        }
+
+        else{
 
             message =
             "IL BANCO VINCE.";
@@ -2710,7 +2768,8 @@ function level6(){
 
 
 /* =========================================================
-   LIVELLO 07
+   DOSSIER 07
+   LA PISTA
 ========================================================= */
 
 function level7(){
@@ -2765,8 +2824,8 @@ function level7(){
 
 
         <p>
-            Ogni reperto può essere usato
-            una sola volta.
+            Ogni reperto può essere
+            utilizzato una sola volta.
         </p>
 
 
@@ -2923,7 +2982,9 @@ function level7(){
 
                     };
 
-                }else{
+                }
+
+                else{
 
                     r7.innerHTML = `
 
@@ -2956,7 +3017,8 @@ function level7(){
 
 
 /* =========================================================
-   LIVELLO 08
+   DOSSIER 08
+   I FRAMMENTI
 ========================================================= */
 
 function level8(){
@@ -3149,7 +3211,7 @@ function level8(){
 
                         Il fascicolo
                         finale attende
-                        il 25 dicembre.
+                        il momento stabilito.
 
                         `
 
@@ -3167,7 +3229,7 @@ function level8(){
 
 
 /* =========================================================
-   25 DICEMBRE
+   FINALE 25
 ========================================================= */
 
 function final25(){
@@ -3220,9 +3282,13 @@ function final25(){
 
 
             <p class="ok">
+
                 OPERAZIONE 25
+
                 <br>
+
                 COMPLETATA.
+
             </p>
 
 
@@ -3253,7 +3319,9 @@ if(state.started){
 
     dashboard();
 
-}else{
+}
+
+else{
 
     home();
 
