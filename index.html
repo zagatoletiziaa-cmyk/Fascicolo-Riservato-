@@ -18,7 +18,7 @@ body{
 main{
     max-width:760px;
     margin:auto;
-    padding:18px 14px 50px;
+    padding:18px 14px 60px;
 }
 
 .top{
@@ -100,6 +100,7 @@ button.dark{
 
 button:disabled{
     opacity:.35;
+    cursor:not-allowed;
 }
 
 input{
@@ -128,17 +129,6 @@ input{
     color:#e7c76d;
 }
 
-.result{
-    padding:13px;
-    border:1px dashed #555;
-    margin-top:12px;
-}
-
-.mono{
-    font-family:monospace;
-    letter-spacing:2px;
-}
-
 .center{
     text-align:center;
 }
@@ -152,6 +142,17 @@ input{
     font-size:12px;
 }
 
+.mono{
+    font-family:monospace;
+    letter-spacing:2px;
+}
+
+hr{
+    border:0;
+    border-top:1px solid #30343a;
+    margin:18px 0;
+}
+
 table{
     width:100%;
     border-collapse:collapse;
@@ -163,6 +164,47 @@ th{
     padding:9px;
     text-align:left;
     font-size:13px;
+}
+
+.progress{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-top:14px;
+}
+
+.progress div{
+    border:1px solid #343941;
+    padding:9px 5px;
+    text-align:center;
+    border-radius:5px;
+    background:#15191e;
+    font-size:11px;
+}
+
+.progress .done{
+    border-color:#82e0a1;
+}
+
+.progress .open{
+    border-color:#e7c76d;
+}
+
+.progress .locked{
+    opacity:.4;
+}
+
+.inventory{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.badge{
+    border:1px solid #555;
+    padding:8px 10px;
+    border-radius:5px;
+    background:#15191e;
 }
 
 .bingo{
@@ -184,46 +226,127 @@ th{
     color:#080a0d;
 }
 
-.cardpick{
-    width:100%;
-    min-height:65px;
-}
-
-.cardpick.mark{
-    background:#e7c76d;
-    color:#080a0d;
-}
-
-.board{
+.cards{
     display:grid;
-    grid-template-columns:repeat(8,1fr);
-    gap:4px;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
 }
 
-.cell{
-    aspect-ratio:1;
-    border:1px solid #30353b;
-    background:#13171c;
+.playcard{
+    min-height:90px;
+    font-size:24px;
+    background:#f3f3f3;
+    color:#111;
+    border-radius:9px;
+}
+
+.chips{
     display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:11px;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:12px 0;
 }
 
-.cell.active{
-    outline:2px solid #e7c76d;
+.chip{
+    border-radius:50%;
+    width:58px;
+    height:58px;
+    padding:0;
+    background:#171b20;
+    color:#eee;
+    border:2px solid #777;
 }
 
-.cell.hit{
-    background:#e7c76d;
-    color:#080a0d;
+.chip.selected{
+    outline:3px solid #e7c76d;
+}
+
+.hand{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin:10px 0;
+}
+
+.mini-card{
+    background:#f4f4f4;
+    color:#111;
+    border-radius:7px;
+    padding:10px 12px;
+    min-width:48px;
+    text-align:center;
     font-weight:bold;
 }
 
+.mini-card.red{
+    color:#b33;
+}
+
+.scratch{
+    position:relative;
+    height:180px;
+    border:1px solid #555;
+    border-radius:8px;
+    overflow:hidden;
+    background:#15191e;
+    margin:12px 0;
+}
+
+.scratch-code{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.scratch canvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    touch-action:none;
+}
+
+.barcode{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    height:80px;
+    gap:2px;
+    margin:15px 0;
+}
+
+.barcode span{
+    display:block;
+    background:#eee;
+    height:65px;
+}
+
+.alert{
+    padding:12px;
+    border:1px solid #555;
+    border-radius:6px;
+    background:#15191e;
+}
+
 @media(max-width:500px){
-    h1{font-size:21px}
-    .grid{grid-template-columns:1fr}
-    .grid4{grid-template-columns:repeat(3,1fr)}
+
+    h1{
+        font-size:21px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .grid4{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .cards{
+        grid-template-columns:repeat(3,1fr);
+    }
 }
 </style>
 </head>
@@ -233,246 +356,745 @@ th{
 <main>
 
 <div class="top">
-    <h1>OPERAZIONE 25</h1>
-    <div class="sub">
-        FASCICOLO RISERVATO · IL BANCO · ACCESSO AUTORIZZATO
-    </div>
+
+<h1>OPERAZIONE 25</h1>
+
+<div class="sub">
+FASCICOLO RISERVATO · IL BANCO · ACCESSO AUTORIZZATO
+</div>
+
+<div id="progress"></div>
+
 </div>
 
 <div id="app"></div>
 
 </main>
 
+
 <script>
 
-const A = document.getElementById("app");
+/* =========================================================
+   OPERAZIONE 25
+   VERSIONE INTERATTIVA
+========================================================= */
+
+
+/* =========================
+   IMPOSTAZIONI
+========================= */
+
+const TEST_MODE = false;
+
+const YEAR = 2026;
+
+const STORAGE_KEY =
+"operazione25_progress_v1";
+
+
+/* =========================
+   ELEMENTI
+========================= */
+
+const A =
+document.getElementById("app");
+
+const P =
+document.getElementById("progress");
+
+
+/* =========================
+   STATO
+========================= */
+
+const DEFAULT_STATE = {
+
+    started:false,
+
+    completed:[],
+
+    inventory:[],
+
+    scratch:false,
+
+    blackjack:false
+
+};
+
+
+let state =
+loadState();
+
+
+function loadState(){
+
+    try{
+
+        const saved =
+        JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        );
+
+        if(saved){
+
+            return {
+                ...DEFAULT_STATE,
+                ...saved
+            };
+
+        }
+
+    }catch(e){}
+
+    return {
+        ...DEFAULT_STATE,
+        completed:[],
+        inventory:[]
+    };
+
+}
+
+
+function saveState(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+    );
+
+    renderProgress();
+
+}
+
+
+function addItem(item){
+
+    if(!state.inventory.includes(item)){
+
+        state.inventory.push(item);
+
+    }
+
+    saveState();
+
+}
+
+
+function completeLevel(n){
+
+    if(!state.completed.includes(n)){
+
+        state.completed.push(n);
+
+    }
+
+    saveState();
+
+}
+
+
+function hasItem(item){
+
+    return state.inventory.includes(item);
+
+}
+
+
+/* =========================
+   UTILITÀ
+========================= */
 
 function norm(s){
+
     return (s || "")
         .toLowerCase()
         .trim()
         .replace(/\s+/g," ");
+
 }
+
 
 function box(title,content){
+
     return `
+
     <div class="card">
+
         <h2>${title}</h2>
+
         ${content}
+
     </div>
+
     `;
+
 }
 
+
 function input(id,placeholder=""){
+
     return `
+
     <input
         id="${id}"
         placeholder="${placeholder}"
         autocomplete="off"
     >
+
     `;
+
 }
+
 
 function btn(id,text,cls=""){
+
     return `
-    <button id="${id}" class="${cls}">
+
+    <button
+        id="${id}"
+        class="${cls}"
+    >
         ${text}
     </button>
+
     `;
+
 }
 
 
 /* =========================
-   RICOMPENSA
+   SBLOCCO GIORNI
 ========================= */
 
-function reward(n,text,next){
+function levelUnlocked(n){
 
-    A.innerHTML = box(
-        "LIVELLO " + String(n).padStart(2,"0") + " COMPLETATO",
+    if(TEST_MODE){
 
-        `
-        <div class="center">
+        return true;
 
-            <div class="ok big">
-                RICOMPENSA AUTORIZZATA
+    }
+
+    const today =
+    new Date();
+
+    if(
+        today.getFullYear() !== YEAR ||
+        today.getMonth() !== 11
+    ){
+
+        return false;
+
+    }
+
+    const day = n;
+
+    if(today.getDate() < day){
+
+        return false;
+
+    }
+
+    if(n === 1){
+
+        return true;
+
+    }
+
+    return state.completed.includes(n - 1);
+
+}
+
+
+/* =========================
+   PROGRESSO
+========================= */
+
+function renderProgress(){
+
+    P.innerHTML = `
+
+    <div class="progress">
+
+        ${[1,2,3,4,5,6,7,8]
+        .map(n => `
+
+            <div class="${
+                state.completed.includes(n)
+                ? "done"
+                : levelUnlocked(n)
+                ? "open"
+                : "locked"
+            }">
+
+                ${String(n).padStart(2,"0")}
+                ·
+                ${
+                    state.completed.includes(n)
+                    ? "✓"
+                    : levelUnlocked(n)
+                    ? "APERTO"
+                    : "🔒"
+                }
+
             </div>
 
-            <p>${text}</p>
+        `)
+        .join("")}
 
-            <hr>
+    </div>
 
-            <p class="muted small">
-                ${next || ""}
-            </p>
+    `;
 
-            ${
-                n < 8
-                ? btn(
-                    "nextlvl",
-                    "CONTINUA AL LIVELLO " +
-                    String(n+1).padStart(2,"0")
-                  )
-                : ""
-            }
-
-        </div>
-        `
-    );
-
-    if(n < 8){
-
-        const levels = [
-            null,
-            level2,
-            level3,
-            level4,
-            level5,
-            level6,
-            level7,
-            level8
-        ];
-
-        document.getElementById("nextlvl").onclick =
-            levels[n];
-    }
 }
 
 
 /* =========================
-   CONTROLLO 00
+   INVENTARIO
 ========================= */
 
-function start(){
+function inventoryHTML(){
+
+    if(!state.inventory.length){
+
+        return `
+        <span class="muted">
+            Nessun reperto registrato.
+        </span>
+        `;
+
+    }
+
+    return state.inventory
+        .map(x =>
+            `<span class="badge">${x}</span>`
+        )
+        .join("");
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function home(){
+
+    renderProgress();
 
     A.innerHTML = box(
         "CONTROLLO 00",
 
         `
+
         <p>
-            Prima di entrare nel fascicolo,
-            una verifica.
+            Il BANCO ha aperto un fascicolo
+            riservato.
         </p>
 
-        <p class="mono">
-            SEI UN C O G L I O N E?
+        <p>
+            L'operazione è divisa in dossier.
+            Ogni dossier deve essere completato
+            prima di poter accedere al successivo.
         </p>
 
-        ${input("c0","risposta")}
+        <div class="alert">
 
-        ${btn("go0","CONFERMA")}
+            <b>REGOLA FONDAMENTALE</b>
 
-        <div id="r0"></div>
+            <br><br>
+
+            Tutto ciò che viene recuperato
+            deve essere conservato.
+
+            <br>
+
+            Alcuni reperti serviranno
+            nei dossier successivi.
+
+        </div>
+
+        <hr>
+
+        ${btn(
+            "start",
+            "ACCEDI AL FASCICOLO"
+        )}
+
         `
+
     );
 
-    document.getElementById("go0").onclick = () => {
+    document
+    .getElementById("start")
+    .onclick = () => {
 
-        const v = norm(
-            document.getElementById("c0").value
-        );
+        state.started = true;
 
-        const r = document.getElementById("r0");
+        saveState();
 
-        if(v === "no sei un coglione"){
+        dashboard();
 
-            r.innerHTML = `
-                <p class="ok">
-                    ACCESSO CONCESSO.
-                </p>
-                ${btn("start01","INIZIA OPERAZIONE")}
-            `;
-
-            document.getElementById("start01").onclick =
-                level1;
-
-        }else{
-
-            r.innerHTML = `
-                <p class="danger">
-                    RISPOSTA NON VALIDA.
-                </p>
-
-                <p class="muted">
-                    Il BANCO non ha senso dell'umorismo.
-                </p>
-            `;
-        }
     };
+
 }
 
 
 /* =========================
-   LIVELLO 01
+   DASHBOARD
 ========================= */
+
+function dashboard(){
+
+    renderProgress();
+
+    const next =
+    [1,2,3,4,5,6,7,8]
+    .find(n =>
+        !state.completed.includes(n)
+    );
+
+    let content = `
+
+        <p class="muted">
+            STATO DELL'OPERAZIONE
+        </p>
+
+        <div class="inventory">
+
+            ${inventoryHTML()}
+
+        </div>
+
+        <hr>
+
+    `;
+
+
+    if(next){
+
+        content += `
+
+        <p>
+            PROSSIMO DOSSIER:
+            <b>0${next}</b>
+        </p>
+
+        `;
+
+
+        if(levelUnlocked(next)){
+
+            content += btn(
+                "openNext",
+                "APRI DOSSIER 0"+next
+            );
+
+        }else{
+
+            content += `
+
+            <div class="alert">
+
+                DOSSIER 0${next}
+                NON ANCORA DISPONIBILE.
+
+                <br><br>
+
+                Torna quando il BANCO
+                autorizzerà il prossimo accesso.
+
+            </div>
+
+            `;
+
+        }
+
+    }else{
+
+        content += `
+
+        <p class="ok">
+            DOSSIER 01–08 COMPLETATI.
+        </p>
+
+        `;
+
+        if(levelUnlocked(9)){
+
+            content += btn(
+                "final",
+                "25 DICEMBRE — ACCESSO FINALE"
+            );
+
+        }else{
+
+            content += `
+
+            <div class="alert">
+
+                Il fascicolo finale
+                si aprirà il 25 dicembre.
+
+            </div>
+
+            `;
+
+        }
+
+    }
+
+
+    A.innerHTML =
+    box("OPERAZIONE",content);
+
+
+    if(document.getElementById("openNext")){
+
+        document
+        .getElementById("openNext")
+        .onclick =
+        () => go(next);
+
+    }
+
+
+    if(document.getElementById("final")){
+
+        document
+        .getElementById("final")
+        .onclick =
+        final25;
+
+    }
+
+}
+
+
+/* =========================
+   NAVIGAZIONE
+========================= */
+
+function go(n){
+
+    if(!levelUnlocked(n)){
+
+        dashboard();
+
+        return;
+
+    }
+
+
+    const levels = [
+
+        null,
+
+        level1,
+
+        level2,
+
+        level3,
+
+        level4,
+
+        level5,
+
+        level6,
+
+        level7,
+
+        level8
+
+    ];
+
+
+    levels[n]();
+
+}
+
+
+/* =========================
+   FINE LIVELLO
+========================= */
+
+function finish(
+    n,
+    reward,
+    nextText
+){
+
+    completeLevel(n);
+
+
+    A.innerHTML =
+    box(
+
+        `LIVELLO ${String(n).padStart(2,"0")} COMPLETATO`,
+
+        `
+
+        <div class="center">
+
+            <div class="ok big">
+                DOSSIER CHIUSO
+            </div>
+
+            <hr>
+
+            <p>
+                ${reward}
+            </p>
+
+            <hr>
+
+            <p class="muted">
+                ${nextText}
+            </p>
+
+            ${btn(
+                "back",
+                "TORNA AL FASCICOLO"
+            )}
+
+        </div>
+
+        `
+
+    );
+
+
+    document
+    .getElementById("back")
+    .onclick =
+    dashboard;
+
+}
+
+
+/* =========================================================
+   LIVELLO 01
+========================================================= */
 
 function level1(){
 
-    A.innerHTML = box(
+    A.innerHTML =
+    box(
+
         "01 · ARCHIVIO",
 
         `
+
         <p>
-            Quattro fascicoli. Uno solo è nell'ordine corretto.
+            Quattro fascicoli.
+            Uno solo è nell'ordine corretto.
         </p>
 
         <div class="grid">
 
             <div class="tile">
+
                 <b>A</b>
-                Ricevuto dopo B, prima di C.
+
+                Ricevuto dopo B,
+                prima di C.
+
             </div>
 
+
             <div class="tile">
+
                 <b>B</b>
+
                 È il primo fascicolo.
+
             </div>
 
+
             <div class="tile">
+
                 <b>C</b>
+
                 È immediatamente dopo A.
+
             </div>
 
+
             <div class="tile">
+
                 <b>D</b>
+
                 È immediatamente prima di A.
+
             </div>
 
         </div>
 
+
         <p class="muted">
-            Inserisci le quattro lettere nell'ordine
-            in cui devono essere aperte.
+
+            Inserisci le quattro lettere
+            nell'ordine corretto.
+
         </p>
 
-        ${input("l1","es. BDAC")}
 
-        ${btn("c1","VERIFICA")}
+        ${input(
+            "l1",
+            "es. BDAC"
+        )}
+
+
+        ${btn(
+            "c1",
+            "VERIFICA"
+        )}
+
 
         <div id="r1"></div>
+
         `
+
     );
 
-    document.getElementById("c1").onclick = () => {
 
-        const v = norm(
-            document.getElementById("l1").value
-        ).replace(/\s/g,"");
+    document
+    .getElementById("c1")
+    .onclick = () => {
 
-        if(v !== "BDAC"){
+        const v =
+        norm(
+            document
+            .getElementById("l1")
+            .value
+        )
+        .replace(/\s/g,"");
 
-            document.getElementById("r1").innerHTML =
-                `<p class="danger">ORDINE ERRATO.</p>`;
+
+        if(v !== "bdac"){
+
+            r1.innerHTML = `
+
+            <p class="danger">
+                ORDINE ERRATO.
+            </p>
+
+            `;
 
             return;
+
         }
 
-        document.getElementById("r1").innerHTML = box(
+
+        r1.innerHTML =
+        box(
+
             "ESTRAZIONE",
 
             `
+
             <p>
-                Dal fascicolo compaiono nove posizioni:
+                Dal fascicolo compaiono
+                nove posizioni:
             </p>
 
             <p class="mono">
@@ -480,71 +1102,135 @@ function level1(){
             </p>
 
             <p>
-                Il rapporto dice:
+                Il rapporto indica:
                 <b>2 · 4 · 9 · 7</b>
             </p>
 
-            ${input("l1b","estrazione")}
+            ${input(
+                "l1b",
+                "estrazione"
+            )}
 
-            ${btn("c1b","ESTRAI")}
+            ${btn(
+                "c1b",
+                "ESTRAI"
+            )}
 
             <div id="r1b"></div>
+
             `
+
         );
 
-        document.getElementById("c1b").onclick = () => {
 
-            const x = norm(
-                document.getElementById("l1b").value
-            ).replace(/\s/g,"");
+        document
+        .getElementById("c1b")
+        .onclick = () => {
 
-            if(x === "4271"){
+            const x =
+            norm(
+                document
+                .getElementById("l1b")
+                .value
+            )
+            .replace(/\s/g,"");
 
-                reward(
-                    1,
-                    `
-                    Il fascicolo contiene anche
-                    il trasferimento <b>42</b>.
-                    `,
-                    `
-                    FRAMMENTO RECUPERATO:
-                    <b>AP</b>
-                    <br>
-                    Conserva ogni frammento.
-                    `
-                );
 
-            }else{
+            if(x !== "4271"){
 
-                document.getElementById("r1b").innerHTML =
-                    `<p class="danger">ESTRAZIONE ERRATA.</p>`;
+                r1b.innerHTML = `
+
+                <p class="danger">
+                    ESTRAZIONE ERRATA.
+                </p>
+
+                `;
+
+                return;
+
             }
+
+
+            addItem("E");
+
+            addItem("AP");
+
+
+            finish(
+
+                1,
+
+                `
+
+                Trasferimento registrato:
+                <b>42</b>.
+
+                <br><br>
+
+                REPERTO ACQUISITO:
+                <b>E</b>
+
+                <br><br>
+
+                FRAMMENTO DIGITALE:
+                <b>AP</b>
+
+                `,
+
+                `
+
+                Conserva il reperto E.
+                Il frammento AP rimane
+                nell'inventario digitale.
+
+                `
+
+            );
+
         };
+
     };
+
 }
 
 
-/* =========================
+/* =========================================================
    LIVELLO 02
-========================= */
+========================================================= */
 
 function level2(){
 
-    A.innerHTML = box(
+    if(!hasItem("E")){
+
+        dashboard();
+
+        return;
+
+    }
+
+
+    A.innerHTML =
+    box(
+
         "02 · LA STANZA",
 
         `
+
         <p>
-            Una stanza virtuale.
+            Il reperto E è stato riconosciuto.
         </p>
 
         <p>
             Il rapporto dice:
+        </p>
+
+        <p>
             <b>
             "Non guardare ciò che è scritto.
             Guarda ciò che indica."
             </b>
         </p>
+
 
         <div class="grid">
 
@@ -580,209 +1266,420 @@ function level2(){
 
         </div>
 
+
         <p>
             Il solo oggetto che indica
             una posizione precisa è quello da seguire.
         </p>
 
-        <p>
-            Inserisci il simbolo trovato.
-        </p>
 
-        ${input("l2","simbolo")}
+        ${input(
+            "l2",
+            "simbolo"
+        )}
 
-        ${btn("c2","INSERISCI")}
+
+        ${btn(
+            "c2",
+            "INSERISCI"
+        )}
+
 
         <div id="r2"></div>
+
         `
+
     );
 
-    document.getElementById("c2").onclick = () => {
 
-        const v = norm(
-            document.getElementById("l2").value
+    document
+    .getElementById("c2")
+    .onclick = () => {
+
+        const v =
+        norm(
+            document
+            .getElementById("l2")
+            .value
         );
 
-        if(v === "♠" || v === "picche"){
 
-            reward(
-                2,
-                `
-                La cassaforte si apre.
-                Dentro: <b>♠</b>.
-                `,
-                `
-                FRAMMENTO RECUPERATO:
-                <b>RI</b>
-                <br>
-                Il simbolo servirà ancora.
-                `
-            );
+        if(
+            v !== "♠" &&
+            v !== "picche"
+        ){
 
-        }else{
+            r2.innerHTML = `
 
-            document.getElementById("r2").innerHTML =
-                `<p class="danger">
-                    IL SIMBOLO NON APRE LA CASSAFORTE.
-                </p>`;
+            <p class="danger">
+                IL SIMBOLO NON APRE LA CASSAFORTE.
+            </p>
+
+            `;
+
+            return;
+
         }
+
+
+        r2.innerHTML =
+        box(
+
+            "TERMINALE BINGO",
+
+            `
+
+            <p>
+                La cassaforte si apre.
+                Il simbolo <b>♠</b>
+                viene trasferito.
+            </p>
+
+            <p>
+                Segna:
+                <b>1 · 13 · 19 · 25</b>
+            </p>
+
+
+            <div class="bingo">
+
+                ${
+                    [
+                        5,1,7,9,3,
+                        12,8,4,10,6,
+                        11,2,14,15,13,
+                        16,17,18,19,20,
+                        21,22,23,24,25
+                    ]
+                    .map(n => `
+
+                        <button
+                            data-bingo="${n}"
+                        >
+                            ${n}
+                        </button>
+
+                    `)
+                    .join("")
+                }
+
+            </div>
+
+
+            <div id="rb"></div>
+
+            `
+
+        );
+
+
+        let marked = [];
+
+
+        document
+        .querySelectorAll(
+            "[data-bingo]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                const n =
+                Number(
+                    button.dataset.bingo
+                );
+
+
+                if(!marked.includes(n)){
+
+                    marked.push(n);
+
+                    button.classList.add(
+                        "mark"
+                    );
+
+                }
+
+
+                if(
+                    [1,13,19,25]
+                    .every(
+                        x =>
+                        marked.includes(x)
+                    )
+                ){
+
+                    addItem("♠");
+
+                    addItem("RI");
+
+
+                    rb.innerHTML = `
+
+                    <p class="ok">
+                        LINEA COMPLETA.
+                    </p>
+
+                    ${btn(
+                        "done2",
+                        "CHIUDI DOSSIER"
+                    )}
+
+                    `;
+
+
+                    document
+                    .getElementById("done2")
+                    .onclick = () => {
+
+                        finish(
+
+                            2,
+
+                            `
+
+                            REPERTO:
+                            <b>♠</b>
+
+                            <br><br>
+
+                            FRAMMENTO:
+                            <b>RI</b>
+
+                            `,
+
+                            `
+
+                            Il simbolo ♠
+                            passa al tavolo
+                            del dossier 03.
+
+                            `
+
+                        );
+
+                    };
+
+                }
+
+            };
+
+        });
+
     };
+
 }
 
 
-/* =========================
-   LIVELLO 03
-========================= */
+/* =========================================================
+   LIVELLO 03 · PIANOFORTE
+========================================================= */
 
 function level3(){
 
-    A.innerHTML = box(
-        "03 · IL TAVOLO",
+    if(!hasItem("♠")){
+
+        dashboard();
+
+        return;
+
+    }
+
+
+    const sequence = [];
+
+    const keys =
+    ["C","A","D","E","E","A"];
+
+
+    A.innerHTML =
+    box(
+
+        "03 · IL PIANOFORTE",
 
         `
+
         <p>
-            Il simbolo ♠ è autorizzato.
-            Scegli una mano di tre carte
-            che soddisfi TUTTE le condizioni:
+            Il simbolo <b>♠</b>
+            autorizza il tavolo.
         </p>
 
-        <ul>
-            <li>esattamente una carta di picche</li>
-            <li>una figura (J/Q/K)</li>
-            <li>somma dei valori = 26</li>
-            <li>A vale 1</li>
-        </ul>
+        <p>
+            Il reperto E deve essere
+            riconosciuto prima di poter
+            completare la sequenza.
+        </p>
 
-        <div class="grid">
+        <div class="grid4">
 
-            ${[
-                "A♠",
-                "K♠",
-                "Q♥",
-                "10♦",
-                "9♣",
-                "8♥",
-                "7♦",
-                "6♣",
-                "5♥",
-                "4♦",
-                "J♣",
-                "2♠"
-            ].map(x => `
-                <button
-                    class="cardpick dark"
-                    data-card="${x}"
-                >
-                    ${x}
-                </button>
-            `).join("")}
+            ${
+                ["A","B","C","D","E","F","G"]
+                .map(k => `
+
+                    <button
+                        class="dark piano"
+                        data-key="${k}"
+                    >
+                        ${k}
+                    </button>
+
+                `)
+                .join("")
+            }
 
         </div>
 
-        <p class="muted">
-            Clicca esattamente tre carte.
+
+        <p class="mono" id="pianoSequence">
+            —
         </p>
 
+
+        ${btn(
+            "clearPiano",
+            "CANCELLA",
+            "dark"
+        )}
+
+
+        ${btn(
+            "confirmPiano",
+            "CONFERMA"
+        )}
+
+
         <div id="r3"></div>
+
         `
+
     );
 
-    let picks = [];
 
-    document.querySelectorAll(".cardpick").forEach(b => {
+    document
+    .querySelectorAll(".piano")
+    .forEach(button => {
 
-        b.onclick = () => {
+        button.onclick = () => {
 
-            const x = b.dataset.card;
+            if(sequence.length >= 6)
+                return;
 
-            if(picks.includes(x)){
+            sequence.push(
+                button.dataset.key
+            );
 
-                picks = picks.filter(a => a !== x);
-                b.classList.remove("mark");
+            document
+            .getElementById(
+                "pianoSequence"
+            )
+            .textContent =
+            sequence.join(" · ");
 
-            }else if(picks.length < 3){
+        };
 
-                picks.push(x);
-                b.classList.add("mark");
-            }
+    });
 
-            document.getElementById("r3").innerHTML = `
-                <p>
-                    Mano:
-                    ${picks.join(" · ") || "—"}
-                </p>
 
-                ${btn("c3","CONFERMA")}
+    document
+    .getElementById("clearPiano")
+    .onclick = () => {
+
+        sequence.length = 0;
+
+        document
+        .getElementById(
+            "pianoSequence"
+        )
+        .textContent = "—";
+
+    };
+
+
+    document
+    .getElementById("confirmPiano")
+    .onclick = () => {
+
+        const result =
+        sequence.join("");
+
+
+        if(result !== "CADEEA"){
+
+            r3.innerHTML = `
+
+            <p class="danger">
+                SEQUENZA ERRATA.
+            </p>
+
             `;
 
-            document.getElementById("c3").onclick = () => {
+            return;
 
-                const vals = {
-                    A:1,
-                    J:11,
-                    Q:12,
-                    K:13
-                };
+        }
 
-                const sum = picks.reduce(
-                    (s,x) =>
-                    s + (vals[x[0]] || +x.slice(0,-1)),
-                    0
-                );
 
-                const spades =
-                    picks.filter(x => x.endsWith("♠")).length;
+        addItem("26");
 
-                const face =
-                    picks.some(x => /[JQK]/.test(x));
+        addItem("LA");
 
-                if(
-                    picks.length === 3 &&
-                    sum === 26 &&
-                    spades === 1 &&
-                    face
-                ){
 
-                    reward(
-                        3,
-                        `
-                        La mano viene accettata dal BANCO.
-                        `,
-                        `
-                        FRAMMENTO RECUPERATO:
-                        <b>LA</b>
-                        <br>
-                        Il tavolo registra 26.
-                        `
-                    );
+        finish(
 
-                }else{
+            3,
 
-                    document.getElementById("r3").innerHTML += `
-                        <p class="danger">
-                            MANO RIFIUTATA.
-                        </p>
-                    `;
-                }
-            };
-        };
-    });
+            `
+
+            Il pianoforte registra:
+            <b>26</b>.
+
+            <br><br>
+
+            FRAMMENTO:
+            <b>LA</b>
+
+            `,
+
+            `
+
+            Il numero 26
+            viene trasferito al dossier 04.
+
+            `
+
+        );
+
+    };
+
 }
 
 
-/* =========================
-   LIVELLO 04
-========================= */
+/* =========================================================
+   LIVELLO 04 · CODICE
+========================================================= */
 
 function level4(){
 
-    A.innerHTML = box(
+    if(!hasItem("26")){
+
+        dashboard();
+
+        return;
+
+    }
+
+
+    A.innerHTML =
+    box(
+
         "04 · CODICE",
 
         `
+
         <p>
-            Il pannello usa feedback tipo Mastermind.
+            Il pannello usa feedback
+            tipo Mastermind.
         </p>
+
 
         <table>
 
@@ -793,617 +1690,1574 @@ function level4(){
 
             <tr>
                 <td>6821</td>
-                <td>1 corretta, posizione errata</td>
+                <td>
+                    1 corretta,
+                    posizione errata
+                </td>
             </tr>
 
             <tr>
                 <td>6147</td>
-                <td>2 corrette, posizioni errate</td>
+                <td>
+                    1 corretta,
+                    posizione corretta
+                </td>
             </tr>
 
             <tr>
                 <td>2069</td>
-                <td>2 corrette, 1 posizione corretta</td>
+                <td>
+                    1 corretta,
+                    posizione corretta
+                </td>
             </tr>
 
             <tr>
                 <td>7382</td>
-                <td>0 corrette</td>
+                <td>
+                    0 corrette
+                </td>
             </tr>
 
             <tr>
                 <td>7801</td>
-                <td>1 corretta, posizione corretta</td>
+                <td>
+                    1 corretta,
+                    posizione corretta
+                </td>
             </tr>
 
         </table>
 
+
         <p>
-            Ultima nota:
-            <b>le quattro cifre sono tutte diverse.</b>
+            Le quattro cifre sono tutte diverse.
         </p>
 
-        ${input("l4","codice a 4 cifre")}
 
-        ${btn("c4","SBLOCCA")}
+        <p class="muted">
+            Il valore 26 è stato riconosciuto.
+        </p>
+
+
+        ${input(
+            "l4",
+            "codice a 4 cifre"
+        )}
+
+
+        ${btn(
+            "c4",
+            "SBLOCCA"
+        )}
+
 
         <div id="r4"></div>
+
         `
+
     );
 
-    document.getElementById("c4").onclick = () => {
+
+    document
+    .getElementById("c4")
+    .onclick = () => {
 
         const v =
-            document.getElementById("l4").value.trim();
+        document
+        .getElementById("l4")
+        .value
+        .trim();
 
-        if(v === "8531"){
 
-            reward(
-                4,
-                `
-                Il pannello diventa verde.
-                Il codice era <b>8531</b>.
-                `,
-                `
-                FRAMMENTO RECUPERATO:
-                <b>BU</b>
-                `
-            );
+        if(v !== "8531"){
 
-        }else{
+            r4.innerHTML = `
 
-            document.getElementById("r4").innerHTML =
-                `<p class="danger">
-                    CODICE ERRATO.
-                </p>`;
+            <p class="danger">
+                CODICE ERRATO.
+            </p>
+
+            `;
+
+            return;
+
         }
+
+
+        addItem("8531");
+
+        addItem("BU");
+
+
+        finish(
+
+            4,
+
+            `
+
+            PANNELLO SBLOCCATO.
+
+            <br><br>
+
+            Codice:
+            <b>8531</b>
+
+            <br><br>
+
+            FRAMMENTO:
+            <b>BU</b>
+
+            `,
+
+            `
+
+            Il codice viene trasferito
+            al dossier 05.
+
+            `
+
+        );
+
     };
+
 }
 
 
-/* =========================
-   LIVELLO 05
-========================= */
+/* =========================================================
+   LIVELLO 05 · GRATTA E VINCI
+========================================================= */
+
+
+/*
+   IMPORTANTE:
+
+   Quando preparerai il vero gratta-e-vinci,
+   sostituiremo il codice di esempio:
+
+   BANCO-2510
+
+   con il codice reale stampato
+   sul tuo biglietto.
+
+   Il codice a barre/QR fisico
+   dovrà rimandare alla stessa
+   autorizzazione.
+*/
+
+
+const SCRATCH_CODE =
+"BANCO-2510";
+
+
+function createScratch(){
+
+    const canvas =
+    document.getElementById(
+        "scratchCanvas"
+    );
+
+    const ctx =
+    canvas.getContext("2d");
+
+
+    function resize(){
+
+        canvas.width =
+        canvas.clientWidth;
+
+        canvas.height =
+        canvas.clientHeight;
+
+
+        ctx.fillStyle =
+        "#777";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        ctx.fillStyle =
+        "#ddd";
+
+        ctx.font =
+        "bold 18px Arial";
+
+        ctx.textAlign =
+        "center";
+
+        ctx.fillText(
+            "GRATTA QUI",
+            canvas.width / 2,
+            canvas.height / 2
+        );
+
+    }
+
+
+    resize();
+
+
+    let drawing = false;
+
+
+    function scratch(e){
+
+        if(!drawing)
+            return;
+
+
+        const rect =
+        canvas.getBoundingClientRect();
+
+
+        const x =
+        e.clientX - rect.left;
+
+        const y =
+        e.clientY - rect.top;
+
+
+        ctx.globalCompositeOperation =
+        "destination-out";
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            20,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    canvas.addEventListener(
+        "pointerdown",
+        e => {
+
+            drawing = true;
+
+            scratch(e);
+
+        }
+    );
+
+
+    canvas.addEventListener(
+        "pointermove",
+        scratch
+    );
+
+
+    canvas.addEventListener(
+        "pointerup",
+        () => {
+            drawing = false;
+        }
+    );
+
+
+    canvas.addEventListener(
+        "pointercancel",
+        () => {
+            drawing = false;
+        }
+    );
+
+}
+
 
 function level5(){
 
-    const nums = [
-        5,1,7,9,3,
-        12,8,4,10,6,
-        11,2,14,15,13,
-        16,17,18,19,20,
-        21,22,23,24,25
-    ];
+    if(!hasItem("8531")){
 
-    A.innerHTML = box(
-        "05 · BINGO / AUTORIZZAZIONE",
+        dashboard();
+
+        return;
+
+    }
+
+
+    A.innerHTML =
+    box(
+
+        "05 · IL GRATTA E VINCI",
 
         `
-        <p>
-            Il BANCO ha sostituito le regole.
-        </p>
 
         <p>
-            Devi segnare i numeri indicati
-            dai quattro reperti:
+            Il codice <b>8531</b>
+            apre il registro del banco.
         </p>
 
-        <p class="mono">
-            1 · 13 · 19 · 25
+
+        <p>
+            Ora serve il reperto fisico
+            consegnato con questo dossier.
         </p>
 
-        <div class="bingo">
 
-            ${nums.map(n => `
-                <button data-n="${n}">
-                    ${n}
-                </button>
-            `).join("")}
+        <div class="scratch">
+
+            <div class="scratch-code">
+
+                <b>
+                    CODICE NASCOSTO:
+                    ${SCRATCH_CODE}
+                </b>
+
+                <span class="muted small">
+                    Scopri il codice.
+                </span>
+
+            </div>
+
+
+            <canvas
+                id="scratchCanvas"
+            ></canvas>
 
         </div>
 
+
         <p>
-            Completa la diagonale.
-            Poi il terminale mostrerà cosa fare.
+            Sul gratta e vinci fisico
+            trova il codice a barre/QR.
         </p>
 
+
+        <p class="muted">
+            La scansione serve a confermare
+            l'autorizzazione del biglietto.
+        </p>
+
+
+        <div class="barcode">
+
+            ${
+                [
+                    3,8,2,6,4,9,
+                    2,7,5,3,8,1,
+                    6,4,9,2,5,7,
+                    3,8,4,6,2,9
+                ]
+                .map(
+                    x =>
+                    `<span
+                        style="
+                        width:${x%3+1}px;
+                        height:${45+(x%3)*8}px
+                        "
+                    ></span>`
+                )
+                .join("")
+            }
+
+        </div>
+
+
+        ${input(
+            "l5",
+            "codice del gratta e vinci"
+        )}
+
+
+        ${btn(
+            "c5",
+            "VALIDA"
+        )}
+
+
         <div id="r5"></div>
+
         `
+
     );
 
-    let marked = [];
 
-    document.querySelectorAll("[data-n]").forEach(b => {
+    createScratch();
 
-        b.onclick = () => {
 
-            const n = +b.dataset.n;
+    document
+    .getElementById("c5")
+    .onclick = () => {
 
-            if(!marked.includes(n)){
+        const v =
+        document
+        .getElementById("l5")
+        .value
+        .trim()
+        .toUpperCase();
 
-                marked.push(n);
-                b.classList.add("mark");
-            }
 
-            if(
-                [1,13,19,25]
-                .every(x => marked.includes(x))
-            ){
+        if(v !== SCRATCH_CODE){
 
-                document.getElementById("r5").innerHTML = `
-                    <p class="ok">
-                        LINEA COMPLETA.
-                    </p>
+            r5.innerHTML = `
 
-                    ${btn(
-                        "go5",
-                        "APRI TERMINALE"
-                    )}
-                `;
+            <p class="danger">
+                CODICE NON VALIDO.
+            </p>
 
-                document.getElementById("go5").onclick =
-                    terminal5;
-            }
-        };
-    });
+            `;
+
+            return;
+
+        }
+
+
+        state.scratch = true;
+
+        addItem("FISH 1");
+
+        addItem("FISH 5");
+
+        addItem("FISH 10");
+
+        addItem("FISH 25");
+
+        addItem("ST");
+
+
+        finish(
+
+            5,
+
+            `
+
+            GRATTA E VINCI
+            AUTORIZZATO.
+
+            <br><br>
+
+            Fish riconosciute:
+
+            <b>
+            1 · 5 · 10 · 25
+            </b>
+
+            <br><br>
+
+            FRAMMENTO:
+            <b>ST</b>
+
+            `,
+
+            `
+
+            Le fish fisiche
+            saranno utilizzate nel
+            vero Blackjack del dossier 06.
+
+            `
+
+        );
+
+    };
+
 }
 
 
-/* =========================
-   TERMINALE 05
-========================= */
+/* =========================================================
+   LIVELLO 06 · BLACKJACK VERO
+========================================================= */
 
-function terminal5(){
 
-    A.innerHTML = box(
-        "TERMINALE 05",
+const SUITS =
+["♠","♥","♦","♣"];
 
-        `
-        <p class="danger">
-            ERRORE: VINCITA NON DISPONIBILE.
-        </p>
+const RANKS =
+[
+    "A",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "J",
+    "Q",
+    "K"
+];
 
-        <p>
-            Codice di autorizzazione:
-        </p>
 
-        <p class="mono">
-            1 · 5 · 25 · 10
-        </p>
+function createDeck(){
 
-        <p>
-            Questi quattro valori non sono
-            una combinazione casuale.
-        </p>
+    let deck = [];
 
-        <p>
-            Inseriscili in ordine crescente.
-        </p>
 
-        ${input("l5","valori")}
+    for(const suit of SUITS){
 
-        ${btn("c5","AUTORIZZA")}
+        for(const rank of RANKS){
 
-        <div id="r5b"></div>
-        `
-    );
+            deck.push({
+                suit,
+                rank
+            });
 
-    document.getElementById("c5").onclick = () => {
+        }
 
-        const v = norm(
-            document.getElementById("l5").value
-        ).replace(/\s/g,"");
+    }
 
-        if(v === "151025"){
 
-            reward(
-                5,
-                `
-                Il terminale riconosce l'autorizzazione.
-                `,
-                `
-                FRAMMENTO RECUPERATO:
-                <b>ST</b>
-                <br>
-                I quattro valori sono gettoni del BANCO.
-                `
-            );
+    for(let i=deck.length-1;i>0;i--){
+
+        const j =
+        Math.floor(
+            Math.random()*(i+1)
+        );
+
+
+        [
+            deck[i],
+            deck[j]
+        ] =
+        [
+            deck[j],
+            deck[i]
+        ];
+
+    }
+
+
+    return deck;
+
+}
+
+
+function cardValue(cards){
+
+    let total = 0;
+
+    let aces = 0;
+
+
+    cards.forEach(card => {
+
+        if(card.rank === "A"){
+
+            total += 11;
+
+            aces++;
+
+        }else if(
+            ["J","Q","K"]
+            .includes(card.rank)
+        ){
+
+            total += 10;
 
         }else{
 
-            document.getElementById("r5b").innerHTML =
-                `<p class="danger">
-                    SEQUENZA NON RICONOSCIUTA.
-                </p>`;
+            total +=
+            Number(card.rank);
+
         }
-    };
+
+    });
+
+
+    while(
+        total > 21 &&
+        aces > 0
+    ){
+
+        total -= 10;
+
+        aces--;
+
+    }
+
+
+    return total;
+
 }
 
 
-/* =========================
-   LIVELLO 06
-========================= */
+function cardHTML(card){
+
+    const red =
+    card.suit === "♥" ||
+    card.suit === "♦";
+
+
+    return `
+
+    <span class="
+        mini-card
+        ${red ? "red" : ""}
+    ">
+
+        ${card.rank}${card.suit}
+
+    </span>
+
+    `;
+
+}
+
 
 function level6(){
 
-    A.innerHTML = box(
-        "06 · IL BANCO",
+    if(!hasItem("FISH 1")){
 
-        `
-        <p>
-            Ora i gettoni sono reali.
-        </p>
+        dashboard();
 
-        <table>
+        return;
 
-            <tr>
-                <th>Mano</th>
-                <th>Carte</th>
-                <th>Valore</th>
-            </tr>
+    }
 
-            <tr>
-                <td>A</td>
-                <td>A♠ K♦</td>
-                <td>21</td>
-            </tr>
 
-            <tr>
-                <td>B</td>
-                <td>10♣ 10♥</td>
-                <td>20</td>
-            </tr>
+    let deck =
+    createDeck();
 
-            <tr>
-                <td>C</td>
-                <td>7♠ 6♦ 5♣</td>
-                <td>18</td>
-            </tr>
 
-            <tr>
-                <td>D</td>
-                <td>9♥ 8♣</td>
-                <td>17</td>
-            </tr>
+    let player = [
+        deck.pop(),
+        deck.pop()
+    ];
 
-        </table>
 
-        <p>
-            Regole:
-        </p>
+    let dealer = [
+        deck.pop(),
+        deck.pop()
+    ];
 
-        <ul>
-            <li><b>1</b> va al Blackjack</li>
-            <li><b>25</b> va al 20</li>
-            <li><b>5</b> va alla mano da tre carte</li>
-            <li>il gettone rimasto va alla quarta</li>
-        </ul>
 
-        <p>
-            Decisioni:
-            <br>
-            21 = STAND
-            <br>
-            20 = STAND
-            <br>
-            18 = STAND
-            <br>
-            17 = HIT
-        </p>
+    let gameOver = false;
 
-        ${input(
-            "l6",
-            "es. A1 B25 C5 D10"
-        )}
 
-        ${btn(
-            "c6",
-            "CHIUDI IL BANCO"
-        )}
+    let selectedChip = 0;
 
-        <div id="r6"></div>
-        `
-    );
 
-    document.getElementById("c6").onclick = () => {
+    function renderBlackjack(){
 
-        const v = norm(
-            document.getElementById("l6").value
-        ).replace(/\s/g,"");
+        A.innerHTML =
+        box(
 
-        if(v === "a1b25c5d10"){
+            "06 · IL BANCO — BLACKJACK",
 
-            reward(
-                6,
-                `
-                Il banco chiude la mano.
-                Somma dei quattro gettoni:
-                <b>41</b>.
-                `,
-                `
-                <span class="gold">
-                RICOMPENSA SPECIALE:
-                CENA PER DUE
-                </span>
+            `
 
-                <br><br>
+            <p>
+                Questa volta non è una simulazione.
+            </p>
 
-                FRAMMENTO RECUPERATO:
-                <b>A</b>
-                `
+            <p>
+                Il banco gioca contro di te.
+            </p>
+
+
+            <div class="alert">
+
+                <b>
+                OBIETTIVO:
+                </b>
+
+                arrivare il più vicino possibile
+                a 21 senza superarlo.
+
+            </div>
+
+
+            <p>
+                <b>
+                LA TUA MANO
+                (${cardValue(player)})
+                </b>
+            </p>
+
+
+            <div class="hand">
+
+                ${
+                    player
+                    .map(cardHTML)
+                    .join("")
+                }
+
+            </div>
+
+
+            <p>
+                <b>BANCO</b>
+            </p>
+
+
+            <div class="hand">
+
+                ${
+                    gameOver
+                    ?
+                    dealer
+                    .map(cardHTML)
+                    .join("")
+                    :
+                    cardHTML(dealer[0]) +
+                    `
+                    <span class="mini-card">
+                        ?
+                    </span>
+                    `
+                }
+
+            </div>
+
+
+            <hr>
+
+
+            <p>
+                Scegli la fish con cui
+                vuoi giocare.
+            </p>
+
+
+            <div class="chips">
+
+                ${
+                    [1,5,10,25]
+                    .map(
+                        n => `
+
+                        <button
+                            class="chip
+                            ${
+                                selectedChip === n
+                                ? "selected"
+                                : ""
+                            }"
+                            data-chip="${n}"
+                        >
+
+                            ${n}
+
+                        </button>
+
+                        `
+                    )
+                    .join("")
+                }
+
+            </div>
+
+
+            ${
+                gameOver
+                ?
+                btn(
+                    "closeBlackjack",
+                    "CHIUDI LA MANO"
+                )
+                :
+                btn(
+                    "hit",
+                    "HIT"
+                ) +
+
+                btn(
+                    "stand",
+                    "STAND"
+                )
+            }
+
+
+            <div id="bjResult"></div>
+
+            `
+
+        );
+
+
+        document
+        .querySelectorAll(
+            "[data-chip]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                selectedChip =
+                Number(
+                    button.dataset.chip
+                );
+
+                renderBlackjack();
+
+            };
+
+        });
+
+
+        if(!gameOver){
+
+            document
+            .getElementById("hit")
+            .onclick = () => {
+
+                if(!selectedChip){
+
+                    bjResult.innerHTML = `
+
+                    <p class="danger">
+                        Scegli prima una fish.
+                    </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                player.push(
+                    deck.pop()
+                );
+
+
+                if(
+                    cardValue(player) >= 21
+                ){
+
+                    finishBlackjack();
+
+                }else{
+
+                    renderBlackjack();
+
+                }
+
+            };
+
+
+            document
+            .getElementById("stand")
+            .onclick = () => {
+
+                if(!selectedChip){
+
+                    bjResult.innerHTML = `
+
+                    <p class="danger">
+                        Scegli prima una fish.
+                    </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                finishBlackjack();
+
+            };
+
+        }
+
+
+        if(gameOver){
+
+            document
+            .getElementById(
+                "closeBlackjack"
+            )
+            .onclick = () => {
+
+                addItem("41");
+
+                addItem("A");
+
+                state.blackjack = true;
+
+                saveState();
+
+
+                finish(
+
+                    6,
+
+                    `
+
+                    La mano è terminata.
+
+                    <br><br>
+
+                    Valore registrato:
+                    <b>41</b>
+
+                    <br><br>
+
+                    FRAMMENTO:
+                    <b>A</b>
+
+                    `,
+
+                    `
+
+                    Il valore 41
+                    sarà la partenza
+                    del dossier 07.
+
+                    `
+
+                );
+
+            };
+
+        }
+
+    }
+
+
+    function finishBlackjack(){
+
+        gameOver = true;
+
+
+        while(
+            cardValue(dealer) < 17
+        ){
+
+            dealer.push(
+                deck.pop()
             );
+
+        }
+
+
+        const p =
+        cardValue(player);
+
+        const d =
+        cardValue(dealer);
+
+
+        let message = "";
+
+
+        if(p > 21){
+
+            message =
+            "HAI SFORATO 21.";
+
+        }else if(d > 21){
+
+            message =
+            "IL BANCO HA SFORATO 21. HAI VINTO.";
+
+        }else if(p > d){
+
+            message =
+            "HAI VINTO.";
+
+        }else if(p === d){
+
+            message =
+            "PAREGGIO.";
 
         }else{
 
-            document.getElementById("r6").innerHTML =
-                `<p class="danger">
-                    DISTRIBUZIONE ERRATA.
-                </p>`;
+            message =
+            "IL BANCO VINCE.";
+
         }
-    };
+
+
+        renderBlackjack();
+
+
+        bjResult.innerHTML = `
+
+        <div class="alert">
+
+            <p>
+                <b>${message}</b>
+            </p>
+
+            <p>
+                Tua mano:
+                <b>${p}</b>
+            </p>
+
+            <p>
+                Banco:
+                <b>${d}</b>
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+
+    renderBlackjack();
+
 }
 
 
-/* =========================
+/* =========================================================
    LIVELLO 07
-========================= */
+========================================================= */
 
 function level7(){
 
-    let pos = 41;
+    if(!hasItem("41")){
 
-    const moves = {
-        1:2,
-        2:3,
-        3:5,
-        4:1,
-        5:4,
-        6:6
-    };
+        dashboard();
+
+        return;
+
+    }
+
+
+    let position = 41;
 
     let used = [];
 
-    A.innerHTML = box(
+
+    const moves = {
+
+        1:2,
+
+        2:3,
+
+        3:5,
+
+        4:1,
+
+        5:4,
+
+        6:6
+
+    };
+
+
+    A.innerHTML =
+    box(
+
         "07 · LA PISTA",
 
         `
-        <p>
-            Il valore registrato al livello precedente
-            era <b>41</b>.
-        </p>
 
         <p>
-            È la casella di partenza.
+            Il Blackjack ha registrato:
+            <b>41</b>.
         </p>
+
+
+        <p>
+            Questa è la casella di partenza.
+        </p>
+
 
         <p>
             Ogni reperto può essere usato
             una sola volta.
         </p>
 
+
         <p class="mono">
-            R1 +2 · R2 +3 · R3 +5
+
+            R1 +2
+            ·
+            R2 +3
+            ·
+            R3 +5
+
             <br>
-            R4 +1 · R5 +4 · R6 +6
+
+            R4 +1
+            ·
+            R5 +4
+            ·
+            R6 +6
+
         </p>
 
+
         <p>
-            Devi arrivare alla casella
-            <b>62</b>,
+            Devi arrivare a:
+            <b>62</b>
+        </p>
+
+
+        <p>
             usando esattamente quattro reperti.
         </p>
 
+
         <div>
 
-            ${[1,2,3,4,5,6].map(n =>
-                btn(
-                    "r"+n,
-                    "REPERTO "+n,
-                    "dark"
+            ${
+                [1,2,3,4,5,6]
+                .map(
+                    n =>
+                    btn(
+                        "reperto"+n,
+                        "REPERTO "+n,
+                        "dark"
+                    )
                 )
-            ).join("")}
+                .join("")
+            }
 
         </div>
 
-        <p id="p7">
+
+        <p id="position">
             Posizione: 41
         </p>
 
+
         <div id="r7"></div>
+
         `
+
     );
 
-    [1,2,3,4,5,6].forEach(n => {
 
-        document.getElementById("r"+n).onclick = () => {
+    [1,2,3,4,5,6]
+    .forEach(n => {
 
-            if(used.includes(n)) return;
+        document
+        .getElementById(
+            "reperto"+n
+        )
+        .onclick = () => {
+
+            if(used.includes(n))
+                return;
+
 
             used.push(n);
 
-            pos += moves[n];
 
-            document.getElementById("r"+n)
-                .disabled = true;
+            position +=
+            moves[n];
 
-            document.getElementById("p7")
-                .textContent =
-                "Posizione: " + pos;
+
+            document
+            .getElementById(
+                "reperto"+n
+            )
+            .disabled = true;
+
+
+            document
+            .getElementById(
+                "position"
+            )
+            .textContent =
+            "Posizione: " +
+            position;
+
 
             if(used.length === 4){
 
-                if(pos === 62){
+                if(position === 62){
 
-                    document.getElementById("r7").innerHTML = `
-                        <p class="ok">
-                            DESTINAZIONE RAGGIUNTA.
-                        </p>
+                    addItem(
+                        "ORDINE 01→02→03→04→05→06"
+                    );
 
-                        ${btn(
-                            "c7",
-                            "CONFERMA REPERTO"
-                        )}
+
+                    r7.innerHTML = `
+
+                    <p class="ok">
+                        DESTINAZIONE RAGGIUNTA.
+                    </p>
+
+                    ${btn(
+                        "done7",
+                        "REGISTRA ORDINE"
+                    )}
+
                     `;
 
-                    document.getElementById("c7").onclick =
-                        () => {
 
-                            reward(
-                                7,
-                                `
-                                La pista rivela una regola
-                                che era rimasta nascosta:
-                                l'ordine dei frammenti.
-                                `,
-                                `
-                                ORDINE DEI FRAMMENTI:
-                                <b>
-                                01 → 02 → 03 → 04 → 05 → 06
-                                </b>
-                                `
-                            );
-                        };
+                    document
+                    .getElementById("done7")
+                    .onclick = () => {
+
+                        finish(
+
+                            7,
+
+                            `
+
+                            La pista rivela
+                            l'ordine dei frammenti:
+
+                            <br><br>
+
+                            <b>
+                            01 → 02 → 03
+                            → 04 → 05 → 06
+                            </b>
+
+                            `,
+
+                            `
+
+                            Il dossier 08
+                            contiene l'ultima
+                            operazione.
+
+                            `
+
+                        );
+
+                    };
 
                 }else{
 
-                    document.getElementById("r7").innerHTML = `
-                        <p class="danger">
-                            DESTINAZIONE ERRATA.
-                        </p>
+                    r7.innerHTML = `
 
-                        <p>
-                            Hai usato quattro reperti,
-                            ma la posizione finale non è 62.
-                        </p>
+                    <p class="danger">
+                        DESTINAZIONE ERRATA.
+                    </p>
 
-                        <button
-                            onclick="level7()"
-                            class="dark"
-                        >
-                            RIPRISTINA PISTA
-                        </button>
+                    ${btn(
+                        "retry7",
+                        "RIPROVA"
+                    )}
+
                     `;
+
+
+                    document
+                    .getElementById("retry7")
+                    .onclick =
+                    level7;
+
                 }
+
             }
+
         };
+
     });
+
 }
 
 
-/* =========================
+/* =========================================================
    LIVELLO 08
-========================= */
+========================================================= */
 
 function level8(){
 
-    A.innerHTML = box(
+    if(
+        !hasItem(
+            "ORDINE 01→02→03→04→05→06"
+        )
+    ){
+
+        dashboard();
+
+        return;
+
+    }
+
+
+    const fragments = [
+
+        "AP",
+        "RI",
+        "LA",
+        "BU",
+        "ST",
+        "A"
+
+    ];
+
+
+    A.innerHTML =
+    box(
+
         "08 · IL FINALE",
 
         `
+
         <p>
-            Il BANCO non consegna la soluzione:
-            consegna sei frammenti già recuperati.
+            Il BANCO consegna
+            sei frammenti digitali.
         </p>
+
+
+        <p>
+            La pista precedente
+            ha stabilito il loro ordine.
+        </p>
+
 
         <div class="grid4">
 
-            ${[
-                "AP",
-                "RI",
-                "LA",
-                "BU",
-                "ST",
-                "A"
-            ].map((x,i) => `
-                <button
-                    class="frag dark"
-                    data-i="${i}"
-                >
-                    ${x}
-                </button>
-            `).join("")}
+            ${
+                fragments
+                .map(
+                    (x,i) =>
+                    `
+
+                    <button
+                        class="dark fragment"
+                        data-fragment="${i}"
+                    >
+
+                        ${x}
+
+                    </button>
+
+                    `
+                )
+                .join("")
+            }
 
         </div>
 
-        <p>
-            La pista del livello 07
-            ha stabilito l'ordine.
-        </p>
 
         <p class="muted">
-            Cliccali da 01 a 06.
+
+            Clicca i frammenti
+            da 01 a 06.
+
         </p>
 
+
         <div id="r8"></div>
+
         `
+
     );
+
 
     let next = 0;
 
-    document.querySelectorAll(".frag")
-    .forEach(b => {
 
-        b.onclick = () => {
+    document
+    .querySelectorAll(
+        ".fragment"
+    )
+    .forEach(button => {
 
-            const i = +b.dataset.i;
+        button.onclick = () => {
+
+            const i =
+            Number(
+                button.dataset.fragment
+            );
+
 
             if(i !== next){
 
-                document.getElementById("r8").innerHTML =
-                    `
-                    <p class="danger">
-                        ORDINE NON AUTORIZZATO.
-                    </p>
-                    `;
+                r8.innerHTML = `
+
+                <p class="danger">
+                    ORDINE NON AUTORIZZATO.
+                </p>
+
+                `;
 
                 return;
+
             }
 
-            b.disabled = true;
+
+            button.disabled = true;
 
             next++;
 
+
             if(next === 6){
 
-                document.getElementById("r8").innerHTML = `
+                r8.innerHTML = `
 
-                    <div class="center">
+                <div class="center">
 
-                        <p class="gold big">
-                            APRI LA BUSTA
-                        </p>
+                    <p class="gold big">
+                        APRI LA BUSTA
+                    </p>
 
-                        <hr>
+                    <hr>
 
-                        <p>
-                            La BUSTA 08 contiene la chiave.
-                        </p>
+                    <p>
+                        La BUSTA 08
+                        contiene la
+                        <b>CHIAVE FISICA</b>.
+                    </p>
 
-                        <p class="danger">
-                            <b>
-                            NON UTILIZZARE LA CHIAVE
-                            PRIMA DEL 25.12.
-                            </b>
-                        </p>
+                    <p class="danger">
 
-                        <p class="ok">
-                            LIVELLO 08 COMPLETATO.
-                        </p>
+                        <b>
+                        NON UTILIZZARE LA CHIAVE
+                        PRIMA DEL 25.12.
+                        </b>
 
-                    </div>
+                    </p>
+
+
+                    ${btn(
+                        "done8",
+                        "SIGILLA OPERAZIONE"
+                    )}
+
+                </div>
 
                 `;
+
+
+                document
+                .getElementById("done8")
+                .onclick = () => {
+
+                    finish(
+
+                        8,
+
+                        `
+
+                        I frammenti formano:
+
+                        <br><br>
+
+                        <span class="big">
+                        APRI LA BUSTA
+                        </span>
+
+                        `,
+
+                        `
+
+                        La BUSTA 08
+                        contiene la chiave.
+
+                        <br><br>
+
+                        Il fascicolo
+                        finale attende
+                        il 25 dicembre.
+
+                        `
+
+                    );
+
+                };
+
             }
+
         };
+
     });
+
 }
 
 
-/* =========================
-   AVVIO
-========================= */
+/* =========================================================
+   25 DICEMBRE
+========================================================= */
 
-start();
+function final25(){
+
+    A.innerHTML =
+    box(
+
+        "25 · OPERAZIONE CONCLUSA",
+
+        `
+
+        <div class="center">
+
+            <p class="gold big">
+                ULTIMO ACCESSO
+            </p>
+
+            <hr>
+
+
+            <p>
+                Il BANCO non ha
+                più enigmi.
+            </p>
+
+
+            <p>
+                Hai completato
+                tutti i dossier.
+            </p>
+
+
+            <br>
+
+
+            <p>
+                <b>
+                PRENDI LA CHIAVE
+                DELLA BUSTA 08.
+                </b>
+            </p>
+
+
+            <p>
+                Usala ora.
+            </p>
+
+
+            <hr>
+
+
+            <p class="ok">
+                OPERAZIONE 25
+                <br>
+                COMPLETATA.
+            </p>
+
+
+            <p class="muted">
+
+                Il contenuto della serratura
+                è il tuo vero regalo.
+
+            </p>
+
+        </div>
+
+        `
+
+    );
+
+}
+
+
+/* =========================================================
+   AVVIO
+========================================================= */
+
+renderProgress();
+
+
+if(state.started){
+
+    dashboard();
+
+}else{
+
+    home();
+
+}
 
 </script>
 
