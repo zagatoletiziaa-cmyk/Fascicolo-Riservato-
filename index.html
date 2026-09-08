@@ -1,3331 +1,2212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>OPERAZIONE 25 — IL BANCO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>OPERAZIONE 25</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
+:root{
+  --bg:#090b10;
+  --panel:#11151d;
+  --panel2:#171c26;
+  --line:#29313e;
+  --text:#f1f3f6;
+  --muted:#929aa8;
+  --accent:#d8b56a;
+  --danger:#b94a4a;
+  --success:#5da878;
 }
+
+*{box-sizing:border-box}
 
 body{
-    margin:0;
-    background:#080a0d;
-    color:#e9e9e9;
-    font-family:Arial,sans-serif;
+  margin:0;
+  background:
+    radial-gradient(circle at top,#171d29 0%,#090b10 48%,#050609 100%);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  min-height:100vh;
 }
 
-main{
-    max-width:760px;
-    margin:auto;
-    padding:18px 14px 60px;
-}
-
-.top{
-    border:1px solid #333;
-    padding:16px;
-    margin-bottom:14px;
-    background:#101318;
-}
-
-h1{
-    font-size:25px;
-    letter-spacing:3px;
-    margin:0 0 6px;
-}
-
-h2{
-    font-size:18px;
-    letter-spacing:1px;
-}
-
-.sub{
-    color:#9fa6ad;
-    font-size:13px;
-}
-
-.card{
-    background:#101318;
-    border:1px solid #30343a;
-    padding:18px;
-    margin:12px 0;
-    border-radius:8px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:9px;
-}
-
-.grid4{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:7px;
-}
-
-.tile{
-    border:1px solid #3b4047;
-    padding:14px;
-    background:#15191e;
-    min-height:70px;
-}
-
-.tile b{
-    display:block;
-    margin-bottom:5px;
-}
-
-button,
-input{
-    font:inherit;
+button,input{
+  font:inherit;
 }
 
 button{
-    background:#e5e5e5;
-    color:#080a0d;
-    border:0;
-    border-radius:6px;
-    padding:12px 15px;
-    font-weight:700;
-    margin:5px 3px;
-    cursor:pointer;
+  cursor:pointer;
 }
 
-button.dark{
-    background:#20252b;
-    color:#eee;
-    border:1px solid #41464d;
+.app{
+  width:100%;
+  max-width:720px;
+  margin:auto;
+  padding:18px 16px 50px;
 }
 
-button:disabled{
-    opacity:.35;
-    cursor:not-allowed;
+header{
+  padding:20px 0 18px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:20px;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    background:#080a0d;
-    color:#fff;
-    border:1px solid #4a4f56;
-    border-radius:6px;
-    margin:7px 0;
+.logo{
+  letter-spacing:5px;
+  font-size:13px;
+  color:var(--accent);
+  font-weight:700;
 }
 
-.muted{
-    color:#9da3aa;
+h1{
+  margin:8px 0 5px;
+  font-size:30px;
+  letter-spacing:1px;
 }
 
-.danger{
-    color:#ff7676;
+.subtitle{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
 }
 
-.ok{
-    color:#82e0a1;
+.panel{
+  background:rgba(17,21,29,.94);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 12px 35px rgba(0,0,0,.18);
 }
 
-.gold{
-    color:#e7c76d;
+.panel h2{
+  margin:0 0 12px;
+  font-size:20px;
 }
 
-.center{
-    text-align:center;
-}
-
-.big{
-    font-size:27px;
-    letter-spacing:4px;
+.panel h3{
+  margin:18px 0 8px;
 }
 
 .small{
-    font-size:12px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
 }
 
-.mono{
-    font-family:monospace;
-    letter-spacing:2px;
+.center{
+  text-align:center;
 }
 
-hr{
-    border:0;
-    border-top:1px solid #30343a;
-    margin:18px 0;
+.btn{
+  border:1px solid var(--accent);
+  background:transparent;
+  color:var(--accent);
+  padding:12px 16px;
+  border-radius:10px;
+  font-weight:700;
+  width:100%;
+  margin-top:10px;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+.btn:hover{
+  background:rgba(216,181,106,.1);
 }
 
-td,
-th{
-    border:1px solid #373c42;
-    padding:9px;
-    text-align:left;
-    font-size:13px;
+.btn.primary{
+  background:var(--accent);
+  color:#111;
+}
+
+.btn.danger{
+  border-color:var(--danger);
+  color:#ef9a9a;
+}
+
+.btn:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#090c11;
+  color:white;
+  outline:none;
+  margin-top:8px;
+}
+
+input:focus{
+  border-color:var(--accent);
+}
+
+.codebox{
+  font-family:monospace;
+  letter-spacing:3px;
+  font-size:22px;
+  text-align:center;
+  padding:15px;
+  background:#07090d;
+  border:1px dashed #505966;
+  border-radius:10px;
+  margin:12px 0;
+}
+
+.status{
+  padding:11px 13px;
+  border-radius:10px;
+  background:#0c1016;
+  border:1px solid var(--line);
+  margin-top:12px;
+  font-size:14px;
+  line-height:1.45;
+}
+
+.status.success{
+  border-color:rgba(93,168,120,.5);
+  color:#a9e0bc;
+}
+
+.status.error{
+  border-color:rgba(185,74,74,.5);
+  color:#f0a1a1;
 }
 
 .progress{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:6px;
-    margin-top:14px;
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:5px;
+  margin:12px 0 18px;
 }
 
 .progress div{
-    border:1px solid #343941;
-    padding:9px 5px;
-    text-align:center;
-    border-radius:5px;
-    background:#15191e;
-    font-size:11px;
+  height:7px;
+  border-radius:99px;
+  background:#252b35;
 }
 
-.progress .done{
-    border-color:#82e0a1;
+.progress div.done{
+  background:var(--accent);
 }
 
-.progress .open{
-    border-color:#e7c76d;
-}
-
-.progress .locked{
-    opacity:.4;
-}
-
-.inventory{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
 }
 
 .badge{
-    border:1px solid #555;
-    padding:8px 10px;
-    border-radius:5px;
-    background:#15191e;
+  border:1px solid #424b58;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  color:#d6dae0;
+  background:#0c1016;
+}
+
+.badge.gold{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.dossier-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  margin-top:10px;
+  background:#0c1016;
+}
+
+.dossier-card.locked{
+  opacity:.45;
+}
+
+.dossier-number{
+  color:var(--accent);
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:700;
+}
+
+.dossier-title{
+  font-size:17px;
+  margin-top:5px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.choice{
+  padding:14px 8px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#0a0d12;
+  color:white;
+}
+
+.choice.selected{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.choice.correct{
+  border-color:var(--success);
+  color:#9fddb4;
 }
 
 .bingo{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:4px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:5px;
+  margin-top:12px;
 }
 
 .bingo button{
-    margin:0;
-    padding:12px 2px;
-    background:#161a1f;
-    color:#eee;
-    border:1px solid #373c42;
+  aspect-ratio:1;
+  border:1px solid var(--line);
+  background:#0a0d12;
+  color:white;
+  border-radius:8px;
 }
 
-.bingo button.mark{
-    background:#e7c76d;
-    color:#080a0d;
+.bingo button.marked{
+  background:var(--accent);
+  color:#111;
 }
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:8px;
+.audio-box{
+  text-align:center;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-top:12px;
 }
 
-.playcard{
-    min-height:90px;
-    font-size:24px;
-    background:#f3f3f3;
-    color:#111;
-    border-radius:9px;
+.play{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  border:1px solid var(--accent);
+  background:#111;
+  color:var(--accent);
+  font-size:25px;
+}
+
+.piano{
+  display:flex;
+  justify-content:center;
+  overflow-x:auto;
+  padding:10px 0 15px;
+}
+
+.key{
+  min-width:48px;
+  height:155px;
+  border:1px solid #555;
+  background:#f2f2f2;
+  color:#111;
+  border-radius:0 0 8px 8px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding-bottom:12px;
+  margin:0 1px;
+}
+
+.key.black{
+  min-width:32px;
+  height:100px;
+  background:#111;
+  color:white;
+  margin:0 -8px;
+  z-index:2;
+}
+
+.sequence{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:12px 0;
+}
+
+.sequence span{
+  border:1px solid var(--line);
+  padding:8px 11px;
+  border-radius:8px;
+  font-family:monospace;
+}
+
+.mastermind{
+  display:grid;
+  gap:7px;
+  margin-top:12px;
+}
+
+.mmrow{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+}
+
+.mmrow div{
+  padding:11px 5px;
+  background:#0a0d12;
+  border:1px solid var(--line);
+  border-radius:8px;
+  text-align:center;
+  font-family:monospace;
 }
 
 .chips{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin:12px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin:15px 0;
 }
 
 .chip{
-    border-radius:50%;
-    width:58px;
-    height:58px;
-    padding:0;
-    background:#171b20;
-    color:#eee;
-    border:2px solid #777;
+  width:62px;
+  height:62px;
+  border-radius:50%;
+  border:3px dashed #aaa;
+  background:#171b22;
+  color:white;
+  font-weight:800;
 }
 
 .chip.selected{
-    outline:3px solid #e7c76d;
+  border-color:var(--accent);
+  color:var(--accent);
+  transform:scale(1.06);
 }
 
-.hand{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-    margin:10px 0;
+.scratch-area{
+  position:relative;
+  width:100%;
+  max-width:360px;
+  aspect-ratio:1.65;
+  margin:18px auto;
+  overflow:hidden;
+  border-radius:14px;
+  border:1px solid #555;
+  background:#d8d8d8;
 }
 
-.mini-card{
-    background:#f4f4f4;
-    color:#111;
-    border-radius:7px;
-    padding:10px 12px;
-    min-width:48px;
-    text-align:center;
-    font-weight:bold;
+.scratch-area canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  touch-action:none;
+  z-index:2;
 }
 
-.mini-card.red{
-    color:#b33;
+.scratch-reveal{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#111;
+  padding:20px;
+  background:#eee;
+  z-index:1;
 }
 
-.scratch{
-    position:relative;
-    height:180px;
-    border:1px solid #555;
-    border-radius:8px;
-    overflow:hidden;
-    background:#15191e;
-    margin:12px 0;
+.scratch-reveal strong{
+  font-family:monospace;
+  font-size:20px;
+  letter-spacing:2px;
 }
 
-.scratch-code{
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
+.scanner{
+  margin-top:15px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
 }
 
-.scratch canvas{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    touch-action:none;
+#reader{
+  width:100%;
+  min-height:250px;
 }
 
-.barcode{
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    height:80px;
-    gap:2px;
-    margin:15px 0;
+.barcode-maker{
+  text-align:center;
+  padding:15px;
+  background:white;
+  border-radius:10px;
+  margin-top:12px;
 }
 
-.barcode span{
-    display:block;
-    background:#eee;
-    height:65px;
+#barcode{
+  max-width:100%;
 }
 
-.alert{
-    padding:12px;
-    border:1px solid #555;
-    border-radius:6px;
-    background:#15191e;
+.blackjack-table{
+  background:
+    radial-gradient(circle,#173f2a,#0b2418);
+  border:2px solid #476c55;
+  border-radius:18px;
+  padding:18px;
+  margin-top:12px;
 }
 
-@media(max-width:500px){
-
-    h1{
-        font-size:21px;
-    }
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .grid4{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .cards{
-        grid-template-columns:repeat(3,1fr);
-    }
-
+.hand-label{
+  color:#b8cbbd;
+  font-size:12px;
+  letter-spacing:1px;
+  margin-bottom:7px;
 }
 
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  min-height:82px;
+  margin-bottom:18px;
+}
+
+.card{
+  width:54px;
+  height:76px;
+  border-radius:7px;
+  background:#f4f4f4;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:16px;
+  box-shadow:0 3px 7px rgba(0,0,0,.3);
+}
+
+.card.red{
+  color:#b22b2b;
+}
+
+.card.back{
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #1b2430,
+      #1b2430 4px,
+      #344355 4px,
+      #344355 8px
+    );
+  color:white;
+}
+
+.score{
+  color:#d9e9dc;
+  font-size:13px;
+}
+
+.bankroll{
+  text-align:center;
+  font-size:18px;
+  margin:10px 0;
+}
+
+.bet-info{
+  text-align:center;
+  color:#cbd8cf;
+}
+
+.journey{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:7px;
+  margin:14px 0;
+}
+
+.journey button{
+  padding:12px 4px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#0a0d12;
+  color:white;
+}
+
+.journey button.selected{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.final-fragments{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:15px;
+}
+
+.fragment{
+  padding:18px 5px;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:10px;
+  font-family:monospace;
+  font-size:22px;
+  cursor:pointer;
+  background:#0a0d12;
+}
+
+.fragment.used{
+  border-color:var(--success);
+  color:#9fddb4;
+}
+
+.envelope{
+  border:1px solid var(--accent);
+  padding:24px;
+  border-radius:14px;
+  text-align:center;
+  margin-top:20px;
+  background:rgba(216,181,106,.04);
+}
+
+.key-icon{
+  font-size:48px;
+  margin:8px 0;
+}
+
+.corrupt{
+  animation:glitch .12s infinite;
+}
+
+@keyframes glitch{
+  0%{transform:translate(0)}
+  25%{transform:translate(2px,-1px)}
+  50%{transform:translate(-2px,1px)}
+  75%{transform:translate(1px,2px)}
+  100%{transform:translate(0)}
+}
+
+.hidden{
+  display:none!important;
+}
+
+footer{
+  text-align:center;
+  color:#555e6c;
+  font-size:11px;
+  margin-top:30px;
+  letter-spacing:1px;
+}
+
+@media(max-width:420px){
+  h1{font-size:26px}
+  .app{padding-left:12px;padding-right:12px}
+  .key{min-width:43px}
+}
 </style>
 </head>
 
 <body>
 
-<main>
-
-<div class="top">
-
-<h1>OPERAZIONE 25</h1>
-
-<div class="sub">
-FASCICOLO RISERVATO · IL BANCO · ACCESSO AUTORIZZATO
-</div>
-
-<div id="progress"></div>
-
-</div>
-
-<div id="app"></div>
-
-</main>
-
+<div class="app" id="app"></div>
 
 <script>
-
-
 /* =========================================================
    OPERAZIONE 25
-   VERSIONE DEFINITIVA — PROGRESSIONE SENZA DATE
-========================================================= */
+   VERSIONE DEFINITIVA
+   ========================================================= */
 
-
-/* =========================================================
-   STORAGE
-========================================================= */
-
-const STORAGE_KEY =
-"operazione25_progress_v2";
-
+const STORAGE_KEY = "operazione25_progress_final";
 
 const DEFAULT_STATE = {
-
-    started:false,
-
-    completed:[],
-
-    inventory:[],
-
-    scratch:false,
-
-    blackjack:false
-
+  started:false,
+  completed:[],
+  inventory:[],
+  blackjack:false,
+  blackjackBankroll:41,
+  blackjackHands:0
 };
-
 
 let state = loadState();
 
-
 function loadState(){
-
-    try{
-
-        const saved =
-        JSON.parse(
-            localStorage.getItem(STORAGE_KEY)
-        );
-
-        if(saved){
-
-            return {
-                ...DEFAULT_STATE,
-                ...saved
-            };
-
-        }
-
-    }catch(e){}
-
-    return {
-        ...DEFAULT_STATE,
-        completed:[],
-        inventory:[]
-    };
-
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return saved ? {...DEFAULT_STATE,...saved} : {...DEFAULT_STATE};
+  }catch(e){
+    return {...DEFAULT_STATE};
+  }
 }
-
 
 function saveState(){
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(state)
-    );
-
-    renderProgress();
-
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
 }
 
-
-function addItem(item){
-
-    if(!state.inventory.includes(item)){
-
-        state.inventory.push(item);
-
-    }
-
-    saveState();
-
+function resetState(){
+  if(confirm("Vuoi davvero cancellare tutti i progressi?")){
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
 }
-
 
 function hasItem(item){
-
-    return state.inventory.includes(item);
-
+  return state.inventory.includes(item);
 }
 
+function addItem(item){
+  if(!hasItem(item)){
+    state.inventory.push(item);
+  }
+  saveState();
+}
 
 function completeLevel(n){
-
-    if(!state.completed.includes(n)){
-
-        state.completed.push(n);
-
-    }
-
-    saveState();
-
+  if(!state.completed.includes(n)){
+    state.completed.push(n);
+  }
+  saveState();
 }
 
-
-/* =========================================================
-   ELEMENTI
-========================================================= */
-
-const A =
-document.getElementById("app");
-
-const P =
-document.getElementById("progress");
-
-
-/* =========================================================
-   UTILITÀ
-========================================================= */
-
-function norm(s){
-
-    return (s || "")
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g," ");
-
+function isCompleted(n){
+  return state.completed.includes(n);
 }
-
-
-function box(title,content){
-
-    return `
-
-    <div class="card">
-
-        <h2>${title}</h2>
-
-        ${content}
-
-    </div>
-
-    `;
-
-}
-
-
-function input(id,placeholder=""){
-
-    return `
-
-    <input
-        id="${id}"
-        placeholder="${placeholder}"
-        autocomplete="off"
-    >
-
-    `;
-
-}
-
-
-function btn(id,text,cls=""){
-
-    return `
-
-    <button
-        id="${id}"
-        class="${cls}"
-    >
-        ${text}
-    </button>
-
-    `;
-
-}
-
-
-/* =========================================================
-   SBLOCCO
-========================================================= */
-
-/*
-   NESSUNA DATA.
-
-   Il sito funziona sempre.
-
-   01 è sempre disponibile.
-   02 si apre dopo 01.
-   03 dopo 02.
-   ...
-   08 dopo 07.
-   Il finale dopo 08.
-
-   Il calendario lo gestisci tu
-   consegnando fisicamente le buste.
-*/
 
 function levelUnlocked(n){
-
-    if(n === 1){
-
-        return true;
-
-    }
-
-    if(n >= 2 && n <= 8){
-
-        return state.completed.includes(n - 1);
-
-    }
-
-    if(n === 9){
-
-        return [1,2,3,4,5,6,7,8]
-            .every(
-                x =>
-                state.completed.includes(x)
-            );
-
-    }
-
-    return false;
-
+  if(n===1) return true;
+  if(n>=2 && n<=8) return isCompleted(n-1);
+  if(n===9) return [1,2,3,4,5,6,7,8].every(isCompleted);
+  return false;
 }
 
-
-/* =========================================================
-   PROGRESSO
-========================================================= */
-
-function renderProgress(){
-
-    P.innerHTML = `
-
-    <div class="progress">
-
-        ${[1,2,3,4,5,6,7,8]
-        .map(n => `
-
-            <div class="${
-                state.completed.includes(n)
-                ? "done"
-                : levelUnlocked(n)
-                ? "open"
-                : "locked"
-            }">
-
-                ${String(n).padStart(2,"0")}
-                ·
-                ${
-                    state.completed.includes(n)
-                    ? "✓"
-                    : levelUnlocked(n)
-                    ? "APERTO"
-                    : "🔒"
-                }
-
-            </div>
-
-        `)
-        .join("")}
-
-    </div>
-
-    `;
-
+function esc(str){
+  return String(str).replace(/[&<>"']/g,m=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[m]));
 }
 
+function layout(content){
+  const doneCount = [1,2,3,4,5,6,7,8].filter(isCompleted).length;
 
-/* =========================================================
-   INVENTARIO
-========================================================= */
+  document.getElementById("app").innerHTML = `
+    <header>
+      <div class="logo">ARCHIVIO RISERVATO</div>
+      <h1>OPERAZIONE 25</h1>
+      <div class="subtitle">
+        Fascicolo personale — accesso progressivo
+      </div>
+    </header>
 
-function inventoryHTML(){
+    ${content}
 
-    if(!state.inventory.length){
-
-        return `
-        <span class="muted">
-            Nessun reperto registrato.
-        </span>
-        `;
-
-    }
-
-    return state.inventory
-        .map(
-            x =>
-            `<span class="badge">${x}</span>`
-        )
-        .join("");
-
+    <footer>
+      ACCESSO PRIVATO · PROTOCOLLO 25
+    </footer>
+  `;
 }
-
 
 /* =========================================================
    HOME
-========================================================= */
+   ========================================================= */
 
 function home(){
+  const next = [1,2,3,4,5,6,7,8,9].find(n=>levelUnlocked(n) && !isCompleted(n));
 
-    renderProgress();
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">STATO OPERAZIONE</div>
+      <h2>${doneCountText()}</h2>
 
-    A.innerHTML = box(
+      <div class="progress">
+        ${[1,2,3,4,5,6,7,8].map(n=>`
+          <div class="${isCompleted(n)?"done":""}"></div>
+        `).join("")}
+      </div>
 
-        "CONTROLLO 00",
+      <div class="small">
+        I fascicoli vengono sbloccati uno alla volta.
+        Non esiste alcun blocco basato sulla data.
+      </div>
 
-        `
+      <button class="btn primary" onclick="openLevel(${next||9})">
+        ${next ? "APRIRE IL PROSSIMO FASCICOLO" : "ACCEDERE AL FINALE"}
+      </button>
+    </div>
 
-        <p>
-            Il BANCO ha aperto un fascicolo
-            riservato.
-        </p>
+    <div class="panel">
+      <h2>Fascicoli</h2>
+      ${[1,2,3,4,5,6,7,8].map(n=>dossierHomeCard(n)).join("")}
+    </div>
 
-        <p>
-            L'operazione è divisa in otto dossier.
-            Ogni dossier deve essere completato
-            prima di poter accedere al successivo.
-        </p>
-
-        <div class="alert">
-
-            <b>REGOLA FONDAMENTALE</b>
-
-            <br><br>
-
-            Tutto ciò che viene recuperato
-            deve essere conservato.
-
-            <br><br>
-
-            Alcuni reperti serviranno
-            nei dossier successivi.
-
-        </div>
-
-        <hr>
-
-        ${btn(
-            "start",
-            "ACCEDI AL FASCICOLO"
-        )}
-
-        `
-
-    );
-
-
-    document
-    .getElementById("start")
-    .onclick = () => {
-
-        state.started = true;
-
-        saveState();
-
-        dashboard();
-
-    };
-
-}
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-function dashboard(){
-
-    renderProgress();
-
-
-    const next =
-    [1,2,3,4,5,6,7,8]
-    .find(
-        n =>
-        !state.completed.includes(n)
-    );
-
-
-    let content = `
-
-        <p class="muted">
-            STATO DELL'OPERAZIONE
-        </p>
-
-        <div class="inventory">
-
-            ${inventoryHTML()}
-
-        </div>
-
-        <hr>
-
-    `;
-
-
-    if(next){
-
-        content += `
-
-        <p>
-            PROSSIMO DOSSIER:
-            <b>0${next}</b>
-        </p>
-
-        `;
-
-
-        if(levelUnlocked(next)){
-
-            content += btn(
-                "openNext",
-                "APRI DOSSIER 0"+next
-            );
-
-        }else{
-
-            content += `
-
-            <div class="alert">
-
-                DOSSIER 0${next}
-                NON ANCORA DISPONIBILE.
-
-                <br><br>
-
-                Completa prima il dossier precedente.
-
-            </div>
-
-            `;
-
+    <div class="panel">
+      <h2>Reperti acquisiti</h2>
+      <div class="badges">
+        ${
+          state.inventory.length
+          ? state.inventory.map(x=>`<span class="badge gold">${esc(x)}</span>`).join("")
+          : `<span class="small">Nessun reperto acquisito.</span>`
         }
+      </div>
+    </div>
 
-    }else{
-
-        content += `
-
-        <p class="ok">
-            DOSSIER 01–08 COMPLETATI.
-        </p>
-
-        <p>
-            Tutti i frammenti sono stati recuperati.
-        </p>
-
-        `;
-
-
-        if(levelUnlocked(9)){
-
-            content += btn(
-                "final",
-                "ACCESSO FINALE"
-            );
-
-        }
-
-    }
-
-
-    A.innerHTML =
-    box(
-        "OPERAZIONE",
-        content
-    );
-
-
-    const openNext =
-    document.getElementById("openNext");
-
-
-    if(openNext){
-
-        openNext.onclick =
-        () => go(next);
-
-    }
-
-
-    const finalButton =
-    document.getElementById("final");
-
-
-    if(finalButton){
-
-        finalButton.onclick =
-        final25;
-
-    }
-
+    <div class="panel">
+      <button class="btn danger" onclick="resetState()">
+        RESET COMPLETO
+      </button>
+    </div>
+  `);
 }
 
-
-/* =========================================================
-   NAVIGAZIONE
-========================================================= */
-
-function go(n){
-
-    if(!levelUnlocked(n)){
-
-        dashboard();
-
-        return;
-
-    }
-
-
-    const levels = [
-
-        null,
-
-        level1,
-        level2,
-        level3,
-        level4,
-        level5,
-        level6,
-        level7,
-        level8
-
-    ];
-
-
-    if(levels[n]){
-
-        levels[n]();
-
-    }
-
+function doneCountText(){
+  const n=[1,2,3,4,5,6,7,8].filter(isCompleted).length;
+  return `${n}/8 fascicoli completati`;
 }
 
+function dossierHomeCard(n){
+  const unlocked=levelUnlocked(n);
+  const done=isCompleted(n);
 
-/* =========================================================
-   FINE LIVELLO
-========================================================= */
-
-function finish(
-    n,
-    reward,
-    nextText
-){
-
-    completeLevel(n);
-
-
-    A.innerHTML =
-    box(
-
-        `LIVELLO ${String(n).padStart(2,"0")} COMPLETATO`,
-
-        `
-
-        <div class="center">
-
-            <div class="ok big">
-                DOSSIER CHIUSO
-            </div>
-
-            <hr>
-
-            <p>
-                ${reward}
-            </p>
-
-            <hr>
-
-            <p class="muted">
-                ${nextText}
-            </p>
-
-            ${btn(
-                "back",
-                "TORNA AL FASCICOLO"
-            )}
-
-        </div>
-
-        `
-
-    );
-
-
-    document
-    .getElementById("back")
-    .onclick =
-    dashboard;
-
+  return `
+    <div class="dossier-card ${!unlocked?"locked":""}">
+      <div class="dossier-number">DOSSIER ${String(n).padStart(2,"0")}</div>
+      <div class="dossier-title">
+        ${done ? "✓ COMPLETATO" : unlocked ? "DISPONIBILE" : "NON DISPONIBILE"}
+      </div>
+      ${
+        unlocked
+        ? `<button class="btn" onclick="openLevel(${n})">
+             ${done?"RIAPRI":"APRIRE"}
+           </button>`
+        : `<div class="small" style="margin-top:7px">
+             Completa prima il dossier ${String(n-1).padStart(2,"0")}.
+           </div>`
+      }
+    </div>
+  `;
 }
 
+/* =========================================================
+   ROUTING
+   ========================================================= */
+
+function openLevel(n){
+  if(!levelUnlocked(n)){
+    alert("Questo fascicolo non è ancora disponibile.");
+    return;
+  }
+
+  if(n===1) level1();
+  if(n===2) level2();
+  if(n===3) level3();
+  if(n===4) level4();
+  if(n===5) level5();
+  if(n===6) level6();
+  if(n===7) level7();
+  if(n===8) level8();
+  if(n===9) final25();
+}
+
+function backHome(){
+  home();
+}
 
 /* =========================================================
-   DOSSIER 01
-   ARCHIVIO
-========================================================= */
+   DOSSIER 01 — ARCHIVIO
+   ========================================================= */
 
 function level1(){
+  let solved=isCompleted(1);
 
-    A.innerHTML =
-    box(
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 01</div>
+      <h2>ARCHIVIO 4729</h2>
 
-        "01 · ARCHIVIO",
+      <p>
+        Quattro elementi sono stati lasciati nell'archivio.
+        L'ordine corretto non è quello apparente.
+      </p>
 
-        `
+      <div class="codebox">B · D · A · C</div>
 
-        <p>
-            Quattro fascicoli.
-            Uno solo è nell'ordine corretto.
-        </p>
+      <div class="small">
+        Inserisci la sequenza nell'ordine corretto.
+      </div>
 
-        <div class="grid">
+      <input id="l1input" maxlength="4" placeholder="es. BDAC" autocomplete="off">
 
-            <div class="tile">
+      <button class="btn primary" onclick="checkL1()">
+        VERIFICA
+      </button>
 
-                <b>A</b>
+      <div id="l1status"></div>
+    </div>
 
-                Ricevuto dopo B,
-                prima di C.
-
-            </div>
-
-
-            <div class="tile">
-
-                <b>B</b>
-
-                È il primo fascicolo.
-
-            </div>
-
-
-            <div class="tile">
-
-                <b>C</b>
-
-                È immediatamente dopo A.
-
-            </div>
-
-
-            <div class="tile">
-
-                <b>D</b>
-
-                È immediatamente prima di A.
-
-            </div>
-
+    ${
+      solved
+      ? `
+        <div class="panel">
+          <h2>Reperto estratto</h2>
+          <div class="codebox">4271</div>
+          <div class="badges">
+            <span class="badge gold">E</span>
+            <span class="badge gold">AP</span>
+          </div>
         </div>
+      `
+      :""
+    }
 
-
-        <p class="muted">
-            Inserisci le quattro lettere
-            nell'ordine corretto.
-        </p>
-
-
-        ${input(
-            "l1",
-            "es. BDAC"
-        )}
-
-
-        ${btn(
-            "c1",
-            "VERIFICA"
-        )}
-
-
-        <div id="r1"></div>
-
-        `
-
-    );
-
-
-    document
-    .getElementById("c1")
-    .onclick = () => {
-
-        const v =
-        norm(
-            document
-            .getElementById("l1")
-            .value
-        )
-        .replace(/\s/g,"");
-
-
-        if(v !== "bdac"){
-
-            r1.innerHTML = `
-
-            <p class="danger">
-                ORDINE ERRATO.
-            </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        r1.innerHTML =
-        box(
-
-            "ESTRAZIONE",
-
-            `
-
-            <p>
-                Dal fascicolo compaiono
-                nove posizioni:
-            </p>
-
-            <p class="mono">
-                8 4 2 7 9 1 5 3 6
-            </p>
-
-            <p>
-                Il rapporto indica:
-                <b>2 · 4 · 9 · 7</b>
-            </p>
-
-            ${input(
-                "l1b",
-                "estrazione"
-            )}
-
-            ${btn(
-                "c1b",
-                "ESTRAI"
-            )}
-
-            <div id="r1b"></div>
-
-            `
-
-        );
-
-
-        document
-        .getElementById("c1b")
-        .onclick = () => {
-
-            const x =
-            norm(
-                document
-                .getElementById("l1b")
-                .value
-            )
-            .replace(/\s/g,"");
-
-
-            if(x !== "4271"){
-
-                r1b.innerHTML = `
-
-                <p class="danger">
-                    ESTRAZIONE ERRATA.
-                </p>
-
-                `;
-
-                return;
-
-            }
-
-
-            addItem("E");
-
-            addItem("AP");
-
-
-            finish(
-
-                1,
-
-                `
-
-                Trasferimento registrato:
-                <b>42</b>.
-
-                <br><br>
-
-                REPERTO ACQUISITO:
-                <b>E</b>
-
-                <br><br>
-
-                FRAMMENTO DIGITALE:
-                <b>AP</b>
-
-                `,
-
-                `
-
-                Conserva il reperto E.
-                Il frammento AP rimane
-                nell'inventario digitale.
-
-                `
-
-            );
-
-        };
-
-    };
-
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 }
 
+function checkL1(){
+  const v=document.getElementById("l1input").value.trim().toUpperCase();
+  const box=document.getElementById("l1status");
+
+  if(v==="BDAC"){
+    addItem("E");
+    addItem("AP");
+    completeLevel(1);
+
+    box.innerHTML=`
+      <div class="status success">
+        SEQUENZA CORRETTA.<br><br>
+        Codice estratto: <strong>4271</strong><br>
+        Reperti acquisiti: <strong>E</strong> e <strong>AP</strong>.
+      </div>
+      <button class="btn" onclick="level1()">CONTINUA</button>
+    `;
+  }else{
+    box.innerHTML=`<div class="status error">Sequenza errata.</div>`;
+  }
+}
 
 /* =========================================================
-   DOSSIER 02
-   AUDIO + BINGO
-========================================================= */
+   DOSSIER 02 — CADUTA / AUDIO / BINGO
+   ========================================================= */
 
 function level2(){
+  if(!hasItem("E")) return blocked();
 
-    if(!hasItem("E")){
+  const solved=isCompleted(2);
 
-        dashboard();
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 02</div>
+      <h2>LA CADUTA</h2>
 
-        return;
+      <p>
+        Il secondo fascicolo contiene una registrazione.
+        Ascolta attentamente.
+      </p>
 
+      <div class="audio-box">
+        <button class="play" onclick="playAudio()">▶</button>
+        <div class="small" style="margin-top:10px">
+          REGISTRAZIONE AUDIO
+        </div>
+      </div>
+
+      <div id="audioText"></div>
+    </div>
+
+    <div class="panel">
+      <h2>La stanza</h2>
+
+      <p class="small">
+        Una sola figura è rimasta impressa nella registrazione.
+        Individua il simbolo corretto.
+      </p>
+
+      <div class="grid">
+        <button class="choice" onclick="chooseSuit(this,'♥')">♥</button>
+        <button class="choice" onclick="chooseSuit(this,'♣')">♣</button>
+        <button class="choice" onclick="chooseSuit(this,'♠')">♠</button>
+        <button class="choice" onclick="chooseSuit(this,'♦')">♦</button>
+      </div>
+
+      <div id="suitStatus"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Bingo</h2>
+
+      <p class="small">
+        Marca i quattro numeri indicati dal fascicolo:
+        <strong>1 · 13 · 19 · 25</strong>
+      </p>
+
+      <div class="bingo" id="bingoGrid"></div>
+
+      <button class="btn primary" onclick="checkBingo()">
+        VERIFICA BINGO
+      </button>
+
+      <div id="bingoStatus"></div>
+    </div>
+
+    ${
+      solved
+      ? `
+      <div class="panel">
+        <h2>Reperti acquisiti</h2>
+        <div class="badges">
+          <span class="badge gold">♠</span>
+          <span class="badge gold">RI</span>
+        </div>
+      </div>
+      `
+      :""
     }
 
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 
-    A.innerHTML =
-    box(
-
-        "02 · LA STANZA",
-
-        `
-
-        <p>
-            Il reperto E è stato riconosciuto.
-        </p>
-
-        <p>
-            Prima di continuare,
-            ascolta il messaggio del BANCO.
-        </p>
-
-
-        ${btn(
-            "audio",
-            "▶ ASCOLTA MESSAGGIO"
-        )}
-
-
-        <div id="audioText"></div>
-
-
-        <hr>
-
-
-        <p>
-            Il rapporto dice:
-        </p>
-
-        <p>
-            <b>
-            "Non guardare ciò che è scritto.
-            Guarda ciò che indica."
-            </b>
-        </p>
-
-
-        <div class="grid">
-
-            <div class="tile">
-                <b>OROLOGIO</b>
-                12:00
-            </div>
-
-            <div class="tile">
-                <b>RADIO</b>
-                Frequenza 91.4
-            </div>
-
-            <div class="tile">
-                <b>QUADRO</b>
-                Un re senza corona.
-            </div>
-
-            <div class="tile">
-                <b>LIBRI</b>
-                Scaffale 4 · libro 7
-            </div>
-
-            <div class="tile">
-                <b>CASSETTO</b>
-                Vuoto.
-            </div>
-
-            <div class="tile">
-                <b>CASSAFORTE</b>
-                Chiede un simbolo.
-            </div>
-
-        </div>
-
-
-        <p>
-            Quale simbolo devi inserire?
-        </p>
-
-
-        ${input(
-            "l2",
-            "simbolo"
-        )}
-
-
-        ${btn(
-            "c2",
-            "INSERISCI"
-        )}
-
-
-        <div id="r2"></div>
-
-        `
-
-    );
-
-
-    document
-    .getElementById("audio")
-    .onclick = () => {
-
-        const text =
-        "Il banco non guarda ciò che è scritto. Guarda ciò che indica. La risposta è già nella stanza.";
-
-
-        audioText.innerHTML = `
-
-        <p class="ok">
-            MESSAGGIO RIPRODOTTO.
-        </p>
-
-        `;
-
-
-        if(
-            "speechSynthesis"
-            in window
-        ){
-
-            speechSynthesis.cancel();
-
-            const speech =
-            new SpeechSynthesisUtterance(
-                text
-            );
-
-            speech.lang =
-            "it-IT";
-
-            speech.rate =
-            0.9;
-
-            speechSynthesis.speak(
-                speech
-            );
-
-        }
-
-    };
-
-
-    document
-    .getElementById("c2")
-    .onclick = () => {
-
-        const v =
-        norm(
-            document
-            .getElementById("l2")
-            .value
-        );
-
-
-        if(
-            v !== "♠" &&
-            v !== "picche"
-        ){
-
-            r2.innerHTML = `
-
-            <p class="danger">
-                IL SIMBOLO NON APRE LA CASSAFORTE.
-            </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        r2.innerHTML =
-        box(
-
-            "TERMINALE BINGO",
-
-            `
-
-            <p>
-                Il simbolo <b>♠</b>
-                viene trasferito.
-            </p>
-
-            <p>
-                Completa la combinazione:
-                <b>1 · 13 · 19 · 25</b>
-            </p>
-
-
-            <div class="bingo">
-
-                ${
-                    [
-                        5,1,7,9,3,
-                        12,8,4,10,6,
-                        11,2,14,15,13,
-                        16,17,18,19,20,
-                        21,22,23,24,25
-                    ]
-                    .map(n => `
-
-                        <button
-                            data-bingo="${n}"
-                        >
-                            ${n}
-                        </button>
-
-                    `)
-                    .join("")
-                }
-
-            </div>
-
-
-            <div id="rb"></div>
-
-            `
-
-        );
-
-
-        let marked = [];
-
-
-        document
-        .querySelectorAll(
-            "[data-bingo]"
-        )
-        .forEach(button => {
-
-            button.onclick = () => {
-
-                const n =
-                Number(
-                    button.dataset.bingo
-                );
-
-
-                if(!marked.includes(n)){
-
-                    marked.push(n);
-
-                    button.classList.add(
-                        "mark"
-                    );
-
-                }
-
-
-                if(
-                    [1,13,19,25]
-                    .every(
-                        x =>
-                        marked.includes(x)
-                    )
-                ){
-
-                    addItem("♠");
-
-                    addItem("RI");
-
-
-                    rb.innerHTML = `
-
-                    <p class="ok">
-                        LINEA COMPLETA.
-                    </p>
-
-                    ${btn(
-                        "done2",
-                        "CHIUDI DOSSIER"
-                    )}
-
-                    `;
-
-
-                    document
-                    .getElementById("done2")
-                    .onclick = () => {
-
-                        finish(
-
-                            2,
-
-                            `
-
-                            REPERTO:
-                            <b>♠</b>
-
-                            <br><br>
-
-                            FRAMMENTO:
-                            <b>RI</b>
-
-                            `,
-
-                            `
-
-                            Il simbolo ♠
-                            passa al dossier 03.
-
-                            `
-
-                        );
-
-                    };
-
-                }
-
-            };
-
-        });
-
-    };
-
+  createBingo();
 }
 
+let bingoMarked=[];
+
+function createBingo(){
+  const nums=[
+    1,2,3,4,5,
+    6,7,8,9,10,
+    11,12,13,14,15,
+    16,17,18,19,20,
+    21,22,23,24,25
+  ];
+
+  bingoMarked=[];
+
+  document.getElementById("bingoGrid").innerHTML=
+    nums.map(n=>`
+      <button onclick="markBingo(${n},this)">${n}</button>
+    `).join("");
+}
+
+function markBingo(n,el){
+  if(!bingoMarked.includes(n)){
+    bingoMarked.push(n);
+    el.classList.add("marked");
+  }
+}
+
+function checkBingo(){
+  const needed=[1,13,19,25];
+  const ok=needed.every(n=>bingoMarked.includes(n));
+  const box=document.getElementById("bingoStatus");
+
+  if(ok){
+    box.innerHTML=`
+      <div class="status success">
+        BINGO COMPLETATO. Il simbolo individuato è ♠.
+      </div>
+    `;
+    addItem("♠");
+    addItem("RI");
+    completeLevel(2);
+
+    setTimeout(level2,500);
+  }else{
+    box.innerHTML=`
+      <div class="status error">
+        Mancano ancora alcuni numeri.
+      </div>
+    `;
+  }
+}
+
+function chooseSuit(el,value){
+  document.querySelectorAll(".choice").forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");
+
+  const box=document.getElementById("suitStatus");
+
+  if(value==="♠"){
+    box.innerHTML=`
+      <div class="status success">
+        FIGURA CORRETTA: ♠
+      </div>
+    `;
+  }else{
+    box.innerHTML=`
+      <div class="status error">
+        Non è questa la figura.
+      </div>
+    `;
+  }
+}
+
+function playAudio(){
+  const text=
+    "Ascolta. Non cercare ciò che cade. Cerca ciò che rimane. Quattro numeri sono nascosti nella sequenza. Quando la scheda sarà completa, osserva il simbolo lasciato sul tavolo.";
+
+  if("speechSynthesis" in window){
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang="it-IT";
+    u.rate=.9;
+    speechSynthesis.speak(u);
+  }
+
+  document.getElementById("audioText").innerHTML=`
+    <div class="status">
+      La registrazione è stata riprodotta.
+    </div>
+  `;
+}
 
 /* =========================================================
-   DOSSIER 03
-   PIANOFORTE
-========================================================= */
+   DOSSIER 03 — PIANOFORTE
+   ========================================================= */
 
 function level3(){
+  if(!hasItem("♠")) return blocked();
 
-    if(!hasItem("♠")){
+  const solved=isCompleted(3);
 
-        dashboard();
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 03</div>
+      <h2>IL PIANOFORTE</h2>
 
-        return;
+      <p>
+        La sequenza non va letta.
+        Va suonata.
+      </p>
 
-    }
+      <div class="piano">
+        ${["C","D","E","F","G","A","B","C","D","E"].map((x,i)=>`
+          <button class="key" onclick="pressPiano('${x}',${i})">
+            ${x}
+          </button>
+        `).join("")}
+      </div>
 
+      <div class="sequence" id="pianoSequence"></div>
 
-    const sequence = [];
+      <button class="btn primary" onclick="checkPiano()">
+        VERIFICA SEQUENZA
+      </button>
 
-    const keys =
-    ["C","A","D","E","E","A"];
+      <div id="pianoStatus"></div>
+    </div>
 
-
-    A.innerHTML =
-    box(
-
-        "03 · IL PIANOFORTE",
-
-        `
-
-        <p>
-            Il simbolo <b>♠</b>
-            autorizza il tavolo.
-        </p>
-
-        <p>
-            Il reperto E deve essere
-            riconosciuto prima di poter
-            completare la sequenza.
-        </p>
-
-        <div class="grid4">
-
-            ${
-                ["A","B","C","D","E","F","G"]
-                .map(k => `
-
-                    <button
-                        class="dark piano"
-                        data-key="${k}"
-                    >
-                        ${k}
-                    </button>
-
-                `)
-                .join("")
-            }
-
+    ${
+      solved
+      ?`
+      <div class="panel">
+        <h2>Reperti acquisiti</h2>
+        <div class="badges">
+          <span class="badge gold">26</span>
+          <span class="badge gold">LA</span>
         </div>
+      </div>
+      `
+      :""
+    }
 
-
-        <p class="mono" id="pianoSequence">
-            —
-        </p>
-
-
-        ${btn(
-            "clearPiano",
-            "CANCELLA",
-            "dark"
-        )}
-
-
-        ${btn(
-            "confirmPiano",
-            "CONFERMA"
-        )}
-
-
-        <div id="r3"></div>
-
-        `
-
-    );
-
-
-    document
-    .querySelectorAll(".piano")
-    .forEach(button => {
-
-        button.onclick = () => {
-
-            if(sequence.length >= 6)
-                return;
-
-            sequence.push(
-                button.dataset.key
-            );
-
-            document
-            .getElementById(
-                "pianoSequence"
-            )
-            .textContent =
-            sequence.join(" · ");
-
-        };
-
-    });
-
-
-    document
-    .getElementById("clearPiano")
-    .onclick = () => {
-
-        sequence.length = 0;
-
-        document
-        .getElementById(
-            "pianoSequence"
-        )
-        .textContent = "—";
-
-    };
-
-
-    document
-    .getElementById("confirmPiano")
-    .onclick = () => {
-
-        const result =
-        sequence.join("");
-
-
-        if(result !== "CADEEA"){
-
-            r3.innerHTML = `
-
-            <p class="danger">
-                SEQUENZA ERRATA.
-            </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        addItem("26");
-
-        addItem("LA");
-
-
-        finish(
-
-            3,
-
-            `
-
-            Il pianoforte registra:
-            <b>26</b>.
-
-            <br><br>
-
-            FRAMMENTO:
-            <b>LA</b>
-
-            `,
-
-            `
-
-            Il numero 26
-            viene trasferito
-            al dossier 04.
-
-            `
-
-        );
-
-    };
-
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 }
 
+let pianoPressed=[];
 
-/* =========================================================
-   DOSSIER 04
-   MASTERMIND
-========================================================= */
+function pressPiano(note,index){
+  if(pianoPressed.length>=6) return;
 
-function level4(){
+  pianoPressed.push(note);
 
-    if(!hasItem("26")){
+  const box=document.getElementById("pianoSequence");
+  box.innerHTML=pianoPressed.map(x=>`<span>${x}</span>`).join("");
 
-        dashboard();
+  if("AudioContext" in window){
+    try{
+      const ctx=new AudioContext();
+      const osc=ctx.createOscillator();
+      const gain=ctx.createGain();
 
-        return;
+      const frequencies={
+        C:261.63,D:293.66,E:329.63,F:349.23,G:392,A:440,B:493.88
+      };
 
-    }
+      osc.frequency.value=frequencies[note];
+      osc.type="sine";
+      gain.gain.value=.06;
 
+      osc.connect(gain);
+      gain.connect(ctx.destination);
 
-    A.innerHTML =
-    box(
-
-        "04 · TERMINALE CORROTTO",
-
-        `
-
-        <p class="danger mono">
-            SIGNAL LOST...
-        </p>
-
-        <p>
-            Il pannello è danneggiato.
-            Alcune righe risultano corrotte.
-        </p>
-
-
-        <div class="alert mono">
-
-            6821 → 2 CIFRE PRESENTI:
-            1 ESATTA · 1 POSIZIONE ERRATA
-
-            <br><br>
-
-            6147 → 1 CIFRA PRESENTE:
-            POSIZIONE ERRATA
-
-            <br><br>
-
-            2069 → NESSUNA CIFRA PRESENTE
-
-            <br><br>
-
-            7382 → 2 CIFRE PRESENTI:
-            ENTRAMBE POSIZIONE ERRATA
-
-            <br><br>
-
-            7801 → 2 CIFRE PRESENTI:
-            1 ESATTA · 1 POSIZIONE ERRATA
-
-        </div>
-
-
-        <p>
-            Quattro cifre.
-            Nessuna cifra si ripete.
-        </p>
-
-
-        ${input(
-            "l4",
-            "codice a 4 cifre"
-        )}
-
-
-        ${btn(
-            "c4",
-            "SBLOCCA"
-        )}
-
-
-        <div id="r4"></div>
-
-        `
-
-    );
-
-
-    document
-    .getElementById("c4")
-    .onclick = () => {
-
-        const v =
-        document
-        .getElementById("l4")
-        .value
-        .trim();
-
-
-        if(v !== "8531"){
-
-            r4.innerHTML = `
-
-            <p class="danger">
-                CODICE ERRATO.
-            </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        addItem("8531");
-
-        addItem("BU");
-
-
-        finish(
-
-            4,
-
-            `
-
-            PANNELLO SBLOCCATO.
-
-            <br><br>
-
-            CODICE:
-            <b>8531</b>
-
-            <br><br>
-
-            FRAMMENTO:
-            <b>BU</b>
-
-            `,
-
-            `
-
-            Il codice viene trasferito
-            al dossier 05.
-
-            `
-
-        );
-
-    };
-
+      osc.start();
+      osc.stop(ctx.currentTime+.22);
+    }catch(e){}
+  }
 }
 
-
-/* =========================================================
-   DOSSIER 05
-   GRATTA E VINCI
-========================================================= */
-
-
-/*
-   CODICE TEMPORANEO DEL BIGLIETTO.
-
-   Quando prepariamo quello fisico,
-   questo valore verrà sostituito
-   con il codice definitivo.
-*/
-
-const SCRATCH_CODE =
-"BANCO-2510";
-
-
-function createScratch(){
-
-    const canvas =
-    document.getElementById(
-        "scratchCanvas"
-    );
-
-    const ctx =
-    canvas.getContext("2d");
-
-
-    function resize(){
-
-        canvas.width =
-        canvas.clientWidth;
-
-        canvas.height =
-        canvas.clientHeight;
-
-
-        ctx.globalCompositeOperation =
-        "source-over";
-
-
-        ctx.fillStyle =
-        "#777";
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        ctx.fillStyle =
-        "#ddd";
-
-        ctx.font =
-        "bold 18px Arial";
-
-        ctx.textAlign =
-        "center";
-
-        ctx.fillText(
-            "GRATTA QUI",
-            canvas.width / 2,
-            canvas.height / 2
-        );
-
-    }
-
-
-    resize();
-
-
-    let drawing = false;
-
-
-    function scratch(e){
-
-        if(!drawing)
-            return;
-
-
-        const rect =
-        canvas.getBoundingClientRect();
-
-
-        const x =
-        e.clientX - rect.left;
-
-        const y =
-        e.clientY - rect.top;
-
-
-        ctx.globalCompositeOperation =
-        "destination-out";
-
-
-        ctx.beginPath();
-
-        ctx.arc(
-            x,
-            y,
-            20,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-    }
-
-
-    canvas.addEventListener(
-        "pointerdown",
-        e => {
-
-            drawing = true;
-
-            scratch(e);
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "pointermove",
-        scratch
-    );
-
-
-    canvas.addEventListener(
-        "pointerup",
-        () => {
-
-            drawing = false;
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "pointercancel",
-        () => {
-
-            drawing = false;
-
-        }
-    );
-
-}
-
-
-function level5(){
-
-    if(!hasItem("8531")){
-
-        dashboard();
-
-        return;
-
-    }
-
-
-    A.innerHTML =
-    box(
-
-        "05 · IL GRATTA E VINCI",
-
-        `
-
-        <p>
-            Il codice <b>8531</b>
-            apre il registro del banco.
-        </p>
-
-
-        <p>
-            Ora serve il reperto fisico
-            consegnato con questo dossier.
-        </p>
-
-
-        <div class="scratch">
-
-            <div class="scratch-code">
-
-                <b>
-                    CODICE NASCOSTO:
-                    ${SCRATCH_CODE}
-                </b>
-
-                <span class="muted small">
-                    Scopri il codice.
-                </span>
-
-            </div>
-
-
-            <canvas
-                id="scratchCanvas"
-            ></canvas>
-
-        </div>
-
-
-        <p>
-            Sul biglietto fisico
-            troverai il codice a barre
-            che dovrà essere verificato
-            nella versione definitiva.
-        </p>
-
-
-        <div class="barcode">
-
-            ${
-                [
-                    3,8,2,6,4,9,
-                    2,7,5,3,8,1,
-                    6,4,9,2,5,7,
-                    3,8,4,6,2,9
-                ]
-                .map(
-                    x =>
-                    `<span
-                        style="
-                        width:${x%3+1}px;
-                        height:${45+(x%3)*8}px
-                        "
-                    ></span>`
-                )
-                .join("")
-            }
-
-        </div>
-
-
-        ${input(
-            "l5",
-            "codice del gratta e vinci"
-        )}
-
-
-        ${btn(
-            "c5",
-            "VALIDA"
-        )}
-
-
-        <div id="r5"></div>
-
-        `
-
-    );
-
-
-    createScratch();
-
-
-    document
-    .getElementById("c5")
-    .onclick = () => {
-
-        const v =
-        document
-        .getElementById("l5")
-        .value
-        .trim()
-        .toUpperCase();
-
-
-        if(v !== SCRATCH_CODE){
-
-            r5.innerHTML = `
-
-            <p class="danger">
-                CODICE NON VALIDO.
-            </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        state.scratch = true;
-
-
-        addItem("FISH 1");
-
-        addItem("FISH 5");
-
-        addItem("FISH 10");
-
-        addItem("FISH 25");
-
-        addItem("ST");
-
-
-        finish(
-
-            5,
-
-            `
-
-            GRATTA E VINCI
-            AUTORIZZATO.
-
-            <br><br>
-
-            FISH:
-
-            <b>
-            1 · 5 · 10 · 25
-            </b>
-
-            <br><br>
-
-            FRAMMENTO:
-            <b>ST</b>
-
-            `,
-
-            `
-
-            Le fish fisiche
-            saranno utilizzate
-            nel gioco del BANCO.
-
-            `
-
-        );
-
-    };
-
-}
-
-
-/* =========================================================
-   DOSSIER 06
-   BLACKJACK
-========================================================= */
-
-const SUITS =
-["♠","♥","♦","♣"];
-
-const RANKS =
-[
-    "A",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "J",
-    "Q",
-    "K"
-];
-
-
-function createDeck(){
-
-    let deck = [];
-
-
-    for(const suit of SUITS){
-
-        for(const rank of RANKS){
-
-            deck.push({
-                suit,
-                rank
-            });
-
-        }
-
-    }
-
-
-    for(
-        let i=deck.length-1;
-        i>0;
-        i--
-    ){
-
-        const j =
-        Math.floor(
-            Math.random()*(i+1)
-        );
-
-
-        [
-            deck[i],
-            deck[j]
-        ] =
-        [
-            deck[j],
-            deck[i]
-        ];
-
-    }
-
-
-    return deck;
-
-}
-
-
-function cardValue(cards){
-
-    let total = 0;
-
-    let aces = 0;
-
-
-    cards.forEach(card => {
-
-        if(card.rank === "A"){
-
-            total += 11;
-
-            aces++;
-
-        }
-
-        else if(
-            ["J","Q","K"]
-            .includes(card.rank)
-        ){
-
-            total += 10;
-
-        }
-
-        else{
-
-            total +=
-            Number(card.rank);
-
-        }
-
-    });
-
-
-    while(
-        total > 21 &&
-        aces > 0
-    ){
-
-        total -= 10;
-
-        aces--;
-
-    }
-
-
-    return total;
-
-}
-
-
-function cardHTML(card){
-
-    const red =
-    card.suit === "♥" ||
-    card.suit === "♦";
-
-
-    return `
-
-    <span class="
-        mini-card
-        ${red ? "red" : ""}
-    ">
-
-        ${card.rank}${card.suit}
-
-    </span>
-
+function checkPiano(){
+  const target=["C","A","D","E","E","A"];
+  const ok=pianoPressed.join("")===target.join("");
+  const box=document.getElementById("pianoStatus");
+
+  if(ok){
+    addItem("26");
+    addItem("LA");
+    completeLevel(3);
+
+    box.innerHTML=`
+      <div class="status success">
+        SEQUENZA CORRETTA.<br>
+        Numero estratto: <strong>26</strong>.
+      </div>
     `;
 
+    setTimeout(level3,600);
+  }else{
+    box.innerHTML=`
+      <div class="status error">
+        Sequenza errata. Riascolta il fascicolo.
+      </div>
+    `;
+    pianoPressed=[];
+  }
 }
 
+/* =========================================================
+   DOSSIER 04 — MASTERMIND
+   ========================================================= */
+
+function level4(){
+  if(!hasItem("26")) return blocked();
+
+  const solved=isCompleted(4);
+
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 04</div>
+      <h2>SEGNALE CORROTTO</h2>
+
+      <p>
+        Lo schermo presenta dati corrotti.
+        Solo una combinazione sopravvive.
+      </p>
+
+      <div id="glitchPanel" class="codebox">
+        8 5 3 1
+      </div>
+
+      <p class="small">
+        Mastermind: trova il codice a quattro cifre.
+        Le cifre non si ripetono.
+      </p>
+
+      <div class="mastermind">
+        <div class="mmrow">
+          <input id="mm1" maxlength="4" inputmode="numeric" placeholder="6821">
+        </div>
+        <div class="mmrow">
+          <input id="mm2" maxlength="4" inputmode="numeric" placeholder="6147">
+        </div>
+        <div class="mmrow">
+          <input id="mm3" maxlength="4" inputmode="numeric" placeholder="2069">
+        </div>
+        <div class="mmrow">
+          <input id="mm4" maxlength="4" inputmode="numeric" placeholder="7382">
+        </div>
+        <div class="mmrow">
+          <input id="mm5" maxlength="4" inputmode="numeric" placeholder="7801">
+        </div>
+      </div>
+
+      <button class="btn primary" onclick="checkMastermind()">
+        ANALIZZA
+      </button>
+
+      <div id="mmStatus"></div>
+    </div>
+
+    ${
+      solved
+      ?`
+      <div class="panel">
+        <h2>Codice ottenuto</h2>
+        <div class="codebox">8531</div>
+        <div class="badges">
+          <span class="badge gold">8531</span>
+        </div>
+      </div>
+      `
+      :""
+    }
+
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
+}
+
+function checkMastermind(){
+  const guesses=[
+    document.getElementById("mm1").value.trim(),
+    document.getElementById("mm2").value.trim(),
+    document.getElementById("mm3").value.trim(),
+    document.getElementById("mm4").value.trim(),
+    document.getElementById("mm5").value.trim()
+  ];
+
+  const target="8531";
+
+  const required=["6821","6147","2069","7382","7801"];
+
+  if(guesses.join("|")!==required.join("|")){
+    document.getElementById("mmStatus").innerHTML=`
+      <div class="status error">
+        Analisi incompleta. Inserisci le cinque sequenze indicate
+        nell'ordine corretto.
+      </div>
+    `;
+    return;
+  }
+
+  document.getElementById("mmStatus").innerHTML=`
+    <div class="status success">
+      ANALISI COMPLETATA.<br><br>
+      6821 → 2 presenti · 1 posizione esatta<br>
+      6147 → 1 presente · posizione errata<br>
+      2069 → nessuna cifra presente<br>
+      7382 → 2 presenti · entrambe in posizione errata<br>
+      7801 → 2 presenti · 1 posizione esatta<br><br>
+      <strong>CODICE: 8531</strong>
+    </div>
+  `;
+
+  addItem("8531");
+  completeLevel(4);
+
+  const panel=document.getElementById("glitchPanel");
+  panel.classList.add("corrupt");
+
+  setTimeout(level4,900);
+}
+
+/* =========================================================
+   DOSSIER 05 — GRATTA + BARCODE
+   ========================================================= */
+
+const SCRATCH_CODE="OP25-05-8531";
+
+function level5(){
+  if(!hasItem("8531")) return blocked();
+
+  const solved=isCompleted(5);
+
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 05</div>
+      <h2>IL BIGLIETTO</h2>
+
+      <p>
+        Hai trovato un biglietto apparentemente vuoto.
+        Gratta la superficie.
+      </p>
+
+      <div class="scratch-area" id="scratchArea">
+        <div class="scratch-reveal">
+          <div>
+            CODICE DI VERIFICA<br><br>
+            <strong>${SCRATCH_CODE}</strong>
+          </div>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+
+      <div class="small center">
+        Usa il dito per rimuovere la superficie.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Verifica del reperto</h2>
+
+      <p class="small">
+        Il codice appena scoperto deve essere verificato
+        tramite il lettore.
+      </p>
+
+      <button class="btn primary" onclick="startScanner()">
+        APRI LETTORE QR / BARCODE
+      </button>
+
+      <div class="scanner hidden" id="scannerBox">
+        <div id="reader"></div>
+      </div>
+
+      <input id="barcodeManual"
+             placeholder="Inserisci il codice manualmente"
+             autocomplete="off">
+
+      <button class="btn" onclick="verifyBarcode(
+        document.getElementById('barcodeManual').value
+      )">
+        VERIFICA CODICE
+      </button>
+
+      <div id="barcodeStatus"></div>
+    </div>
+
+    ${
+      solved
+      ?`
+      <div class="panel">
+        <h2>Reperti acquisiti</h2>
+        <div class="badges">
+          <span class="badge gold">1</span>
+          <span class="badge gold">5</span>
+          <span class="badge gold">10</span>
+          <span class="badge gold">25</span>
+          <span class="badge gold">ST</span>
+        </div>
+      </div>
+      `
+      :""
+    }
+
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
+
+  setupScratch();
+}
+
+function setupScratch(){
+  const canvas=document.getElementById("scratchCanvas");
+  if(!canvas) return;
+
+  const rect=canvas.getBoundingClientRect();
+  const dpr=window.devicePixelRatio||1;
+
+  canvas.width=rect.width*dpr;
+  canvas.height=rect.height*dpr;
+
+  const ctx=canvas.getContext("2d");
+  ctx.scale(dpr,dpr);
+
+  ctx.fillStyle="#969696";
+  ctx.fillRect(0,0,rect.width,rect.height);
+
+  ctx.fillStyle="#bcbcbc";
+  for(let i=0;i<120;i++){
+    ctx.beginPath();
+    ctx.arc(
+      Math.random()*rect.width,
+      Math.random()*rect.height,
+      1+Math.random()*2,
+      0,
+      Math.PI*2
+    );
+    ctx.fill();
+  }
+
+  let drawing=false;
+
+  function scratch(e){
+    if(!drawing) return;
+
+    const r=canvas.getBoundingClientRect();
+
+    let x,y;
+
+    if(e.touches){
+      x=e.touches[0].clientX-r.left;
+      y=e.touches[0].clientY-r.top;
+    }else{
+      x=e.clientX-r.left;
+      y=e.clientY-r.top;
+    }
+
+    ctx.globalCompositeOperation="destination-out";
+    ctx.beginPath();
+    ctx.arc(x,y,20,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  canvas.addEventListener("pointerdown",e=>{
+    drawing=true;
+    scratch(e);
+  });
+
+  canvas.addEventListener("pointermove",scratch);
+  canvas.addEventListener("pointerup",()=>drawing=false);
+  canvas.addEventListener("pointerleave",()=>drawing=false);
+
+  canvas.addEventListener("touchstart",e=>{
+    drawing=true;
+    scratch(e);
+  },{passive:false});
+
+  canvas.addEventListener("touchmove",e=>{
+    e.preventDefault();
+    scratch(e);
+  },{passive:false});
+
+  canvas.addEventListener("touchend",()=>drawing=false);
+}
+
+/* html5-qrcode is loaded only when the scanner is requested */
+let qrScanner=null;
+
+function startScanner(){
+  const box=document.getElementById("scannerBox");
+  box.classList.remove("hidden");
+
+  document.getElementById("reader").innerHTML="";
+
+  if(typeof Html5Qrcode==="undefined"){
+    loadScannerLibrary();
+    return;
+  }
+
+  launchScanner();
+}
+
+function loadScannerLibrary(){
+  const script=document.createElement("script");
+
+  script.src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js";
+
+  script.onload=launchScanner;
+
+  script.onerror=()=>{
+    document.getElementById("barcodeStatus").innerHTML=`
+      <div class="status error">
+        Lettore non disponibile. Usa la verifica manuale.
+      </div>
+    `;
+  };
+
+  document.head.appendChild(script);
+}
+
+function launchScanner(){
+  const reader=document.getElementById("reader");
+
+  if(!reader) return;
+
+  qrScanner=new Html5Qrcode("reader");
+
+  qrScanner.start(
+    {facingMode:"environment"},
+    {
+      fps:10,
+      qrbox:{width:250,height:150}
+    },
+    decodedText=>{
+      verifyBarcode(decodedText);
+
+      try{
+        qrScanner.stop().then(()=>{
+          reader.innerHTML="";
+        });
+      }catch(e){}
+    },
+    errorMessage=>{}
+  ).catch(err=>{
+    document.getElementById("barcodeStatus").innerHTML=`
+      <div class="status error">
+        Impossibile attivare la fotocamera.
+        Puoi comunque inserire il codice manualmente.
+      </div>
+    `;
+  });
+}
+
+function verifyBarcode(value){
+  const clean=String(value||"").trim().toUpperCase();
+  const box=document.getElementById("barcodeStatus");
+
+  if(clean===SCRATCH_CODE){
+    addItem("1");
+    addItem("5");
+    addItem("10");
+    addItem("25");
+    addItem("ST");
+
+    completeLevel(5);
+
+    box.innerHTML=`
+      <div class="status success">
+        CODICE AUTORIZZATO.<br><br>
+        Il Banco consegna i gettoni:
+        <strong>1 · 5 · 10 · 25</strong>
+      </div>
+    `;
+
+    setTimeout(level5,700);
+  }else{
+    box.innerHTML=`
+      <div class="status error">
+        Codice non riconosciuto.
+      </div>
+    `;
+  }
+}
+
+/* =========================================================
+   DOSSIER 06 — BLACKJACK
+   ========================================================= */
+
+let blackjackDeck=[];
+let playerHand=[];
+let dealerHand=[];
+let currentBet=0;
+let blackjackRoundOver=false;
 
 function level6(){
-
-    if(!hasItem("FISH 1")){
-
-        dashboard();
-
-        return;
-
-    }
-
-
-    let deck =
-    createDeck();
-
-
-    let player = [
-        deck.pop(),
-        deck.pop()
-    ];
-
-
-    let dealer = [
-        deck.pop(),
-        deck.pop()
-    ];
-
-
-    let gameOver = false;
-
-    let selectedChip = 0;
-
-
-    function renderBlackjack(){
-
-        A.innerHTML =
-        box(
-
-            "06 · IL BANCO — BLACKJACK",
-
-            `
-
-            <p>
-                Il tavolo è aperto.
-            </p>
-
-            <div class="alert">
-
-                <b>REGOLA:</b>
-
-                <br><br>
-
-                Avvicinati il più possibile
-                a 21 senza superarlo.
-
-                <br><br>
-
-                Il banco pesca fino a 17.
-
-            </div>
-
-
-            <p>
-                <b>
-                LA TUA MANO
-                (${cardValue(player)})
-                </b>
-            </p>
-
-
-            <div class="hand">
-
-                ${
-                    player
-                    .map(cardHTML)
-                    .join("")
-                }
-
-            </div>
-
-
-            <p>
-                <b>BANCO</b>
-            </p>
-
-
-            <div class="hand">
-
-                ${
-                    gameOver
-                    ?
-                    dealer
-                    .map(cardHTML)
-                    .join("")
-                    :
-                    cardHTML(dealer[0]) +
-                    `
-                    <span class="mini-card">
-                        ?
-                    </span>
-                    `
-                }
-
-            </div>
-
-
-            <hr>
-
-
-            <p>
-                Scegli la fish.
-            </p>
-
-
-            <div class="chips">
-
-                ${
-                    [1,5,10,25]
-                    .map(
-                        n => `
-
-                        <button
-                            class="
-                            chip
-                            ${
-                                selectedChip === n
-                                ? "selected"
-                                : ""
-                            }
-                            "
-                            data-chip="${n}"
-                        >
-
-                            ${n}
-
-                        </button>
-
-                        `
-                    )
-                    .join("")
-                }
-
-            </div>
-
-
-            ${
-                gameOver
-                ?
-                btn(
-                    "closeBlackjack",
-                    "CHIUDI LA MANO"
-                )
-                :
-                btn(
-                    "hit",
-                    "HIT"
-                ) +
-
-                btn(
-                    "stand",
-                    "STAND"
-                )
-            }
-
-
-            <div id="bjResult"></div>
-
-            `
-
-        );
-
-
-        document
-        .querySelectorAll(
-            "[data-chip]"
-        )
-        .forEach(button => {
-
-            button.onclick = () => {
-
-                selectedChip =
-                Number(
-                    button.dataset.chip
-                );
-
-                renderBlackjack();
-
-            };
-
-        });
-
-
-        if(!gameOver){
-
-            document
-            .getElementById("hit")
-            .onclick = () => {
-
-                if(!selectedChip){
-
-                    bjResult.innerHTML = `
-
-                    <p class="danger">
-                        Scegli prima una fish.
-                    </p>
-
-                    `;
-
-                    return;
-
-                }
-
-
-                player.push(
-                    deck.pop()
-                );
-
-
-                if(
-                    cardValue(player) >= 21
-                ){
-
-                    finishBlackjack();
-
-                }
-
-                else{
-
-                    renderBlackjack();
-
-                }
-
-            };
-
-
-            document
-            .getElementById("stand")
-            .onclick = () => {
-
-                if(!selectedChip){
-
-                    bjResult.innerHTML = `
-
-                    <p class="danger">
-                        Scegli prima una fish.
-                    </p>
-
-                    `;
-
-                    return;
-
-                }
-
-
-                finishBlackjack();
-
-            };
-
-        }
-
-
-        if(gameOver){
-
-            document
-            .getElementById(
-                "closeBlackjack"
-            )
-            .onclick = () => {
-
-                addItem("41");
-
-                addItem("A");
-
-                state.blackjack = true;
-
-                saveState();
-
-
-                finish(
-
-                    6,
-
-                    `
-
-                    La mano è terminata.
-
-                    <br><br>
-
-                    Valore registrato:
-                    <b>41</b>
-
-                    <br><br>
-
-                    FRAMMENTO:
-                    <b>A</b>
-
-                    `,
-
-                    `
-
-                    Il valore 41
-                    sarà la partenza
-                    del dossier 07.
-
-                    `
-
-                );
-
-            };
-
-        }
-
-    }
-
-
-    function finishBlackjack(){
-
-        gameOver = true;
-
-
-        while(
-            cardValue(dealer) < 17
-        ){
-
-            dealer.push(
-                deck.pop()
-            );
-
-        }
-
-
-        const p =
-        cardValue(player);
-
-        const d =
-        cardValue(dealer);
-
-
-        let message;
-
-
-        if(p > 21){
-
-            message =
-            "HAI SFORATO 21.";
-
-        }
-
-        else if(d > 21){
-
-            message =
-            "IL BANCO HA SFORATO 21.";
-
-        }
-
-        else if(p > d){
-
-            message =
-            "HAI VINTO.";
-
-        }
-
-        else if(p === d){
-
-            message =
-            "PAREGGIO.";
-
-        }
-
-        else{
-
-            message =
-            "IL BANCO VINCE.";
-
-        }
-
-
-        renderBlackjack();
-
-
-        bjResult.innerHTML = `
-
-        <div class="alert">
-
-            <p>
-                <b>${message}</b>
-            </p>
-
-            <p>
-                Tua mano:
-                <b>${p}</b>
-            </p>
-
-            <p>
-                Banco:
-                <b>${d}</b>
-            </p>
-
+  if(!hasItem("ST")) return blocked();
+
+  const solved=isCompleted(6);
+
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 06</div>
+      <h2>IL BANCO</h2>
+
+      <p>
+        Questa volta non devi risolvere una sequenza.
+        Devi giocare.
+      </p>
+
+      <div class="blackjack-table">
+        <div class="hand-label">BANCO</div>
+        <div class="cards" id="dealerCards"></div>
+        <div class="score" id="dealerScore"></div>
+
+        <hr style="border-color:#42604c;margin:18px 0">
+
+        <div class="hand-label">TU</div>
+        <div class="cards" id="playerCards"></div>
+        <div class="score" id="playerScore"></div>
+      </div>
+
+      <div class="bankroll">
+        CASSA DIGITALE:
+        <strong id="bankroll">${state.blackjackBankroll}</strong>
+      </div>
+
+      <div class="bet-info">
+        PUNTATA:
+        <strong id="betDisplay">${currentBet}</strong>
+      </div>
+
+      <div class="chips">
+        <button class="chip" onclick="selectBet(1)">1</button>
+        <button class="chip" onclick="selectBet(5)">5</button>
+        <button class="chip" onclick="selectBet(10)">10</button>
+        <button class="chip" onclick="selectBet(25)">25</button>
+      </div>
+
+      <button class="btn primary" id="dealBtn" onclick="dealBlackjack()">
+        DISTRIBUISCI
+      </button>
+
+      <div class="grid" style="margin-top:10px">
+        <button class="btn" id="hitBtn" onclick="hit()" disabled>
+          HIT
+        </button>
+        <button class="btn" id="standBtn" onclick="stand()" disabled>
+          STAND
+        </button>
+      </div>
+
+      <div id="bjStatus"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Regola del Banco</h2>
+      <div class="small">
+        Il Banco pesca fino a 17.
+        Il tuo obiettivo è avvicinarti a 21 senza sballare.
+        Blackjack naturale: 21 con le prime due carte.
+      </div>
+    </div>
+
+    ${
+      solved
+      ?`
+      <div class="panel">
+        <h2>Reperto ottenuto</h2>
+        <div class="badges">
+          <span class="badge gold">41</span>
+          <span class="badge gold">A</span>
         </div>
-
-        `;
-
+      </div>
+      `
+      :""
     }
 
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 
-    renderBlackjack();
-
+  renderBlackjack();
 }
 
+function makeDeck(){
+  const suits=["♠","♥","♦","♣"];
+  const ranks=[
+    ["A",11],
+    ["2",2],["3",3],["4",4],["5",5],
+    ["6",6],["7",7],["8",8],["9",9],
+    ["10",10],["J",10],["Q",10],["K",10]
+  ];
+
+  const deck=[];
+
+  suits.forEach(s=>{
+    ranks.forEach(r=>{
+      deck.push({
+        suit:s,
+        rank:r[0],
+        value:r[1]
+      });
+    });
+  });
+
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+
+  return deck;
+}
+
+function cardValue(hand){
+  let total=hand.reduce((sum,c)=>sum+c.value,0);
+  let aces=hand.filter(c=>c.rank==="A").length;
+
+  while(total>21 && aces>0){
+    total-=10;
+    aces--;
+  }
+
+  return total;
+}
+
+function cardHTML(card,hidden=false){
+  if(hidden){
+    return `<div class="card back">?</div>`;
+  }
+
+  const red=(card.suit==="♥"||card.suit==="♦")
+    ? "red"
+    :"";
+
+  return `
+    <div class="card ${red}">
+      ${card.rank}${card.suit}
+    </div>
+  `;
+}
+
+function renderBlackjack(hideDealer=true){
+  const dealerBox=document.getElementById("dealerCards");
+  const playerBox=document.getElementById("playerCards");
+
+  if(!dealerBox||!playerBox) return;
+
+  dealerBox.innerHTML=dealerHand.map((c,i)=>
+    cardHTML(c,hideDealer && i===0)
+  ).join("");
+
+  playerBox.innerHTML=playerHand.map(c=>cardHTML(c)).join("");
+
+  document.getElementById("playerScore").textContent=
+    playerHand.length
+    ? `Totale: ${cardValue(playerHand)}`
+    :"";
+
+  document.getElementById("dealerScore").textContent=
+    dealerHand.length
+    ? (hideDealer
+      ? "Una carta coperta"
+      : `Totale: ${cardValue(dealerHand)}`)
+    :"";
+}
+
+function selectBet(amount){
+  if(amount>state.blackjackBankroll) return;
+
+  currentBet=amount;
+
+  document.getElementById("betDisplay").textContent=currentBet;
+
+  document.querySelectorAll(".chip").forEach(btn=>{
+    btn.classList.toggle(
+      "selected",
+      Number(btn.textContent)===amount
+    );
+  });
+}
+
+function dealBlackjack(){
+  if(currentBet<=0){
+    document.getElementById("bjStatus").innerHTML=`
+      <div class="status error">
+        Prima scegli una puntata.
+      </div>
+    `;
+    return;
+  }
+
+  if(currentBet>state.blackjackBankroll){
+    return;
+  }
+
+  blackjackDeck=makeDeck();
+
+  playerHand=[
+    blackjackDeck.pop(),
+    blackjackDeck.pop()
+  ];
+
+  dealerHand=[
+    blackjackDeck.pop(),
+    blackjackDeck.pop()
+  ];
+
+  state.blackjackBankroll-=currentBet;
+  saveState();
+
+  blackjackRoundOver=false;
+
+  document.getElementById("dealBtn").disabled=true;
+  document.getElementById("hitBtn").disabled=false;
+  document.getElementById("standBtn").disabled=false;
+
+  renderBlackjack(true);
+
+  if(cardValue(playerHand)===21){
+    finishBlackjack("blackjack");
+  }
+}
+
+function hit(){
+  if(blackjackRoundOver) return;
+
+  playerHand.push(blackjackDeck.pop());
+
+  renderBlackjack(true);
+
+  if(cardValue(playerHand)>21){
+    finishBlackjack("bust");
+  }
+}
+
+function stand(){
+  if(blackjackRoundOver) return;
+
+  while(cardValue(dealerHand)<17){
+    dealerHand.push(blackjackDeck.pop());
+  }
+
+  renderBlackjack(false);
+
+  const player=cardValue(playerHand);
+  const dealer=cardValue(dealerHand);
+
+  if(dealer>21){
+    finishBlackjack("dealerBust");
+  }else if(player>dealer){
+    finishBlackjack("win");
+  }else if(player<dealer){
+    finishBlackjack("lose");
+  }else{
+    finishBlackjack("push");
+  }
+}
+
+function finishBlackjack(result){
+  blackjackRoundOver=true;
+
+  const player=cardValue(playerHand);
+
+  if(result==="blackjack"){
+    state.blackjackBankroll+=Math.floor(currentBet*2.5);
+  }else if(result==="win"){
+    state.blackjackBankroll+=currentBet*2;
+  }else if(result==="push"){
+    state.blackjackBankroll+=currentBet;
+  }
+
+  state.blackjack=true;
+  state.blackjackHands++;
+
+  /*
+    La progressione non dipende dalla fortuna:
+    il reperto viene consegnato dopo una mano realmente giocata.
+  */
+  if(state.blackjackHands>=1){
+    addItem("41");
+    addItem("A");
+    completeLevel(6);
+  }
+
+  saveState();
+
+  let message="";
+
+  if(result==="blackjack"){
+    message="BLACKJACK. Il Banco riconosce la mano.";
+  }
+  if(result==="win"){
+    message="VITTORIA. Hai battuto il Banco.";
+  }
+  if(result==="lose"){
+    message="IL BANCO VINCE.";
+  }
+  if(result==="push"){
+    message="PAREGGIO. La puntata viene restituita.";
+  }
+  if(result==="bust"){
+    message="SBALLATO. Il Banco incassa la puntata.";
+  }
+  if(result==="dealerBust"){
+    message="IL BANCO SBALLA. Hai vinto.";
+  }
+
+  document.getElementById("bjStatus").innerHTML=`
+    <div class="status ${result==="win"||result==="blackjack"||result==="dealerBust"?"success":""}">
+      ${message}<br><br>
+      Cassa attuale: <strong>${state.blackjackBankroll}</strong><br><br>
+      <strong>REPERTO CONSEGNATO: 41 · A</strong>
+    </div>
+
+    <button class="btn" onclick="level6()">
+      NUOVA MANO / CONTINUA
+    </button>
+  `;
+
+  document.getElementById("hitBtn").disabled=true;
+  document.getElementById("standBtn").disabled=true;
+}
 
 /* =========================================================
-   DOSSIER 07
-   LA PISTA
-========================================================= */
+   DOSSIER 07 — STRATEGIA
+   ========================================================= */
 
 function level7(){
+  if(!hasItem("41")) return blocked();
 
-    if(!hasItem("41")){
+  const solved=isCompleted(7);
 
-        dashboard();
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 07</div>
+      <h2>LA STRATEGIA</h2>
 
-        return;
+      <p>
+        Parti da <strong>41</strong>.
+        Hai a disposizione sei mosse:
+      </p>
 
+      <div class="journey">
+        <button onclick="chooseMove(2,this)">+2</button>
+        <button onclick="chooseMove(3,this)">+3</button>
+        <button onclick="chooseMove(5,this)">+5</button>
+        <button onclick="chooseMove(1,this)">+1</button>
+        <button onclick="chooseMove(4,this)">+4</button>
+        <button onclick="chooseMove(6,this)">+6</button>
+      </div>
+
+      <div class="codebox">
+        VALORE ATTUALE:
+        <span id="strategyValue">41</span>
+      </div>
+
+      <p class="small">
+        Devi scegliere esattamente quattro mosse
+        per arrivare a <strong>62</strong>.
+      </p>
+
+      <div id="strategyStatus"></div>
+
+      <button class="btn primary" onclick="checkStrategy()">
+        CONFERMA PERCORSO
+      </button>
+    </div>
+
+    ${
+      solved
+      ?`
+      <div class="panel">
+        <h2>Reperto acquisito</h2>
+        <div class="codebox">ORDINE 01 → 02 → 03 → 04 → 05 → 06</div>
+      </div>
+      `
+      :""
     }
 
-
-    let position = 41;
-
-    let used = [];
-
-
-    const moves = {
-
-        1:2,
-
-        2:3,
-
-        3:5,
-
-        4:1,
-
-        5:4,
-
-        6:6
-
-    };
-
-
-    A.innerHTML =
-    box(
-
-        "07 · LA PISTA",
-
-        `
-
-        <p>
-            Il Blackjack ha registrato:
-            <b>41</b>.
-        </p>
-
-
-        <p>
-            Questa è la casella di partenza.
-        </p>
-
-
-        <p>
-            Ogni reperto può essere
-            utilizzato una sola volta.
-        </p>
-
-
-        <p class="mono">
-
-            R1 +2
-            ·
-            R2 +3
-            ·
-            R3 +5
-
-            <br>
-
-            R4 +1
-            ·
-            R5 +4
-            ·
-            R6 +6
-
-        </p>
-
-
-        <p>
-            Devi arrivare a:
-            <b>62</b>
-        </p>
-
-
-        <p>
-            usando esattamente quattro reperti.
-        </p>
-
-
-        <div>
-
-            ${
-                [1,2,3,4,5,6]
-                .map(
-                    n =>
-                    btn(
-                        "reperto"+n,
-                        "REPERTO "+n,
-                        "dark"
-                    )
-                )
-                .join("")
-            }
-
-        </div>
-
-
-        <p id="position">
-            Posizione: 41
-        </p>
-
-
-        <div id="r7"></div>
-
-        `
-
-    );
-
-
-    [1,2,3,4,5,6]
-    .forEach(n => {
-
-        document
-        .getElementById(
-            "reperto"+n
-        )
-        .onclick = () => {
-
-            if(used.includes(n))
-                return;
-
-
-            used.push(n);
-
-
-            position +=
-            moves[n];
-
-
-            document
-            .getElementById(
-                "reperto"+n
-            )
-            .disabled = true;
-
-
-            document
-            .getElementById(
-                "position"
-            )
-            .textContent =
-            "Posizione: " +
-            position;
-
-
-            if(used.length === 4){
-
-                if(position === 62){
-
-                    addItem(
-                        "ORDINE 01→02→03→04→05→06"
-                    );
-
-
-                    r7.innerHTML = `
-
-                    <p class="ok">
-                        DESTINAZIONE RAGGIUNTA.
-                    </p>
-
-                    ${btn(
-                        "done7",
-                        "REGISTRA ORDINE"
-                    )}
-
-                    `;
-
-
-                    document
-                    .getElementById("done7")
-                    .onclick = () => {
-
-                        finish(
-
-                            7,
-
-                            `
-
-                            La pista rivela
-                            l'ordine dei frammenti:
-
-                            <br><br>
-
-                            <b>
-                            01 → 02 → 03
-                            → 04 → 05 → 06
-                            </b>
-
-                            `,
-
-                            `
-
-                            Il dossier 08
-                            contiene l'ultima
-                            operazione.
-
-                            `
-
-                        );
-
-                    };
-
-                }
-
-                else{
-
-                    r7.innerHTML = `
-
-                    <p class="danger">
-                        DESTINAZIONE ERRATA.
-                    </p>
-
-                    ${btn(
-                        "retry7",
-                        "RIPROVA"
-                    )}
-
-                    `;
-
-
-                    document
-                    .getElementById("retry7")
-                    .onclick =
-                    level7;
-
-                }
-
-            }
-
-        };
-
-    });
-
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 }
 
+let strategyMoves=[];
+let strategyValue=41;
+
+function chooseMove(value,el){
+  if(strategyMoves.length>=4) return;
+
+  strategyMoves.push(value);
+  strategyValue+=value;
+
+  el.classList.add("selected");
+
+  document.getElementById("strategyValue").textContent=strategyValue;
+}
+
+function checkStrategy(){
+  const box=document.getElementById("strategyStatus");
+
+  if(strategyMoves.length!==4){
+    box.innerHTML=`
+      <div class="status error">
+        Devi scegliere esattamente quattro mosse.
+      </div>
+    `;
+    return;
+  }
+
+  if(strategyValue===62){
+    addItem("ORDINE 01→02→03→04→05→06");
+    completeLevel(7);
+
+    box.innerHTML=`
+      <div class="status success">
+        PERCORSO CORRETTO.<br><br>
+        41 + ${strategyMoves.join(" + ")} = 62<br><br>
+        L'ordine è stato recuperato.
+      </div>
+    `;
+
+    setTimeout(level7,800);
+  }else{
+    box.innerHTML=`
+      <div class="status error">
+        Il percorso termina a ${strategyValue}.
+        Devi arrivare esattamente a 62.
+      </div>
+    `;
+  }
+}
 
 /* =========================================================
-   DOSSIER 08
-   I FRAMMENTI
-========================================================= */
+   DOSSIER 08 — FRAMMENTI / CHIAVE
+   ========================================================= */
+
+const finalFragments=[
+  {id:1,text:"AP"},
+  {id:2,text:"RI"},
+  {id:3,text:"LA"},
+  {id:4,text:"BU"},
+  {id:5,text:"ST"},
+  {id:6,text:"A"}
+];
 
 function level8(){
+  if(!hasItem("ORDINE 01→02→03→04→05→06")) return blocked();
 
-    if(
-        !hasItem(
-            "ORDINE 01→02→03→04→05→06"
-        )
-    ){
+  const solved=isCompleted(8);
 
-        dashboard();
+  layout(`
+    <div class="panel">
+      <div class="dossier-number">DOSSIER 08</div>
+      <h2>L'ORDINE FINALE</h2>
 
-        return;
+      <p>
+        Tutto ciò che hai raccolto finora torna utile.
+        I frammenti devono essere ricomposti nell'ordine
+        recuperato nel dossier precedente.
+      </p>
 
+      <div class="final-fragments">
+        ${finalFragments.map(f=>`
+          <button
+            class="fragment"
+            id="frag${f.id}"
+            onclick="selectFragment(${f.id})"
+          >
+            ${f.text}
+          </button>
+        `).join("")}
+      </div>
+
+      <div class="sequence" id="finalSequence"></div>
+
+      <button class="btn primary" onclick="checkFinalOrder()">
+        RICOMPORRE
+      </button>
+
+      <div id="finalStatus"></div>
+    </div>
+
+    ${
+      solved
+      ?`
+      <div class="panel">
+        <div class="envelope">
+          <div class="dossier-number">AUTORIZZAZIONE FINALE</div>
+          <h2>APRI LA BUSTA</h2>
+
+          <div class="key-icon">🔑</div>
+
+          <p>
+            La BUSTA 08 contiene la <strong>chiave fisica</strong>.
+          </p>
+
+          <p class="small">
+            Conserva la chiave.
+            Non utilizzarla prima del 25 dicembre.
+          </p>
+
+          <div class="codebox">CLICK</div>
+        </div>
+      </div>
+      `
+      :""
     }
 
-
-    const fragments = [
-
-        "AP",
-        "RI",
-        "LA",
-        "BU",
-        "ST",
-        "A"
-
-    ];
-
-
-    A.innerHTML =
-    box(
-
-        "08 · IL FINALE",
-
-        `
-
-        <p>
-            Il BANCO consegna
-            sei frammenti digitali.
-        </p>
-
-
-        <p>
-            La pista precedente
-            ha stabilito il loro ordine.
-        </p>
-
-
-        <div class="grid4">
-
-            ${
-                fragments
-                .map(
-                    (x,i) =>
-                    `
-
-                    <button
-                        class="dark fragment"
-                        data-fragment="${i}"
-                    >
-
-                        ${x}
-
-                    </button>
-
-                    `
-                )
-                .join("")
-            }
-
-        </div>
-
-
-        <p class="muted">
-
-            Clicca i frammenti
-            da 01 a 06.
-
-        </p>
-
-
-        <div id="r8"></div>
-
-        `
-
-    );
-
-
-    let next = 0;
-
-
-    document
-    .querySelectorAll(
-        ".fragment"
-    )
-    .forEach(button => {
-
-        button.onclick = () => {
-
-            const i =
-            Number(
-                button.dataset.fragment
-            );
-
-
-            if(i !== next){
-
-                r8.innerHTML = `
-
-                <p class="danger">
-                    ORDINE NON AUTORIZZATO.
-                </p>
-
-                `;
-
-                return;
-
-            }
-
-
-            button.disabled = true;
-
-            next++;
-
-
-            if(next === 6){
-
-                r8.innerHTML = `
-
-                <div class="center">
-
-                    <p class="gold big">
-                        APRI LA BUSTA
-                    </p>
-
-                    <hr>
-
-                    <p>
-                        La BUSTA 08
-                        contiene la
-                        <b>CHIAVE FISICA</b>.
-                    </p>
-
-                    <p class="danger">
-
-                        <b>
-                        NON UTILIZZARE LA CHIAVE
-                        PRIMA DEL 25.12.
-                        </b>
-
-                    </p>
-
-
-                    ${btn(
-                        "done8",
-                        "SIGILLA OPERAZIONE"
-                    )}
-
-                </div>
-
-                `;
-
-
-                document
-                .getElementById("done8")
-                .onclick = () => {
-
-                    finish(
-
-                        8,
-
-                        `
-
-                        I frammenti formano:
-
-                        <br><br>
-
-                        <span class="big">
-                        APRI LA BUSTA
-                        </span>
-
-                        `,
-
-                        `
-
-                        La BUSTA 08
-                        contiene la chiave.
-
-                        <br><br>
-
-                        Il fascicolo
-                        finale attende
-                        il momento stabilito.
-
-                        `
-
-                    );
-
-                };
-
-            }
-
-        };
-
-    });
-
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 }
 
+let selectedFragments=[];
+
+function selectFragment(id){
+  if(selectedFragments.includes(id)) return;
+
+  selectedFragments.push(id);
+
+  const el=document.getElementById("frag"+id);
+  if(el) el.classList.add("used");
+
+  document.getElementById("finalSequence").innerHTML=
+    selectedFragments.map(id=>{
+      const f=finalFragments.find(x=>x.id===id);
+      return `<span>${f.text}</span>`;
+    }).join("");
+}
+
+function checkFinalOrder(){
+  const target=[1,2,3,4,5,6];
+  const box=document.getElementById("finalStatus");
+
+  if(selectedFragments.join(",")===target.join(",")){
+    completeLevel(8);
+
+    box.innerHTML=`
+      <div class="status success">
+        RICOMPOSIZIONE COMPLETATA.<br><br>
+        AP + RI + LA + BU + ST + A<br><br>
+        <strong>APRI LA BUSTA.</strong>
+      </div>
+    `;
+
+    setTimeout(level8,700);
+  }else{
+    box.innerHTML=`
+      <div class="status error">
+        L'ordine non è corretto.
+      </div>
+    `;
+  }
+}
 
 /* =========================================================
-   FINALE 25
-========================================================= */
+   FINALE — 25 DICEMBRE
+   ========================================================= */
 
 function final25(){
+  if(![1,2,3,4,5,6,7,8].every(isCompleted)){
+    return blocked();
+  }
 
-    A.innerHTML =
-    box(
+  layout(`
+    <div class="panel center">
+      <div class="dossier-number">25 DICEMBRE</div>
+      <h1>OPERAZIONE CONCLUSA</h1>
 
-        "25 · OPERAZIONE CONCLUSA",
+      <div class="key-icon">🔑</div>
 
-        `
+      <p>
+        Hai seguito tutte le istruzioni.
+      </p>
 
-        <div class="center">
+      <div class="envelope">
+        <h2>È IL MOMENTO.</h2>
 
-            <p class="gold big">
-                ULTIMO ACCESSO
-            </p>
+        <p>
+          Prendi la chiave dalla BUSTA 08.
+        </p>
 
-            <hr>
+        <p>
+          Inseriscila nella serratura.
+        </p>
 
+        <div class="codebox">CLICK</div>
 
-            <p>
-                Il BANCO non ha
-                più enigmi.
-            </p>
+        <p>
+          Ora puoi aprire la scatola.
+        </p>
+      </div>
 
+      <div class="status" style="margin-top:20px">
+        <strong>FINE DELL'OPERAZIONE.</strong><br><br>
+        Il contenuto della scatola è il vero regalo.
+      </div>
+    </div>
 
-            <p>
-                Hai completato
-                tutti i dossier.
-            </p>
+    <div class="panel center">
+      <p class="small">
+        Nessun indizio. Nessuna anticipazione.
+        Tutto ciò che dovevi sapere è già stato scoperto.
+      </p>
+    </div>
 
-
-            <br>
-
-
-            <p>
-                <b>
-                PRENDI LA CHIAVE
-                DELLA BUSTA 08.
-                </b>
-            </p>
-
-
-            <p>
-                Usala ora.
-            </p>
-
-
-            <hr>
-
-
-            <p class="ok">
-
-                OPERAZIONE 25
-
-                <br>
-
-                COMPLETATA.
-
-            </p>
-
-
-            <p class="muted">
-
-                Il contenuto della serratura
-                è il tuo vero regalo.
-
-            </p>
-
-        </div>
-
-        `
-
-    );
-
+    <button class="btn" onclick="backHome()">← TORNA ALL'ARCHIVIO</button>
+  `);
 }
 
+/* =========================================================
+   UTILITY
+   ========================================================= */
+
+function blocked(){
+  layout(`
+    <div class="panel center">
+      <div class="dossier-number">ACCESSO NEGATO</div>
+      <h2>Fascicolo non ancora disponibile</h2>
+
+      <p class="small">
+        Devi prima completare il fascicolo precedente.
+      </p>
+
+      <button class="btn primary" onclick="backHome()">
+        TORNA ALL'ARCHIVIO
+      </button>
+    </div>
+  `);
+}
 
 /* =========================================================
    AVVIO
-========================================================= */
+   ========================================================= */
 
-renderProgress();
-
-
-if(state.started){
-
-    dashboard();
-
-}
-
-else{
-
-    home();
-
-}
+home();
 
 </script>
 
