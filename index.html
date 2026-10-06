@@ -2,1918 +2,2769 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#08090d">
 <title>OPERAZIONE 25</title>
 
 <style>
 :root{
-  --bg:#080a0f;
-  --panel:#11151d;
-  --panel2:#171c26;
-  --line:#2a313d;
-  --text:#f1f3f6;
-  --muted:#929aa8;
-  --accent:#d8b56a;
-  --danger:#b94a4a;
-  --success:#5da878;
+  --bg:#07080b;
+  --panel:#111318;
+  --panel2:#181b22;
+  --line:#30343e;
+  --text:#f1efe9;
+  --muted:#969ba5;
+  --gold:#d8b46a;
+  --gold2:#a77d31;
+  --red:#9c3c3c;
+  --green:#4f8a61;
 }
 
 *{box-sizing:border-box}
 
-body{
+html,body{
   margin:0;
-  min-height:100vh;
+  min-height:100%;
   background:
-    radial-gradient(circle at top,#18202c 0%,#090b10 48%,#050609 100%);
+    radial-gradient(circle at 50% -10%,#252936 0%,#101218 35%,#06070a 75%);
   color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
 }
 
-button,input{font:inherit}
-button{cursor:pointer}
-
-.app{
-  width:100%;
-  max-width:720px;
-  margin:auto;
-  padding:18px 15px 50px;
+body{
+  min-height:100vh;
 }
 
-header{
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-  margin-bottom:20px;
+button,input,select{
+  font:inherit;
 }
 
-.logo{
-  color:var(--accent);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:4px;
-}
-
-h1{
-  margin:8px 0 5px;
-  font-size:30px;
-  letter-spacing:1px;
-}
-
-h2{
-  margin:0 0 12px;
-  font-size:21px;
-}
-
-h3{margin:18px 0 8px}
-
-p{
-  line-height:1.55;
-}
-
-.subtitle,.small{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.55;
-}
-
-.panel{
-  background:rgba(17,21,29,.96);
+button{
   border:1px solid var(--line);
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 12px 35px rgba(0,0,0,.2);
-}
-
-.center{text-align:center}
-
-.btn{
-  width:100%;
-  margin-top:10px;
+  background:#171a20;
+  color:var(--text);
+  border-radius:10px;
   padding:12px 15px;
-  border-radius:10px;
-  border:1px solid var(--accent);
-  background:transparent;
-  color:var(--accent);
-  font-weight:700;
+  cursor:pointer;
+  font-weight:800;
+  transition:.15s;
 }
 
-.btn.primary{
-  background:var(--accent);
-  color:#111;
+button:hover{
+  border-color:var(--gold);
+  transform:translateY(-1px);
 }
 
-.btn.danger{
-  border-color:var(--danger);
-  color:#ef9999;
-}
-
-.btn:disabled{
-  opacity:.35;
+button:disabled{
+  opacity:.3;
   cursor:not-allowed;
+  transform:none;
 }
 
-input{
-  width:100%;
-  margin-top:8px;
-  padding:13px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:#090c11;
+button.gold{
+  background:var(--gold);
+  color:#101010;
+  border-color:var(--gold);
+}
+
+button.red{
+  border-color:#743737;
+}
+
+input,select{
+  background:#090a0d;
   color:white;
+  border:1px solid #3a3e47;
+  border-radius:9px;
+  padding:12px;
   outline:none;
 }
 
-input:focus{border-color:var(--accent)}
+input:focus,select:focus{
+  border-color:var(--gold);
+}
 
-.status{
-  padding:12px;
-  border-radius:10px;
-  background:#0c1016;
+.wrap{
+  max-width:1050px;
+  margin:auto;
+  padding:16px 14px 60px;
+}
+
+/* HEADER */
+
+header{
+  position:relative;
+  overflow:hidden;
+  padding:25px 20px;
   border:1px solid var(--line);
-  margin-top:12px;
-  line-height:1.5;
-  font-size:14px;
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,#161920,#0c0e12);
+  box-shadow:0 20px 70px #0009;
 }
 
-.status.success{
-  border-color:rgba(93,168,120,.55);
-  color:#a9e0bc;
+header:after{
+  content:"CLASSIFIED";
+  position:absolute;
+  right:-45px;
+  top:18px;
+  transform:rotate(13deg);
+  border:2px solid #713535;
+  color:#a84747;
+  padding:5px 45px;
+  letter-spacing:3px;
+  font-weight:900;
+  opacity:.5;
 }
 
-.status.error{
-  border-color:rgba(185,74,74,.55);
-  color:#f0a1a1;
-}
-
-.dossier-number{
-  color:var(--accent);
-  font-size:12px;
+.kicker{
+  color:var(--gold);
+  font-size:11px;
   letter-spacing:2px;
-  font-weight:800;
+  text-transform:uppercase;
+}
+
+.logo{
+  font-size:clamp(38px,10vw,70px);
+  line-height:.95;
+  font-weight:1000;
+  letter-spacing:-4px;
+  margin:9px 0 14px;
+}
+
+.subtitle{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:13px;
 }
 
 .progress{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:5px;
-  margin:14px 0 18px;
-}
-
-.progress div{
   height:7px;
-  border-radius:99px;
-  background:#252b35;
+  margin-top:20px;
+  background:#282c34;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.progress div.done{background:var(--accent)}
-
-.dossier-card{
-  padding:14px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:#0c1016;
-  margin-top:9px;
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--gold);
+  transition:.5s;
 }
 
-.dossier-card.locked{opacity:.4}
+/* HOME */
 
-.dossier-title{
-  margin-top:5px;
-  font-size:17px;
-}
-
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin-top:12px;
-}
-
-.badge{
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid #424b58;
-  background:#0c1016;
-  color:#d6dae0;
-  font-size:12px;
-}
-
-.badge.gold{
-  border-color:var(--accent);
-  color:var(--accent);
-}
-
-.codebox{
-  padding:16px;
-  margin:13px 0;
-  text-align:center;
-  background:#07090d;
-  border:1px dashed #505966;
-  border-radius:10px;
-  font-family:monospace;
-  font-size:22px;
-  letter-spacing:3px;
-}
-
-.evidence-grid{
+.card-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-top:15px;
+  grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+  gap:13px;
+  margin-top:18px;
 }
+
+.card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  background:
+    linear-gradient(145deg,#12151b,#0d0f13);
+  box-shadow:0 10px 35px #0005;
+}
+
+.card.locked{
+  opacity:.4;
+}
+
+.card-number{
+  color:var(--gold);
+  font-size:12px;
+  font-weight:900;
+}
+
+.card h3{
+  margin:8px 0;
+  font-size:20px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.5;
+  min-height:58px;
+  font-size:13px;
+}
+
+/* GAME */
+
+#gameScreen{
+  margin-top:18px;
+}
+
+.game{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:19px;
+  background:
+    linear-gradient(145deg,#11141a,#0c0e12);
+  box-shadow:0 18px 60px #0007;
+}
+
+.back{
+  margin-bottom:10px;
+  background:transparent;
+  border:none;
+  color:var(--muted);
+}
+
+.game h2{
+  font-size:29px;
+  margin:6px 0 18px;
+}
+
+.rule{
+  border-left:3px solid var(--gold);
+  padding:11px 13px;
+  background:#ffffff04;
+  color:#c7c9ce;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+.notice{
+  margin:13px 0;
+  padding:12px;
+  border:1px dashed #444952;
+  border-radius:10px;
+  color:#c8cad0;
+  line-height:1.5;
+}
+
+.success{
+  border-color:#477054;
+  color:#a9d5b1;
+}
+
+.fail{
+  border-color:#733b3b;
+  color:#e4aaaa;
+}
+
+.row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:14px;
+}
+
+.big-money{
+  font-size:30px;
+  font-weight:900;
+  color:var(--gold);
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* DOSSIER 1 */
 
 .evidence{
-  min-height:100px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:#0a0d12;
-  color:white;
-  padding:15px;
-  text-align:left;
-}
-
-.evidence strong{
-  display:block;
-  color:var(--accent);
-  margin-bottom:7px;
-}
-
-.choice-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin-top:12px;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:10px;
 }
 
-.choice{
-  padding:14px 8px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:#0a0d12;
-  color:white;
-}
-
-.choice.selected{
-  border-color:var(--accent);
-  color:var(--accent);
-}
-
-.quiz-option{
-  width:100%;
-  text-align:left;
+.evidence-card{
   padding:13px;
-  margin-top:8px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:#0a0d12;
-  color:white;
+  border:1px solid #343842;
+  background:#0b0d11;
+  border-radius:11px;
 }
 
-.quiz-option:hover{
-  border-color:#68717e;
+.evidence-card strong{
+  color:#ddd;
 }
+
+.evidence-card small{
+  display:block;
+  color:#8c919a;
+  margin-top:7px;
+  line-height:1.5;
+}
+
+/* FIGHT */
+
+.fight-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.fighter{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+}
+
+.meter{
+  height:15px;
+  border-radius:20px;
+  background:#292d35;
+  overflow:hidden;
+  margin:8px 0;
+}
+
+.meter span{
+  display:block;
+  height:100%;
+  background:var(--gold);
+  transition:.3s;
+}
+
+.move{
+  min-width:125px;
+}
+
+/* WHEEL */
 
 .wheel-wrap{
   text-align:center;
-  margin:18px 0;
-}
-
-.wheel{
-  width:250px;
-  height:250px;
-  margin:auto;
-  border-radius:50%;
-  border:7px solid #3c424c;
-  background:conic-gradient(
-    #8d2730 0deg 45deg,
-    #1d4e42 45deg 90deg,
-    #8d2730 90deg 135deg,
-    #1d4e42 135deg 180deg,
-    #8d2730 180deg 225deg,
-    #1d4e42 225deg 270deg,
-    #8d2730 270deg 315deg,
-    #1d4e42 315deg 360deg
-  );
-  position:relative;
-  transition:transform 1.2s cubic-bezier(.12,.7,.15,1);
-  box-shadow:0 0 0 5px #161a21,0 15px 35px rgba(0,0,0,.35);
-}
-
-.wheel::after{
-  content:"25";
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#11151d;
-  border:2px solid var(--accent);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--accent);
-  font-weight:800;
 }
 
 .pointer{
   width:0;
   height:0;
-  border-left:12px solid transparent;
-  border-right:12px solid transparent;
-  border-top:25px solid var(--accent);
-  margin:0 auto -7px;
+  border-left:14px solid transparent;
+  border-right:14px solid transparent;
+  border-top:30px solid var(--gold);
+  margin:auto;
   position:relative;
-  z-index:2;
+  z-index:5;
 }
 
-.wheel-result{
+#wheel{
+  width:min(330px,82vw);
+  height:min(330px,82vw);
+  border-radius:50%;
+  margin:5px auto 18px;
+  border:7px solid #363a43;
+  position:relative;
+  transition:transform 4s cubic-bezier(.12,.72,.12,1);
+  background:
+    conic-gradient(
+      #9b783b 0deg 45deg,
+      #252932 45deg 90deg,
+      #963d3d 90deg 135deg,
+      #252932 135deg 180deg,
+      #9b783b 180deg 225deg,
+      #252932 225deg 270deg,
+      #963d3d 270deg 315deg,
+      #252932 315deg 360deg
+    );
+}
+
+.wheel-labels{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
   text-align:center;
-  font-weight:700;
-  color:var(--accent);
-  min-height:22px;
-  margin-top:12px;
-}
-
-.letter-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:12px;
-}
-
-.letter-buttons button{
-  width:38px;
-  height:38px;
-  border-radius:8px;
-  border:1px solid var(--line);
-  background:#0a0d12;
-  color:white;
-}
-
-.letter-buttons button:disabled{
-  opacity:.25;
+  font-size:14px;
+  font-weight:900;
+  line-height:2.05;
+  transform:rotate(-20deg);
 }
 
 .phrase{
-  font-family:monospace;
-  font-size:17px;
-  line-height:2;
-  letter-spacing:1px;
-  text-align:center;
-  padding:15px;
-  background:#080a0f;
-  border:1px solid var(--line);
-  border-radius:12px;
-  margin-top:15px;
-}
-
-.blackjack{
-  background:radial-gradient(circle,#173f2a,#0b2418);
-  border:2px solid #476c55;
-  border-radius:18px;
-  padding:18px;
-}
-
-.hand-label{
-  color:#b8cbbd;
-  font-size:12px;
-  letter-spacing:1px;
-  margin-bottom:7px;
-}
-
-.cards{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  min-height:78px;
-  margin-bottom:8px;
-}
-
-.card{
-  width:54px;
-  height:76px;
-  border-radius:7px;
-  background:#f4f4f4;
-  color:#111;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  font-size:16px;
-  box-shadow:0 3px 7px rgba(0,0,0,.3);
-}
-
-.card.red{color:#b22b2b}
-
-.card.back{
-  background:repeating-linear-gradient(
-    45deg,#1b2430,#1b2430 4px,#344355 4px,#344355 8px
-  );
-  color:white;
-}
-
-.score{
-  color:#d9e9dc;
-  font-size:13px;
-}
-
-.bankroll{
-  text-align:center;
   font-size:18px;
-  margin:14px 0;
+  letter-spacing:2px;
+  line-height:2;
+  margin:15px 0;
+  text-align:center;
+}
+
+.letters{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+
+.letters button{
+  padding:9px 2px;
+}
+
+/* BLACKJACK */
+
+.blackjack-table{
+  border:2px solid #424750;
+  background:
+    radial-gradient(ellipse,#123c29,#082016);
+  border-radius:100px;
+  padding:25px 15px;
+  margin:15px 0;
+}
+
+.hand{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:7px;
+  min-height:78px;
+}
+
+.playing-card{
+  width:51px;
+  height:72px;
+  border-radius:7px;
+  background:#f5f3ed;
+  color:#151515;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:17px;
+  box-shadow:0 4px 9px #0007;
+}
+
+.playing-card.red{
+  color:#a12e35;
 }
 
 .chips{
   display:flex;
-  justify-content:center;
-  gap:10px;
   flex-wrap:wrap;
-  margin:15px 0;
+  gap:8px;
 }
 
 .chip{
-  width:60px;
-  height:60px;
+  width:47px;
+  height:47px;
+  padding:0;
   border-radius:50%;
-  border:3px dashed #aaa;
-  background:#171b22;
-  color:white;
-  font-weight:800;
-}
-
-.chip.selected{
-  border-color:var(--accent);
-  color:var(--accent);
-  transform:scale(1.06);
-}
-
-.crazy-wheel{
-  width:270px;
-  height:270px;
-  margin:20px auto;
-  border-radius:50%;
-  border:7px solid #3c424c;
-  background:conic-gradient(
-    #a53b3b 0deg 30deg,
-    #b88b35 30deg 60deg,
-    #28584c 60deg 90deg,
-    #a53b3b 90deg 120deg,
-    #b88b35 120deg 150deg,
-    #28584c 150deg 180deg,
-    #a53b3b 180deg 210deg,
-    #b88b35 210deg 240deg,
-    #28584c 240deg 270deg,
-    #a53b3b 270deg 300deg,
-    #b88b35 300deg 330deg,
-    #28584c 330deg 360deg
-  );
-  position:relative;
-  transition:transform 1.3s cubic-bezier(.12,.7,.15,1);
-}
-
-.crazy-wheel::after{
-  content:"SPIN";
-  position:absolute;
-  width:74px;
-  height:74px;
-  border-radius:50%;
-  background:#11151d;
-  border:2px solid var(--accent);
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:var(--accent);
-  font-weight:800;
-}
-
-.crazy-pointer{
-  width:0;
-  height:0;
-  border-left:12px solid transparent;
-  border-right:12px solid transparent;
-  border-top:25px solid var(--accent);
-  margin:0 auto -7px;
-  position:relative;
-  z-index:2;
-}
-
-.crazy-stats{
+  border:2px dashed #9a9da4;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:12px;
+  place-items:center;
 }
 
-.stat{
-  padding:12px;
-  text-align:center;
-  background:#0a0d12;
-  border:1px solid var(--line);
-  border-radius:10px;
-}
+/* CRAZY */
 
-.memory{
+.crazy-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:8px;
-  margin-top:15px;
+  margin:15px 0;
+}
+
+.crazy-sector{
+  min-height:72px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  border:1px solid #414650;
+  border-radius:10px;
+  background:#181b21;
+  font-weight:900;
+  font-size:13px;
+}
+
+.crazy-sector.bonus{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+
+/* BONUS */
+
+.bonus-box{
+  text-align:center;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  padding:30px 18px;
+  background:
+    radial-gradient(circle at center,#211c12,#0c0e12 70%);
+}
+
+.bonus-icon{
+  font-size:60px;
+  margin-bottom:10px;
+}
+
+/* MEMORY */
+
+.memory{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+  max-width:650px;
+  margin:auto;
 }
 
 .memory-card{
   aspect-ratio:1;
   border-radius:10px;
-  border:1px solid var(--line);
-  background:#0a0d12;
+  border:1px solid #40444e;
+  background:#171a20;
   color:transparent;
+  display:grid;
+  place-items:center;
   font-size:22px;
-  font-weight:800;
+  font-weight:900;
 }
 
 .memory-card.open,
 .memory-card.matched{
-  color:var(--accent);
-  border-color:var(--accent);
+  color:white;
+  background:#252a32;
 }
 
 .memory-card.matched{
-  background:#15140f;
+  border-color:#568260;
 }
 
-.key-final{
+/* FINAL */
+
+.final{
   text-align:center;
-  border:1px solid var(--accent);
-  border-radius:15px;
-  padding:25px 18px;
-  background:rgba(216,181,106,.04);
+  padding:35px 18px;
+  border:1px solid var(--gold);
+  border-radius:18px;
+  background:
+    radial-gradient(circle,#211d14,#0c0e12 70%);
 }
 
-.key-icon{
-  font-size:55px;
-  margin:10px 0;
+.final h2{
+  color:var(--gold);
 }
 
-.final-message{
-  font-family:monospace;
-  line-height:1.8;
-  font-size:14px;
-}
+/* FOOTER */
 
 footer{
   text-align:center;
-  color:#555e6c;
-  font-size:11px;
-  margin-top:30px;
+  color:#555a63;
+  font-size:10px;
+  margin-top:35px;
   letter-spacing:1px;
 }
 
-.hidden{display:none!important}
+@media(max-width:500px){
+  .fight-grid{
+    grid-template-columns:1fr;
+  }
 
-@media(max-width:420px){
-  h1{font-size:26px}
-  .app{padding-left:12px;padding-right:12px}
-  .wheel{width:225px;height:225px}
-  .crazy-wheel{width:240px;height:240px}
+  .memory{
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .crazy-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .letters{
+    grid-template-columns:repeat(6,1fr);
+  }
+
+  .logo{
+    letter-spacing:-3px;
+  }
 }
 </style>
 </head>
 
 <body>
-<div class="app" id="app"></div>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">FASCICOLO FT-25 · ACCESSO RISERVATO</div>
+  <div class="logo">OPERAZIONE 25</div>
+
+  <div class="subtitle">
+    Sei prove.<br>
+    Nessuna scorciatoia.<br>
+    Ogni decisione lascia una traccia.
+  </div>
+
+  <div class="progress">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+</header>
+
+<main id="home"></main>
+
+<section id="gameScreen" class="hidden"></section>
+
+<footer>
+  SISTEMA LOCALE · FASCICOLO RISERVATO · NON CONDIVIDERE
+</footer>
+
+</div>
 
 <script>
+
 /* =========================================================
-   OPERAZIONE 25 — VERSIONE DEFINITIVA
-   6 DOSSIER
-   ========================================================= */
+   SISTEMA
+========================================================= */
 
-const STORAGE_KEY="OPERAZIONE25_COMPLETE_FINAL";
+const STORAGE_KEY = "OPERAZIONE25_FINAL";
 
-const DEFAULT_STATE={
+const DEFAULT_STATE = {
   started:false,
   completed:[],
-  inventory:[],
-  wheelMoney:100,
-  wheelLetters:[],
-  wheelSpun:false,
-  wheelSolved:false,
-  blackjackBankroll:100,
-  crazyBankroll:100,
-  crazyProgress:0,
-  crazySpins:0,
-  memoryMatched:[],
-  keyAuthorized:false
+  wheelMoney:500,
+  wheelUsed:[],
+  blackjackBankroll:300,
+  crazyBankroll:300
 };
 
-let state=loadState();
+let state = JSON.parse(
+  localStorage.getItem(STORAGE_KEY)
+) || structuredClone(DEFAULT_STATE);
 
-function loadState(){
-  try{
-    const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
-    return saved ? {...DEFAULT_STATE,...saved} : {...DEFAULT_STATE};
-  }catch(e){
-    return {...DEFAULT_STATE};
-  }
+function save(){
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state)
+  );
+
+  renderHome();
 }
 
-function saveState(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
-}
-
-function resetState(){
-  if(confirm("Vuoi cancellare tutti i progressi dell'OPERAZIONE 25?")){
-    localStorage.removeItem(STORAGE_KEY);
-    location.reload();
-  }
+function isComplete(n){
+  return state.completed.includes(n);
 }
 
 function complete(n){
   if(!state.completed.includes(n)){
     state.completed.push(n);
   }
-  saveState();
-}
 
-function done(n){
-  return state.completed.includes(n);
-}
-
-function addItem(x){
-  if(!state.inventory.includes(x)){
-    state.inventory.push(x);
-  }
-  saveState();
-}
-
-function layout(content){
-  const count=state.completed.filter(n=>n>=1&&n<=6).length;
-
-  document.getElementById("app").innerHTML=`
-    <header>
-      <div class="logo">ARCHIVIO RISERVATO</div>
-      <h1>OPERAZIONE 25</h1>
-      <div class="subtitle">
-        Fascicolo personale · accesso progressivo
-      </div>
-    </header>
-
-    ${content}
-
-    <footer>
-      ACCESSO PRIVATO · PROTOCOLLO 25
-    </footer>
-  `;
-}
-
-function home(){
-  const next=[1,2,3,4,5,6].find(n=>!done(n));
-
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">STATO OPERAZIONE</div>
-      <h2>${state.completed.length>=6?"PROTOCOLLO COMPLETATO":"${state.completed.length}/6 FASCICOLI COMPLETATI"}</h2>
-
-      <div class="progress">
-        ${[1,2,3,4,5,6].map(n=>`
-          <div class="${done(n)?"done":""}"></div>
-        `).join("")}
-      </div>
-
-      <div class="small">
-        Ogni fascicolo sblocca il successivo.
-        Non saltare le prove.
-      </div>
-
-      ${
-        state.completed.length<6
-        ?`<button class="btn primary" onclick="openLevel(${next})">
-            ${state.completed.length===0?"AVVIA OPERAZIONE":"CONTINUA OPERAZIONE"}
-           </button>`
-        :`
-          <div class="status success">
-            Tutti i fascicoli sono stati completati.
-          </div>
-          <button class="btn primary" onclick="finalPage()">
-            APRI PROTOCOLLO FINALE
-          </button>
-        `
-      }
-    </div>
-
-    <div class="panel">
-      <h2>Fascicoli</h2>
-      ${[1,2,3,4,5,6].map(dossierCard).join("")}
-    </div>
-
-    <div class="panel">
-      <h2>Reperti acquisiti</h2>
-      <div class="badges">
-        ${
-          state.inventory.length
-          ?state.inventory.map(x=>`<span class="badge gold">${x}</span>`).join("")
-          :`<span class="small">Nessun reperto.</span>`
-        }
-      </div>
-    </div>
-
-    <div class="panel">
-      <button class="btn danger" onclick="resetState()">
-        RESET COMPLETO
-      </button>
-    </div>
-  `);
-}
-
-function dossierCard(n){
-  const unlocked=n===1||done(n-1);
-  const names=[
-    "L'INIZIO",
-    "FIGHT NIGHT",
-    "RUOTA DELLA FORTUNA",
-    "BLACKJACK",
-    "CRAZY TIME",
-    "L'ULTIMA PROVA"
-  ];
-
-  return `
-    <div class="dossier-card ${unlocked?"":"locked"}">
-      <div class="dossier-number">
-        DOSSIER ${String(n).padStart(2,"0")}
-      </div>
-      <div class="dossier-title">
-        ${done(n)?"✓ COMPLETATO":unlocked?names[n-1]:"NON DISPONIBILE"}
-      </div>
-      ${
-        unlocked
-        ?`<button class="btn" onclick="openLevel(${n})">
-            ${done(n)?"RIAPRI":"APRIRE"}
-           </button>`
-        :`<div class="small" style="margin-top:7px">
-            Completa prima il dossier ${n-1}.
-           </div>`
-      }
-    </div>
-  `;
-}
-
-function openLevel(n){
-  if(n===1)level1();
-  if(n===2)level2();
-  if(n===3)level3();
-  if(n===4)level4();
-  if(n===5)level5();
-  if(n===6)level6();
-}
-
-function backHome(){
+  save();
   home();
 }
 
-/* =========================================================
-   DOSSIER 01 — L'INIZIO
-   ========================================================= */
-
-let evidenceFound=[];
-
-function level1(){
-  evidenceFound=[];
-
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">DOSSIER 01</div>
-      <h2>L'INIZIO</h2>
-
-      <p>
-        Il fascicolo non contiene istruzioni.
-        Solo quattro reperti.
-      </p>
-
-      <p class="small">
-        Uno di loro nasconde qualcosa che non può essere visto
-        normalmente. Esamina ogni elemento.
-      </p>
-
-      <div class="evidence-grid">
-        <button class="evidence" onclick="inspectEvidence('CARTA')">
-          <strong>REPERTO A</strong>
-          Una carta da gioco.
-        </button>
-
-        <button class="evidence" onclick="inspectEvidence('GETTONE')">
-          <strong>REPERTO B</strong>
-          Un gettone nero.
-        </button>
-
-        <button class="evidence" onclick="inspectEvidence('NOTA')">
-          <strong>REPERTO C</strong>
-          Una nota piegata.
-        </button>
-
-        <button class="evidence" onclick="inspectEvidence('CHIAVE')">
-          <strong>REPERTO D</strong>
-          Una piccola chiave.
-        </button>
-      </div>
-
-      <div id="evidenceStatus"></div>
-    </div>
-
-    <div class="panel">
-      <h3>La nota trovata</h3>
-
-      <div class="codebox">
-        4 · 2 · 7 · ?
-      </div>
-
-      <p class="small">
-        Sul retro compare una frase:
-        <br><br>
-        <em>
-          "Il numero mancante non è nascosto.
-          È quello che completa ciò che hai già."
-        </em>
-      </p>
-
-      <input id="l1code"
-             inputmode="numeric"
-             maxlength="4"
-             placeholder="Inserisci il codice a 4 cifre">
-
-      <button class="btn primary" onclick="solveLevel1()">
-        AUTORIZZA CODICE
-      </button>
-
-      <div id="l1status"></div>
-    </div>
-
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
+function resetGame(){
+  if(confirm("Vuoi cancellare tutti i progressi?")){
+    state = structuredClone(DEFAULT_STATE);
+    save();
+    home();
+  }
 }
 
-function inspectEvidence(type){
-  if(!evidenceFound.includes(type)){
-    evidenceFound.push(type);
+/* =========================================================
+   HOME
+========================================================= */
+
+function renderHome(){
+
+  const percent =
+    (state.completed.length / 6) * 100;
+
+  document.getElementById("progressBar")
+    .style.width = percent + "%";
+
+  const dossiers = [
+
+    {
+      n:1,
+      title:"L'INIZIO",
+      subtitle:"L'ACCESSO",
+      text:"Un fascicolo digitale. Tre testimonianze. Una contraddizione."
+    },
+
+    {
+      n:2,
+      title:"FIGHT NIGHT",
+      subtitle:"THE CHALLENGER",
+      text:"Gestisci energia, rischio e ritmo. Non basta attaccare."
+    },
+
+    {
+      n:3,
+      title:"RUOTA DELLA FORTUNA",
+      subtitle:"THE BANK",
+      text:"Denaro, lettere, rischio e bancarotta."
+    },
+
+    {
+      n:4,
+      title:"BLACKJACK",
+      subtitle:"THE TABLE",
+      text:"Punta. Hit. Stand. Double. Porta il bankroll al traguardo."
+    },
+
+    {
+      n:5,
+      title:"CRAZY TIME",
+      subtitle:"THE WHEEL",
+      text:"Scommetti sulla ruota. I bonus nascondono mini-giochi."
+    },
+
+    {
+      n:6,
+      title:"L'ULTIMA PROVA",
+      subtitle:"PROTOCOLLO 25",
+      text:"Ricorda ciò che hai visto. Collega gli elementi. Chiudi l'operazione."
+    }
+
+  ];
+
+  let html = `
+
+  <div class="card" style="margin-top:18px">
+
+    <div class="kicker">
+      ${state.completed.length}/6 FASCICOLI COMPLETATI
+    </div>
+
+    <h2>
+      ${
+        state.completed.length === 6
+        ? "PROTOCOLLO COMPLETATO"
+        : "SISTEMA PRONTO"
+      }
+    </h2>
+
+    <p class="subtitle">
+      ${
+        state.completed.length === 6
+        ? "Tutte le prove digitali sono state registrate."
+        : "L'operazione può iniziare."
+      }
+    </p>
+
+    ${
+      state.completed.length < 6
+      ?
+      `<button class="gold" onclick="startOperation()">
+        ${state.started ? "RIPRENDI OPERAZIONE" : "AVVIA OPERAZIONE"}
+      </button>`
+      :
+      `<button class="gold" onclick="finalScreen()">
+        APRI PROTOCOLLO FINALE
+      </button>`
+    }
+
+    <button
+      class="red"
+      style="margin-left:6px"
+      onclick="resetGame()">
+      RESET
+    </button>
+
+  </div>
+
+  <div class="card-grid">
+  `;
+
+  dossiers.forEach(d => {
+
+    const unlocked =
+      d.n === 1 ||
+      isComplete(d.n - 1);
+
+    html += `
+
+    <article class="card ${unlocked ? "" : "locked"}">
+
+      <div class="card-number">
+        ${String(d.n).padStart(2,"0")} / ${d.title}
+      </div>
+
+      <h3>${d.subtitle}</h3>
+
+      <p>${d.text}</p>
+
+      <button
+        ${unlocked ? "" : "disabled"}
+        onclick="openDossier(${d.n})">
+
+        ${
+          isComplete(d.n)
+          ? "RIVEDI"
+          : unlocked
+          ? "APRI FASCICOLO"
+          : "BLOCCATO"
+        }
+
+      </button>
+
+    </article>
+
+    `;
+
+  });
+
+  html += `</div>`;
+
+  document.getElementById("home").innerHTML = html;
+}
+
+function startOperation(){
+
+  state.started = true;
+  save();
+
+  const next =
+    state.completed.length < 6
+    ? state.completed.length + 1
+    : 6;
+
+  openDossier(next);
+}
+
+function home(){
+
+  document
+    .getElementById("gameScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("home")
+    .classList.remove("hidden");
+
+  renderHome();
+}
+
+function openDossier(n){
+
+  if(
+    n > 1 &&
+    !isComplete(n-1)
+  ){
+    return;
   }
 
-  let text="";
+  document
+    .getElementById("home")
+    .classList.add("hidden");
 
-  if(type==="CARTA"){
-    text="Una carta apparentemente normale. Sul bordo: una minuscola tacca.";
-  }
+  document
+    .getElementById("gameScreen")
+    .classList.remove("hidden");
 
-  if(type==="GETTONE"){
-    text="Il gettone riporta una sola parola: BANCO.";
-  }
+  if(n === 1) dossier1();
+  if(n === 2) dossier2();
+  if(n === 3) dossier3();
+  if(n === 4) dossier4();
+  if(n === 5) dossier5();
+  if(n === 6) dossier6();
+}
 
-  if(type==="NOTA"){
-    text="La carta è scritta con un inchiostro quasi invisibile. Alla luce UV compare: 4 2 7 ?";
-  }
+function shell(kicker,title,content){
 
-  if(type==="CHIAVE"){
-    text="La chiave non apre nulla. È troppo piccola. Sul retro è inciso: 1.";
-  }
+  document.getElementById("gameScreen").innerHTML = `
 
-  document.getElementById("evidenceStatus").innerHTML=`
-    <div class="status">
-      <strong>${type}</strong><br>
-      ${text}
+    <button class="back" onclick="home()">
+      ← TORNA AI FASCICOLI
+    </button>
+
+    <div class="game">
+
+      <div class="kicker">
+        ${kicker}
+      </div>
+
+      <h2>${title}</h2>
+
+      ${content}
+
     </div>
   `;
 }
 
-function solveLevel1(){
-  const value=document.getElementById("l1code").value.trim();
-  const box=document.getElementById("l1status");
+/* =========================================================
+   MOMENTO REGALO — GRATTA E VINCI
+========================================================= */
 
-  if(value==="4271"){
-    addItem("CHIAVE UV");
-    addItem("1");
-    complete(1);
+function scratchMoment(){
 
-    box.innerHTML=`
-      <div class="status success">
-        ACCESSO AUTORIZZATO.<br><br>
-        Il primo fascicolo è completo.
+  shell(
+    "MOMENTO BONUS / FUORI PROCEDURA",
+    "TENTATIVO DI FORTUNA",
+    `
+
+      <div class="bonus-box">
+
+        <div class="bonus-icon">🎟️</div>
+
+        <h2>
+          PER UNA VOLTA<br>
+          NON DEVI RISOLVERE NIENTE.
+        </h2>
+
+        <p class="subtitle">
+          Questo non è un indizio.<br>
+          Non è una prova.<br>
+          Non serve a sbloccare nulla.
+        </p>
+
+        <div class="notice">
+          Prendi il tuo regalo.<br><br>
+          <b>Grattalo.</b><br>
+          Scopri cosa hai trovato.
+        </div>
+
+        <p>
+          Quando hai finito,<br>
+          torna all'operazione.
+        </p>
+
+        <button class="gold" onclick="home()">
+          TORNA ALL'OPERAZIONE
+        </button>
+
       </div>
-      <button class="btn" onclick="level1()">CONTINUA</button>
+
+    `
+  );
+}
+
+/* =========================================================
+   DOSSIER 1 — INDAGINE
+========================================================= */
+
+function dossier1(){
+
+  shell(
+    "FASCICOLO 01 / EVIDENZE",
+    "L'INIZIO",
+    `
+
+      <div class="rule">
+        Il sistema non cerca una memoria perfetta.
+        Cerca una <b>contraddizione</b>.
+        Leggi tutti i documenti prima di rispondere.
+      </div>
+
+      <div class="evidence">
+
+        <div class="evidence-card">
+          <strong>RAPPORTO A — 21:14</strong>
+          <small>
+            “Ho lasciato il dossier sul tavolo alle 21:10.
+            Alle 21:14 ero già fuori.”
+          </small>
+        </div>
+
+        <div class="evidence-card">
+          <strong>RAPPORTO B — 21:12</strong>
+          <small>
+            “Ho ricevuto il messaggio alle 21:12:
+            non uscire ancora.”
+          </small>
+        </div>
+
+        <div class="evidence-card">
+          <strong>LOG TELEFONO</strong>
+          <small>
+            21:11 — dispositivo A collegato al Wi-Fi interno.<br>
+            21:13 — dispositivo A disconnesso.
+          </small>
+        </div>
+
+        <div class="evidence-card">
+          <strong>FOTO 04</strong>
+          <small>
+            Metadati: 21:13.<br>
+            Il dossier è ancora visibile sul tavolo.
+          </small>
+        </div>
+
+        <div class="evidence-card">
+          <strong>NOTA</strong>
+          <small>
+            Una persona sostiene di essere uscita prima
+            che il dossier fosse fotografato.
+            Il log racconta altro.
+          </small>
+        </div>
+
+      </div>
+
+      <p class="subtitle">
+        Quale minuto rende impossibile la versione dei fatti?
+      </p>
+
+      <div class="row">
+
+        <input
+          id="investigationAnswer"
+          placeholder="es. 21:13"
+        >
+
+        <button
+          class="gold"
+          onclick="checkInvestigation()">
+          CONFERMA
+        </button>
+
+      </div>
+
+      <div id="investigationResult"></div>
+
+      <div class="actions">
+
+        <button onclick="scratchMoment()">
+          🎟️ MOMENTO BONUS
+        </button>
+
+      </div>
+
+    `
+  );
+}
+
+function checkInvestigation(){
+
+  const answer =
+    document
+      .getElementById("investigationAnswer")
+      .value
+      .trim()
+      .replace(".",":");
+
+  const result =
+    document.getElementById("investigationResult");
+
+  if(answer === "21:13"){
+
+    result.innerHTML = `
+
+      <div class="notice success">
+
+        CONTRADDIZIONE IDENTIFICATA.<br><br>
+
+        Il log colloca il dispositivo all'interno
+        fino alle 21:13.
+        La fotografia è stata acquisita alle 21:13.
+
+        <br><br>
+
+        <b>FRAMMENTO RECUPERATO: 07</b>
+
+      </div>
+
+      <button
+        class="gold"
+        onclick="complete(1)">
+        CHIUDI FASCICOLO
+      </button>
+
     `;
+
   }else{
-    box.innerHTML=`
-      <div class="status error">
-        Codice errato. Esamina ancora i reperti.
+
+    result.innerHTML = `
+
+      <div class="notice fail">
+
+        RISPOSTA ERRATA.<br><br>
+        Non cercare un codice.
+        Cerca il minuto che smentisce la storia.
+
       </div>
+
     `;
   }
 }
 
 /* =========================================================
-   DOSSIER 02 — FIGHT NIGHT
-   ========================================================= */
+   DOSSIER 2 — FIGHT NIGHT
+========================================================= */
 
-const fightQuestions=[
-  {
-    q:"Durante uno scambio in piedi, l'avversario abbassa improvvisamente il livello. La prima reazione più sensata è:",
-    a:["Restare completamente fermo","Difendere il takedown e mantenere equilibrio","Chiudere gli occhi","Girarsi di spalle"],
-    c:1
-  },
-  {
-    q:"Se sei stanco e perdi precisione nei colpi, quale scelta è generalmente più intelligente?",
-    a:["Aumentare inutilmente il ritmo","Respirare e ridurre gli scambi rischiosi","Tenere sempre le mani basse","Attaccare a caso"],
-    c:1
-  },
-  {
-    q:"Nel grappling, ottenere una posizione dominante significa soprattutto:",
-    a:["Avere una posizione che permette controllo e attacco","Essere più rumorosi","Avere più forza nelle gambe","Muoversi senza controllo"],
-    c:0
-  },
-  {
-    q:"L'avversario ha appena tirato un colpo largo e ha lasciato scoperto il centro. Cosa conta di più?",
-    a:["La distanza e il timing","La rabbia","La velocità a caso","Voltarsi"],
-    c:0
-  },
-  {
-    q:"Se vieni portato a terra, il concetto di 'guardia' riguarda:",
-    a:["Una posizione di controllo dal basso","Un arbitro","Un tipo di guantone","Una pausa"],
-    c:0
-  },
-  {
-    q:"In un combattimento, leggere il ritmo dell'avversario significa:",
-    a:["Capire tempi, reazioni e abitudini","Contare i secondi sul muro","Guardare il pubblico","Attaccare sempre per primo"],
-    c:0
-  }
-];
+let fight = {};
 
-let fightAnswers=[];
+function dossier2(){
 
-function level2(){
-  fightAnswers=[];
+  fight = {
+    player:100,
+    opponent:100,
+    stamina:100,
+    round:0
+  };
 
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">DOSSIER 02</div>
-      <h2>FIGHT NIGHT</h2>
+  shell(
+    "FASCICOLO 02 / FIGHT NIGHT",
+    "THE CHALLENGER",
+    `
 
-      <p>
-        Sei sul ring. Non basta conoscere le tecniche:
-        devi capire la situazione.
-      </p>
+      <div class="rule">
 
-      <div id="fightQuiz"></div>
+        Sei tu a scegliere il ritmo.<br>
 
-      <button class="btn primary" onclick="checkFight()">
-        VERIFICA COMBATTIMENTO
-      </button>
+        Ogni tecnica consuma stamina.<br>
 
-      <div id="fightStatus"></div>
-    </div>
+        Se finisci energia prima dell'avversario,
+        perdi.
 
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
+        <br><br>
 
-  renderFightQuiz();
-}
+        <b>OBIETTIVO: KO</b>
 
-function renderFightQuiz(){
-  document.getElementById("fightQuiz").innerHTML=
-    fightQuestions.map((item,i)=>`
-      <div class="panel" style="margin-top:12px;background:#0c1016">
-        <strong>${i+1}. ${item.q}</strong>
-        ${item.a.map((answer,j)=>`
-          <button
-            class="quiz-option"
-            id="fq${i}_${j}"
-            onclick="selectFight(${i},${j})">
-            ${answer}
-          </button>
-        `).join("")}
       </div>
-    `).join("");
-}
 
-function selectFight(q,a){
-  fightAnswers[q]=a;
+      <div class="fight-grid">
 
-  fightQuestions[q].a.forEach((_,j)=>{
-    const el=document.getElementById(`fq${q}_${j}`);
-    if(el)el.style.borderColor=j===a?"#d8b56a":"";
-  });
-}
+        <div class="fighter">
 
-function checkFight(){
-  const box=document.getElementById("fightStatus");
+          <b>TU</b>
 
-  if(fightAnswers.length<6||fightAnswers.some(x=>x===undefined)){
-    box.innerHTML=`
-      <div class="status error">
-        Mancano ancora delle risposte.
+          <div class="meter">
+            <span id="playerHealth"></span>
+          </div>
+
+          <div>
+            Energia:
+            <b id="playerEnergy"></b>
+          </div>
+
+        </div>
+
+        <div class="fighter">
+
+          <b>CHALLENGER</b>
+
+          <div class="meter">
+            <span id="opponentHealth"></span>
+          </div>
+
+          <div>
+            Energia:
+            <b id="opponentEnergy"></b>
+          </div>
+
+        </div>
+
       </div>
-    `;
+
+      <div class="actions">
+
+        <button class="move"
+          onclick="fightMove('jab')">
+          JAB · 8
+        </button>
+
+        <button class="move"
+          onclick="fightMove('combo')">
+          COMBO · 18
+        </button>
+
+        <button class="move"
+          onclick="fightMove('kick')">
+          KICK · 14
+        </button>
+
+        <button class="move"
+          onclick="fightMove('guard')">
+          GUARD · 3
+        </button>
+
+      </div>
+
+      <div id="fightResult"
+        class="notice">
+        ROUND 1 · SCEGLI LA STRATEGIA.
+      </div>
+
+    `
+  );
+
+  updateFight();
+}
+
+function updateFight(){
+
+  document.getElementById("playerHealth")
+    .style.width =
+      fight.player + "%";
+
+  document.getElementById("opponentHealth")
+    .style.width =
+      fight.opponent + "%";
+
+  document.getElementById("playerEnergy")
+    .textContent =
+      fight.stamina + "%";
+
+  document.getElementById("opponentEnergy")
+    .textContent =
+      fight.opponent + "%";
+}
+
+function fightMove(move){
+
+  if(
+    fight.player <= 0 ||
+    fight.opponent <= 0
+  ) return;
+
+  const costs = {
+    jab:8,
+    combo:18,
+    kick:14,
+    guard:3
+  };
+
+  if(fight.stamina < costs[move]){
+
+    document.getElementById("fightResult")
+      .innerHTML = `
+        <div class="notice fail">
+          Sei troppo stanco.
+          Devi gestire la stamina.
+        </div>
+      `;
+
     return;
   }
 
-  const score=fightQuestions.reduce(
-    (sum,q,i)=>sum+(fightAnswers[i]===q.c?1:0),0
-  );
+  fight.stamina -= costs[move];
 
-  if(score>=5){
-    addItem("FIGHT");
-    addItem("2");
-    complete(2);
+  let damage = 0;
 
-    box.innerHTML=`
-      <div class="status success">
-        COMBATTIMENTO SUPERATO.<br><br>
-        Punteggio: <strong>${score}/6</strong>
-      </div>
-      <button class="btn" onclick="level2()">CONTINUA</button>
-    `;
-  }else{
-    box.innerHTML=`
-      <div class="status error">
-        Punteggio: ${score}/6.<br>
-        Devi ottenere almeno 5 risposte corrette.
-      </div>
-    `;
+  if(move === "jab"){
+    damage = 10 + Math.floor(Math.random()*7);
   }
+
+  if(move === "combo"){
+    damage = 22 + Math.floor(Math.random()*9);
+  }
+
+  if(move === "kick"){
+    damage = 16 + Math.floor(Math.random()*8);
+  }
+
+  if(move === "guard"){
+    damage = 0;
+  }
+
+  fight.opponent =
+    Math.max(
+      0,
+      fight.opponent - damage
+    );
+
+  let retaliation =
+    move === "guard"
+    ? 3
+    : 9 + Math.floor(Math.random()*10);
+
+  fight.player =
+    Math.max(
+      0,
+      fight.player - retaliation
+    );
+
+  fight.round++;
+
+  const result =
+    document.getElementById("fightResult");
+
+  if(fight.opponent <= 0){
+
+    result.innerHTML = `
+
+      <div class="notice success">
+
+        <b>KO.</b><br><br>
+
+        Hai trovato il ritmo.
+
+        <br><br>
+
+        FRAMMENTO RECUPERATO:
+        <b>06</b>
+
+      </div>
+
+      <button
+        class="gold"
+        onclick="complete(2)">
+        CHIUDI FASCICOLO
+      </button>
+
+    `;
+
+  }else if(fight.player <= 0){
+
+    result.innerHTML = `
+
+      <div class="notice fail">
+
+        TAPPETO.<br>
+        Hai finito energia.
+
+        <br><br>
+
+        <button onclick="dossier2()">
+          RIPROVA
+        </button>
+
+      </div>
+
+    `;
+
+  }else{
+
+    result.innerHTML = `
+
+      ROUND ${fight.round}.<br><br>
+
+      Hai inflitto <b>${damage}</b>.
+      Hai subito <b>${retaliation}</b>.
+
+    `;
+
+  }
+
+  updateFight();
 }
 
 /* =========================================================
-   DOSSIER 03 — RUOTA DELLA FORTUNA
-   ========================================================= */
+   DOSSIER 3 — RUOTA DELLA FORTUNA
+========================================================= */
 
-const wheelPhrase="IL VIAGGIO INIZIA QUANDO SMETTI DI CERCARE LA STRADA";
-const vowels=["A","E","I","O","U"];
-const consonants="BCDFGHJKLMNPQRSTVWXYZ".split("");
-let wheelRotation=0;
-let wheelRound=false;
+let wheel = {
+  money:500,
+  used:[],
+  active:false,
+  rotation:0
+};
 
-function level3(){
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">DOSSIER 03</div>
-      <h2>RUOTA DELLA FORTUNA</h2>
+const wheelPhrase =
+  "IL VIAGGIO INIZIA QUANDO SMETTI DI CERCARE LA STRADA";
 
-      <p>
-        Gira la ruota. Guadagna lettere.
-        Puoi comprare vocali. Quando pensi di aver capito,
-        prova a risolvere la frase.
-      </p>
+const alphabet =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+function dossier3(){
+
+  wheel = {
+    money:state.wheelMoney || 500,
+    used:state.wheelUsed || [],
+    active:false,
+    rotation:0
+  };
+
+  shell(
+    "FASCICOLO 03 / THE BANK",
+    "RUOTA DELLA FORTUNA",
+    `
+
+      <div class="rule">
+
+        <b>CONSONANTI:</b> gratis,
+        ma se sbagli perdi il turno.<br>
+
+        <b>VOCALI:</b> €50.<br>
+
+        <b>BANKRUPT:</b> perdi tutto il bankroll.<br>
+
+        Una lettera già usata non può essere scelta.
+
+      </div>
+
+      <div class="big-money">
+        BANKROLL: €<span id="wheelMoney"></span>
+      </div>
 
       <div class="wheel-wrap">
+
         <div class="pointer"></div>
-        <div class="wheel" id="fortuneWheel"></div>
-        <div class="wheel-result" id="wheelResult">
-          PRONTO
+
+        <div id="wheel">
+
+          <div class="wheel-labels">
+            €100<br>
+            €250<br>
+            BANKRUPT<br>
+            €500<br>
+            PERDI TURNO<br>
+            €150<br>
+            €300<br>
+            €50
+          </div>
+
         </div>
+
+        <button
+          class="gold"
+          onclick="spinWheel()">
+          GIRA LA RUOTA
+        </button>
+
       </div>
 
-      <div class="stat">
-        BANCA: <strong id="wheelMoney">${state.wheelMoney}</strong>
+      <div
+        id="wheelResult"
+        class="notice">
+        Gira la ruota per iniziare.
       </div>
 
-      <button class="btn primary" onclick="spinWheel()">
-        GIRA LA RUOTA
-      </button>
-    </div>
-
-    <div class="panel">
-      <h3>Consonanti</h3>
-      <div class="letter-buttons">
-        ${consonants.map(l=>`
-          <button onclick="guessConsonant('${l}')">${l}</button>
-        `).join("")}
+      <div
+        id="wheelPhrase"
+        class="phrase">
       </div>
 
-      <h3>Compra una vocale · 10</h3>
-      <div class="letter-buttons">
-        ${vowels.map(l=>`
-          <button onclick="buyVowel('${l}')">${l}</button>
-        `).join("")}
+      <div
+        id="wheelLetters"
+        class="letters">
       </div>
 
-      <div class="phrase" id="phraseBoard">
-        ${displayPhrase()}
-      </div>
+    `
+  );
 
-      <input id="wheelSolve"
-             placeholder="Scrivi la frase completa">
-
-      <button class="btn primary" onclick="solveWheel()">
-        RISOLVI
-      </button>
-
-      <div id="wheelStatus"></div>
-    </div>
-
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
+  renderWheel();
 }
 
-function displayPhrase(){
-  return wheelPhrase.split("").map(ch=>{
-    if(ch===" ")return "&nbsp;&nbsp;";
-    if(state.wheelLetters.includes(ch))return ch;
-    return "_";
-  }).join(" ");
+function renderWheel(){
+
+  document.getElementById("wheelMoney")
+    .textContent = wheel.money;
+
+  document.getElementById("wheelPhrase")
+    .innerHTML =
+      wheelPhrase
+        .split("")
+        .map(ch => {
+
+          if(ch === " ")
+            return "&nbsp;";
+
+          return wheel.used.includes(ch)
+            ? ch
+            : "_";
+
+        })
+        .join(" ");
+
+  document.getElementById("wheelLetters")
+    .innerHTML =
+      alphabet
+        .map(letter => `
+
+          <button
+            ${wheel.used.includes(letter) ||
+              !wheel.active
+              ? "disabled"
+              : ""}
+            onclick="chooseWheelLetter('${letter}')">
+
+            ${letter}
+
+          </button>
+
+        `)
+        .join("");
+
 }
 
 function spinWheel(){
-  if(wheelRound){
-    return;
-  }
 
-  wheelRound=true;
+  if(wheel.active) return;
 
-  const results=[
-    ["+10",10],
-    ["+20",20],
-    ["+30",30],
-    ["BANKRUPT",-100],
-    ["+15",15],
-    ["+25",25]
+  wheel.active = true;
+
+  const values = [
+    100,
+    250,
+    "BANKRUPT",
+    500,
+    "LOSE",
+    150,
+    300,
+    50
   ];
 
-  const result=results[Math.floor(Math.random()*results.length)];
-  const wheel=document.getElementById("fortuneWheel");
+  const index =
+    Math.floor(
+      Math.random() * values.length
+    );
 
-  wheelRotation+=720+Math.floor(Math.random()*360);
-  wheel.style.transform=`rotate(${wheelRotation}deg)`;
+  wheel.rotation +=
+    720 + index * 45;
 
-  setTimeout(()=>{
-    wheelRound=false;
+  document.getElementById("wheel")
+    .style.transform =
+      `rotate(${wheel.rotation}deg)`;
 
-    const text=result[0];
-    const amount=result[1];
+  setTimeout(() => {
 
-    if(amount===-100){
-      state.wheelMoney=0;
-      document.getElementById("wheelResult").textContent="BANKRUPT";
+    const value = values[index];
+
+    if(value === "BANKRUPT"){
+
+      wheel.money = 0;
+
+      document.getElementById("wheelResult")
+        .innerHTML = `
+          <div class="notice fail">
+            BANKRUPT.<br>
+            Il bankroll torna a €0.
+          </div>
+        `;
+
+    }else if(value === "LOSE"){
+
+      wheel.active = false;
+
+      document.getElementById("wheelResult")
+        .innerHTML = `
+          <div class="notice fail">
+            PERDI TURNO.
+            Nessuna lettera.
+          </div>
+        `;
+
+      renderWheel();
+      return;
+
     }else{
-      state.wheelMoney+=amount;
-      document.getElementById("wheelResult").textContent=text;
+
+      wheel.money += value;
+
+      document.getElementById("wheelResult")
+        .innerHTML = `
+          <div class="notice success">
+            La ruota assegna
+            <b>€${value}</b>.<br>
+            Ora scegli una lettera.
+          </div>
+        `;
+
     }
 
-    saveState();
-    document.getElementById("wheelMoney").textContent=state.wheelMoney;
-  },1200);
+    renderWheel();
+
+  },4100);
+
 }
 
-function guessConsonant(letter){
-  if(state.wheelLetters.includes(letter)){
-    return;
+function chooseWheelLetter(letter){
+
+  if(
+    !wheel.active ||
+    wheel.used.includes(letter)
+  ) return;
+
+  wheel.used.push(letter);
+
+  const occurrences =
+    [...wheelPhrase]
+      .filter(c => c === letter)
+      .length;
+
+  if("AEIOU".includes(letter)){
+
+    wheel.money =
+      Math.max(
+        0,
+        wheel.money - 50
+      );
+
   }
 
-  state.wheelLetters.push(letter);
+  if(occurrences === 0){
 
-  const count=wheelPhrase.split("").filter(x=>x===letter).length;
+    wheel.active = false;
 
-  if(count>0){
-    state.wheelMoney+=count*10;
-  }
+    document.getElementById("wheelResult")
+      .innerHTML = `
 
-  saveState();
+        <div class="notice fail">
 
-  const board=document.getElementById("phraseBoard");
-  if(board)board.innerHTML=displayPhrase();
+          Nessuna occorrenza.<br>
+          Turno perso.
 
-  if(count===0){
-    document.getElementById("wheelStatus").innerHTML=`
-      <div class="status error">
-        ${letter} non compare nella frase.
-      </div>
-    `;
+        </div>
+
+      `;
+
   }else{
-    document.getElementById("wheelStatus").innerHTML=`
-      <div class="status success">
-        ${letter} compare ${count} ${count===1?"volta":"volte"}.
-      </div>
-    `;
+
+    document.getElementById("wheelResult")
+      .innerHTML = `
+
+        <div class="notice success">
+
+          ${occurrences}
+          occorrenz${occurrences === 1 ? "a" : "e"}
+          trovata/e.
+
+        </div>
+
+      `;
+
+    const solved =
+      wheelPhrase
+        .split("")
+        .every(
+          c =>
+            c === " " ||
+            wheel.used.includes(c)
+        );
+
+    if(solved){
+
+      wheel.active = false;
+
+      document.getElementById("wheelResult")
+        .innerHTML += `
+
+          <div class="notice success">
+
+            <b>FRASE COMPLETATA.</b><br><br>
+
+            FRAMMENTO:
+            <b>25</b>
+
+          </div>
+
+          <button
+            class="gold"
+            onclick="complete(3)">
+            CHIUDI FASCICOLO
+          </button>
+
+        `;
+
+    }
+
   }
 
-  document.getElementById("wheelMoney").textContent=state.wheelMoney;
-}
+  state.wheelMoney = wheel.money;
+  state.wheelUsed = wheel.used;
 
-function buyVowel(letter){
-  if(state.wheelMoney<10){
-    document.getElementById("wheelStatus").innerHTML=`
-      <div class="status error">
-        Non hai abbastanza denaro.
-      </div>
-    `;
-    return;
-  }
-
-  if(state.wheelLetters.includes(letter))return;
-
-  state.wheelMoney-=10;
-  state.wheelLetters.push(letter);
-
-  saveState();
-
-  document.getElementById("phraseBoard").innerHTML=displayPhrase();
-  document.getElementById("wheelMoney").textContent=state.wheelMoney;
-}
-
-function solveWheel(){
-  const value=document.getElementById("wheelSolve").value
-    .trim()
-    .toUpperCase()
-    .replace(/\s+/g," ");
-
-  if(value===wheelPhrase){
-    state.wheelSolved=true;
-    addItem("RUOTA");
-    addItem("3");
-    complete(3);
-
-    document.getElementById("wheelStatus").innerHTML=`
-      <div class="status success">
-        FRASE RISOLTA.<br><br>
-        <strong>${wheelPhrase}</strong>
-      </div>
-      <button class="btn" onclick="level3()">CONTINUA</button>
-    `;
-  }else{
-    document.getElementById("wheelStatus").innerHTML=`
-      <div class="status error">
-        Soluzione errata.
-      </div>
-    `;
-  }
+  save();
+  renderWheel();
 }
 
 /* =========================================================
-   DOSSIER 04 — BLACKJACK
-   ========================================================= */
+   DOSSIER 4 — BLACKJACK
+========================================================= */
 
-let bjDeck=[];
-let bjPlayer=[];
-let bjDealer=[];
-let bjBet=10;
-let bjActive=false;
-let bjDealerHidden=true;
+let blackjack = {};
 
-function level4(){
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">DOSSIER 04</div>
-      <h2>BLACKJACK</h2>
+function createDeck(){
 
-      <p>
-        Qui non c'è una soluzione preimpostata.
-        Devi davvero giocare.
-      </p>
+  const deck = [];
 
-      <div class="blackjack">
-        <div class="hand-label">BANCO</div>
-        <div class="cards" id="dealerCards"></div>
-        <div class="score" id="dealerScore"></div>
+  const suits =
+    ["♠","♥","♦","♣"];
 
-        <hr style="border-color:#42604c;margin:18px 0">
+  const ranks =
+    ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
 
-        <div class="hand-label">TU</div>
-        <div class="cards" id="playerCards"></div>
-        <div class="score" id="playerScore"></div>
-      </div>
+  for(const suit of suits){
 
-      <div class="bankroll">
-        CASSA:
-        <strong id="bjBankroll">${state.blackjackBankroll}</strong>
-      </div>
+    for(const rank of ranks){
 
-      <div class="center">
-        PUNTATA: <strong id="bjBet">${bjBet}</strong>
-      </div>
+      deck.push({
+        rank,
+        suit
+      });
 
-      <div class="chips">
-        <button class="chip" onclick="selectBet(5)">5</button>
-        <button class="chip" onclick="selectBet(10)">10</button>
-        <button class="chip" onclick="selectBet(25)">25</button>
-      </div>
+    }
 
-      <button class="btn primary" id="dealBtn" onclick="dealBJ()">
-        DISTRIBUISCI
-      </button>
-
-      <div class="choice-grid">
-        <button class="btn" id="hitBtn" onclick="bjHit()" disabled>HIT</button>
-        <button class="btn" id="standBtn" onclick="bjStand()" disabled>STAND</button>
-      </div>
-
-      <button class="btn" id="doubleBtn" onclick="bjDouble()" disabled>
-        DOUBLE
-      </button>
-
-      <div id="bjStatus"></div>
-    </div>
-
-    <div class="panel">
-      <h3>Regole</h3>
-      <div class="small">
-        Il Banco pesca fino a 17. Vince chi si avvicina di più a 21
-        senza sballare. Un Blackjack naturale paga 3:2.
-      </div>
-    </div>
-
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
-
-  renderBJ();
-}
-
-function makeDeck(){
-  const suits=["♠","♥","♦","♣"];
-  const ranks=[
-    ["A",11],["2",2],["3",3],["4",4],["5",5],
-    ["6",6],["7",7],["8",8],["9",9],
-    ["10",10],["J",10],["Q",10],["K",10]
-  ];
-
-  const deck=[];
-
-  suits.forEach(s=>{
-    ranks.forEach(r=>{
-      deck.push({suit:s,rank:r[0],value:r[1]});
-    });
-  });
-
-  for(let i=deck.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [deck[i],deck[j]]=[deck[j],deck[i]];
   }
 
-  return deck;
+  return deck.sort(
+    () => Math.random() - .5
+  );
 }
 
 function handValue(hand){
-  let total=hand.reduce((s,c)=>s+c.value,0);
-  let aces=hand.filter(c=>c.rank==="A").length;
 
-  while(total>21&&aces>0){
-    total-=10;
+  let total = 0;
+  let aces = 0;
+
+  hand.forEach(card => {
+
+    if(card.rank === "A"){
+
+      total += 11;
+      aces++;
+
+    }else{
+
+      total +=
+        ["K","Q","J"].includes(card.rank)
+        ? 10
+        : Number(card.rank);
+
+    }
+
+  });
+
+  while(total > 21 && aces){
+
+    total -= 10;
     aces--;
+
   }
 
   return total;
 }
 
-function renderCards(hand,hidden){
-  return hand.map((c,i)=>{
-    if(hidden&&i===1){
-      return `<div class="card back">?</div>`;
-    }
+function renderPlayingCard(card){
 
-    const red=(c.suit==="♥"||c.suit==="♦")?"red":"";
+  const red =
+    "♥♦".includes(card.suit)
+    ? "red"
+    : "";
 
-    return `
-      <div class="card ${red}">
-        ${c.rank}${c.suit}
-      </div>
-    `;
-  }).join("");
-}
-
-function renderBJ(){
-  const dealer=document.getElementById("dealerCards");
-  const player=document.getElementById("playerCards");
-
-  if(!dealer)return;
-
-  dealer.innerHTML=renderCards(bjDealer,bjDealerHidden);
-  player.innerHTML=renderCards(bjPlayer,false);
-
-  document.getElementById("playerScore").textContent=
-    bjPlayer.length?`Totale: ${handValue(bjPlayer)}`:"";
-
-  document.getElementById("dealerScore").textContent=
-    bjDealer.length
-    ?(bjDealerHidden
-      ?`Carta visibile: ${handValue([bjDealer[0]])}`
-      :`Totale: ${handValue(bjDealer)}`)
-    :"";
-
-  document.getElementById("bjBankroll").textContent=
-    state.blackjackBankroll;
-
-  document.getElementById("bjBet").textContent=bjBet;
-}
-
-function selectBet(n){
-  if(bjActive)return;
-
-  if(n>state.blackjackBankroll){
-    document.getElementById("bjStatus").innerHTML=`
-      <div class="status error">
-        Puntata superiore alla cassa.
-      </div>
-    `;
-    return;
-  }
-
-  bjBet=n;
-  renderBJ();
-}
-
-function dealBJ(){
-  if(bjActive)return;
-
-  if(state.blackjackBankroll<bjBet){
-    document.getElementById("bjStatus").innerHTML=`
-      <div class="status error">Cassa insufficiente.</div>
-    `;
-    return;
-  }
-
-  bjDeck=makeDeck();
-  bjPlayer=[bjDeck.pop(),bjDeck.pop()];
-  bjDealer=[bjDeck.pop(),bjDeck.pop()];
-  bjDealerHidden=true;
-  bjActive=true;
-
-  document.getElementById("dealBtn").disabled=true;
-  document.getElementById("hitBtn").disabled=false;
-  document.getElementById("standBtn").disabled=false;
-  document.getElementById("doubleBtn").disabled=
-    state.blackjackBankroll<bjBet*2;
-
-  renderBJ();
-
-  if(handValue(bjPlayer)===21){
-    bjStand();
-  }
-}
-
-function bjHit(){
-  if(!bjActive)return;
-
-  bjPlayer.push(bjDeck.pop());
-  renderBJ();
-
-  if(handValue(bjPlayer)>21){
-    resolveBJ("bust");
-  }
-}
-
-function bjStand(){
-  if(!bjActive)return;
-
-  bjDealerHidden=false;
-
-  while(handValue(bjDealer)<17){
-    bjDealer.push(bjDeck.pop());
-  }
-
-  resolveBJ("stand");
-}
-
-function bjDouble(){
-  if(!bjActive)return;
-  if(state.blackjackBankroll<bjBet*2)return;
-
-  bjBet*=2;
-  bjPlayer.push(bjDeck.pop());
-
-  if(handValue(bjPlayer)>21){
-    resolveBJ("bust");
-  }else{
-    bjStand();
-  }
-}
-
-function resolveBJ(reason){
-  bjActive=false;
-  bjDealerHidden=false;
-
-  const pv=handValue(bjPlayer);
-  const dv=handValue(bjDealer);
-
-  let result="";
-  let delta=0;
-
-  if(pv>21){
-    delta=-bjBet;
-    result="HAI SBALLATO.";
-  }else if(dv>21){
-    delta=bjBet;
-    result="IL BANCO HA SBALLATO. VINCI.";
-  }else if(pv>dv){
-    delta=bjBet;
-    result="HAI VINTO.";
-  }else if(pv<dv){
-    delta=-bjBet;
-    result="VINCE IL BANCO.";
-  }else{
-    delta=0;
-    result="PUSH. PARITÀ.";
-  }
-
-  if(pv===21&&bjPlayer.length===2&&dv!==21){
-    delta=Math.floor(bjBet*1.5);
-    result="BLACKJACK NATURALE.";
-  }
-
-  state.blackjackBankroll+=delta;
-
-  if(state.blackjackBankroll<0){
-    state.blackjackBankroll=0;
-  }
-
-  saveState();
-
-  document.getElementById("hitBtn").disabled=true;
-  document.getElementById("standBtn").disabled=true;
-  document.getElementById("doubleBtn").disabled=true;
-  document.getElementById("dealBtn").disabled=
-    state.blackjackBankroll<5;
-
-  renderBJ();
-
-  document.getElementById("bjStatus").innerHTML=`
-    <div class="status ${delta>=0?"success":"error"}">
-      ${result}<br><br>
-      Tu: ${pv} · Banco: ${dv}<br>
-      ${delta>0?"+":""}${delta}
+  return `
+    <div class="playing-card ${red}">
+      ${card.rank}${card.suit}
     </div>
   `;
-
-  /*
-    Per non rendere il completamento dipendente
-    dalla fortuna di una singola mano, il dossier si completa
-    dopo aver giocato correttamente una mano.
-  */
-  if(pv<=21){
-    addItem("BANCO");
-    addItem("4");
-    complete(4);
-
-    setTimeout(()=>{
-      document.getElementById("bjStatus").innerHTML+=`
-        <div class="status success">
-          MANO REGISTRATA. DOSSIER 04 COMPLETATO.
-        </div>
-        <button class="btn" onclick="level4()">CONTINUA</button>
-      `;
-    },400);
-  }
 }
 
-/* =========================================================
-   DOSSIER 05 — CRAZY TIME
-   ========================================================= */
+function dossier4(){
 
-let crazyRotation=0;
-let crazySpinning=false;
+  shell(
+    "FASCICOLO 04 / THE TABLE",
+    "BLACKJACK",
+    `
 
-function level5(){
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">DOSSIER 05</div>
-      <h2>CRAZY TIME</h2>
+      <div class="rule">
 
-      <p>
-        Il banco cambia regole.
-        Scommetti, gira e prova a raggiungere il traguardo.
-      </p>
+        Bankroll iniziale:
+        <b>€300</b>.
 
-      <div class="crazy-pointer"></div>
-      <div class="crazy-wheel" id="crazyWheel"></div>
+        <br>
 
-      <div class="crazy-stats">
-        <div class="stat">
-          CASSA<br>
-          <strong id="crazyMoney">${state.crazyBankroll}</strong>
+        Obiettivo:
+        <b>€600</b>.
+
+        <br><br>
+
+        Blackjack naturale paga 3:2.<br>
+        Dealer pesca fino a 17.<br>
+        DOUBLE raddoppia la puntata e riceve una sola carta.
+
+      </div>
+
+      <div class="big-money">
+        BANKROLL:
+        €<span id="blackjackBank"></span>
+      </div>
+
+      <div class="blackjack-table">
+
+        <div>
+          DEALER ·
+          <b id="dealerValue">—</b>
         </div>
-        <div class="stat">
-          PROGRESSO<br>
-          <strong id="crazyProgress">${state.crazyProgress}/100</strong>
+
+        <div
+          id="dealerHand"
+          class="hand">
         </div>
+
+        <hr>
+
+        <div>
+          PLAYER ·
+          <b id="playerValue">—</b>
+        </div>
+
+        <div
+          id="playerHand"
+          class="hand">
+        </div>
+
       </div>
 
       <div class="chips">
-        <button class="chip" onclick="crazyBet=5">5</button>
-        <button class="chip" onclick="crazyBet=10">10</button>
-        <button class="chip" onclick="crazyBet=20">20</button>
+
+        <button
+          class="chip"
+          onclick="setBlackjackBet(25)">
+          25
+        </button>
+
+        <button
+          class="chip"
+          onclick="setBlackjackBet(50)">
+          50
+        </button>
+
+        <button
+          class="chip"
+          onclick="setBlackjackBet(100)">
+          100
+        </button>
+
+        <button
+          class="chip"
+          onclick="setBlackjackBet(150)">
+          150
+        </button>
+
       </div>
 
-      <div class="center">
-        Puntata: <strong id="crazyBet">${window.crazyBet||10}</strong>
+      <div class="actions">
+
+        <button
+          class="gold"
+          onclick="dealBlackjack()">
+          DEAL
+        </button>
+
+        <button
+          onclick="hitBlackjack()">
+          HIT
+        </button>
+
+        <button
+          onclick="standBlackjack()">
+          STAND
+        </button>
+
+        <button
+          onclick="doubleBlackjack()">
+          DOUBLE
+        </button>
+
       </div>
 
-      <button class="btn primary" onclick="spinCrazy()">
-        GIRA
-      </button>
-
-      <div id="crazyStatus"></div>
-    </div>
-
-    <div class="panel">
-      <h3>Obiettivo</h3>
-      <div class="small">
-        Arriva a 100 punti. Alcuni settori moltiplicano la puntata,
-        altri fanno perdere denaro. Il risultato è casuale.
+      <div
+        id="blackjackResult"
+        class="notice">
+        Imposta una puntata e fai DEAL.
       </div>
-    </div>
 
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
+    `
+  );
+
+  blackjack = {
+    deck:[],
+    player:[],
+    dealer:[],
+    bet:0,
+    roundOver:true
+  };
+
+  renderBlackjack();
 }
 
-let crazyBet=10;
+function setBlackjackBet(amount){
 
-function spinCrazy(){
-  if(crazySpinning)return;
+  if(!blackjack.roundOver)
+    return;
 
-  if(crazyBet>state.crazyBankroll){
-    document.getElementById("crazyStatus").innerHTML=`
-      <div class="status error">Cassa insufficiente.</div>
-    `;
+  if(amount > state.blackjackBankroll)
+    return;
+
+  blackjack.bet = amount;
+
+  document.getElementById("blackjackResult")
+    .textContent =
+      `Puntata selezionata: €${amount}.`;
+}
+
+function dealBlackjack(){
+
+  if(
+    !blackjack.roundOver ||
+    blackjack.bet <= 0 ||
+    blackjack.bet > state.blackjackBankroll
+  ){
     return;
   }
 
-  crazySpinning=true;
+  state.blackjackBankroll -=
+    blackjack.bet;
 
-  const outcomes=[
-    ["×1",1],
-    ["×2",2],
-    ["×1",1],
-    ["CASH HUNT",3],
-    ["×3",3],
-    ["PUSH",0],
-    ["×2",2],
-    ["COIN FLIP",4]
+  blackjack.deck =
+    createDeck();
+
+  blackjack.player = [
+    blackjack.deck.pop(),
+    blackjack.deck.pop()
   ];
 
-  const outcome=outcomes[Math.floor(Math.random()*outcomes.length)];
+  blackjack.dealer = [
+    blackjack.deck.pop(),
+    blackjack.deck.pop()
+  ];
 
-  crazyRotation+=900+Math.floor(Math.random()*500);
+  blackjack.roundOver = false;
 
-  document.getElementById("crazyWheel").style.transform=
-    `rotate(${crazyRotation}deg)`;
+  renderBlackjack();
 
-  setTimeout(()=>{
-    crazySpinning=false;
+  if(
+    handValue(blackjack.player) === 21
+  ){
+    standBlackjack();
+  }
+}
 
-    const label=outcome[0];
-    const multiplier=outcome[1];
+function hitBlackjack(){
 
-    if(label==="PUSH"){
-      document.getElementById("crazyStatus").innerHTML=`
-        <div class="status">
-          PUSH. La puntata torna alla cassa.
-        </div>
+  if(blackjack.roundOver)
+    return;
+
+  blackjack.player.push(
+    blackjack.deck.pop()
+  );
+
+  renderBlackjack();
+
+  if(
+    handValue(blackjack.player) > 21
+  ){
+    settleBlackjack();
+  }
+}
+
+function standBlackjack(){
+
+  if(blackjack.roundOver)
+    return;
+
+  while(
+    handValue(blackjack.dealer) < 17
+  ){
+    blackjack.dealer.push(
+      blackjack.deck.pop()
+    );
+  }
+
+  settleBlackjack();
+}
+
+function doubleBlackjack(){
+
+  if(
+    blackjack.roundOver ||
+    state.blackjackBankroll < blackjack.bet
+  ){
+    return;
+  }
+
+  state.blackjackBankroll -=
+    blackjack.bet;
+
+  blackjack.bet *= 2;
+
+  blackjack.player.push(
+    blackjack.deck.pop()
+  );
+
+  renderBlackjack();
+
+  if(
+    handValue(blackjack.player) > 21
+  ){
+    settleBlackjack();
+  }else{
+    standBlackjack();
+  }
+}
+
+function settleBlackjack(){
+
+  const player =
+    handValue(blackjack.player);
+
+  const dealer =
+    handValue(blackjack.dealer);
+
+  let payout = 0;
+  let message = "";
+
+  const natural =
+    player === 21 &&
+    blackjack.player.length === 2;
+
+  const dealerNatural =
+    dealer === 21 &&
+    blackjack.dealer.length === 2;
+
+  if(player > 21){
+
+    message =
+      "BUST. Il banco vince.";
+
+  }else if(
+    natural &&
+    !dealerNatural
+  ){
+
+    payout =
+      Math.floor(
+        blackjack.bet * 2.5
+      );
+
+    message =
+      "BLACKJACK. Pagamento 3:2.";
+
+  }else if(
+    dealer > 21 ||
+    player > dealer
+  ){
+
+    payout =
+      blackjack.bet * 2;
+
+    message =
+      "VITTORIA.";
+
+  }else if(player === dealer){
+
+    payout =
+      blackjack.bet;
+
+    message =
+      "PUSH. Puntata restituita.";
+
+  }else{
+
+    message =
+      "Il banco vince.";
+
+  }
+
+  state.blackjackBankroll +=
+    payout;
+
+  blackjack.roundOver = true;
+  blackjack.bet = 0;
+
+  document.getElementById("blackjackResult")
+    .innerHTML = `
+
+      <div class="notice ${
+        payout ? "success" : "fail"
+      }">
+
+        ${message}
+
+        <br><br>
+
+        BANKROLL:
+        <b>€${state.blackjackBankroll}</b>
+
+      </div>
+
+    `;
+
+  if(
+    state.blackjackBankroll >= 600
+  ){
+
+    document.getElementById("blackjackResult")
+      .innerHTML += `
+
+        <button
+          class="gold"
+          onclick="complete(4)">
+          OBIETTIVO RAGGIUNTO
+        </button>
+
       `;
-    }else{
-      const gain=crazyBet*multiplier;
 
-      state.crazyBankroll-=crazyBet;
-      state.crazyBankroll+=gain;
+  }
 
-      state.crazyProgress+=gain;
+  if(
+    state.blackjackBankroll <= 0
+  ){
 
-      if(state.crazyProgress>100){
-        state.crazyProgress=100;
-      }
+    document.getElementById("blackjackResult")
+      .innerHTML += `
 
-      state.crazySpins++;
+        <button
+          onclick="
+            state.blackjackBankroll=300;
+            save();
+            dossier4();
+          ">
+          RIPARTI DA €300
+        </button>
 
-      saveState();
-
-      document.getElementById("crazyStatus").innerHTML=`
-        <div class="status ${gain>=crazyBet?"success":"error"}">
-          ${label}<br>
-          Risultato: +${gain} punti.
-        </div>
       `;
-    }
 
-    document.getElementById("crazyMoney").textContent=
-      state.crazyBankroll;
+  }
 
-    document.getElementById("crazyProgress").textContent=
-      `${state.crazyProgress}/100`;
+  save();
+  renderBlackjack();
+}
 
-    if(state.crazyProgress>=100){
-      addItem("CRAZY");
-      addItem("5");
-      complete(5);
+function renderBlackjack(){
 
-      document.getElementById("crazyStatus").innerHTML+=`
-        <div class="status success">
-          TRAGUARDO RAGGIUNTO.<br>
-          DOSSIER 05 COMPLETATO.
-        </div>
-        <button class="btn" onclick="level5()">CONTINUA</button>
-      `;
-    }
-  },1300);
+  document.getElementById("blackjackBank")
+    .textContent =
+      state.blackjackBankroll;
+
+  document.getElementById("playerHand")
+    .innerHTML =
+      blackjack.player
+        .map(renderPlayingCard)
+        .join("");
+
+  document.getElementById("dealerHand")
+    .innerHTML =
+      blackjack.dealer
+        .map(
+          (card,index) => {
+
+            if(
+              index === 0 &&
+              !blackjack.roundOver
+            ){
+
+              return `
+                <div class="playing-card">
+                  ?
+                </div>
+              `;
+
+            }
+
+            return renderPlayingCard(card);
+
+          }
+        )
+        .join("");
+
+  document.getElementById("playerValue")
+    .textContent =
+      blackjack.player.length
+      ? handValue(blackjack.player)
+      : "—";
+
+  document.getElementById("dealerValue")
+    .textContent =
+      blackjack.dealer.length
+      ? (
+        blackjack.roundOver
+        ? handValue(blackjack.dealer)
+        : "?"
+      )
+      : "—";
 }
 
 /* =========================================================
-   DOSSIER 06 — L'ULTIMA PROVA
-   ========================================================= */
+   DOSSIER 5 — CRAZY TIME
+========================================================= */
 
-const memoryValues=[
-  "A","A","P","P","R","R","I","I",
-  "L","L","A","A","B","B","U","U",
-  "S","S","T","T"
-];
+function dossier5(){
 
-let memoryCards=[];
-let memoryFirst=null;
-let memorySecond=null;
-let memoryLocked=false;
-let memoryMatched=0;
+  shell(
+    "FASCICOLO 05 / THE WHEEL",
+    "CRAZY TIME",
+    `
 
-function level6(){
-  memoryCards=shuffle([...memoryValues]);
-  memoryFirst=null;
-  memorySecond=null;
-  memoryLocked=false;
-  memoryMatched=0;
+      <div class="rule">
 
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">DOSSIER 06</div>
-      <h2>L'ULTIMA PROVA</h2>
+        Bankroll iniziale:
+        <b>€300</b>.
 
-      <p>
-        Il sistema ha cancellato la frase finale.
-        Restano soltanto venti frammenti.
-      </p>
+        <br><br>
 
-      <p class="small">
-        Trova le coppie. Ogni coppia recupera una lettera.
-        Alla fine dovrai capire cosa fare con la frase.
-      </p>
+        Scegli una casella, inserisci la puntata
+        e gira la ruota.
 
-      <div class="memory" id="memoryGrid"></div>
+        <br><br>
 
-      <div id="memoryStatus"></div>
-    </div>
+        Se esce un BONUS,
+        entra in gioco una seconda prova.
 
-    <div class="panel hidden" id="finalUnlock">
-      <div class="key-final">
-        <div class="dossier-number">AUTORIZZAZIONE FINALE</div>
-        <div class="key-icon">🔐</div>
-
-        <div class="final-message">
-          PROTOCOLLO COMPLETATO.<br><br>
-          La procedura digitale termina qui.<br><br>
-          La chiave fisica deve essere consegnata<br>
-          il <strong>24 DICEMBRE</strong>.<br><br>
-          <strong>NON UTILIZZARE LA CHIAVE PRIMA DELLE 00:00<br>
-          DEL 25 DICEMBRE.</strong><br><br>
-          Quando arriverà l'ora, saprai cosa aprire.
-        </div>
       </div>
-    </div>
 
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
+      <div class="big-money">
+        BANKROLL:
+        €<span id="crazyBank"></span>
+      </div>
+
+      <div class="crazy-grid">
+
+        <div class="crazy-sector">
+          1<br>
+          x1
+        </div>
+
+        <div class="crazy-sector">
+          2<br>
+          x2
+        </div>
+
+        <div class="crazy-sector">
+          5<br>
+          x5
+        </div>
+
+        <div class="crazy-sector">
+          10<br>
+          x10
+        </div>
+
+        <div class="crazy-sector bonus">
+          CASH HUNT<br>
+          BONUS
+        </div>
+
+        <div class="crazy-sector bonus">
+          COIN FLIP<br>
+          BONUS
+        </div>
+
+        <div class="crazy-sector bonus">
+          PACHINKO<br>
+          BONUS
+        </div>
+
+        <div class="crazy-sector bonus">
+          MULTIPLIER<br>
+          BONUS
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <input
+          id="crazyBet"
+          type="number"
+          min="10"
+          placeholder="Puntata"
+        >
+
+        <select id="crazyChoice">
+
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+
+          <option value="CASH HUNT">
+            CASH HUNT
+          </option>
+
+          <option value="COIN FLIP">
+            COIN FLIP
+          </option>
+
+          <option value="PACHINKO">
+            PACHINKO
+          </option>
+
+          <option value="MULTIPLIER">
+            MULTIPLIER
+          </option>
+
+        </select>
+
+        <button
+          class="gold"
+          onclick="spinCrazy()">
+          GIRA
+        </button>
+
+      </div>
+
+      <div
+        id="crazyResult"
+        class="notice">
+
+        Scegli la casella e piazza la puntata.
+
+      </div>
+
+    `
+  );
+
+  document.getElementById("crazyBank")
+    .textContent =
+      state.crazyBankroll;
+}
+
+function spinCrazy(){
+
+  const bet =
+    Math.floor(
+      Number(
+        document.getElementById("crazyBet").value
+      )
+    );
+
+  const choice =
+    document.getElementById("crazyChoice").value;
+
+  if(
+    !bet ||
+    bet < 10 ||
+    bet > state.crazyBankroll
+  ){
+
+    document.getElementById("crazyResult")
+      .innerHTML = `
+        <div class="notice fail">
+          Puntata non valida.
+        </div>
+      `;
+
+    return;
+  }
+
+  state.crazyBankroll -= bet;
+
+  const sectors = [
+    "1",
+    "2",
+    "5",
+    "10",
+    "CASH HUNT",
+    "COIN FLIP",
+    "PACHINKO",
+    "MULTIPLIER"
+  ];
+
+  const result =
+    sectors[
+      Math.floor(
+        Math.random() * sectors.length
+      )
+    ];
+
+  let winnings = 0;
+
+  if(result === choice){
+
+    if(
+      ["1","2","5","10"]
+        .includes(result)
+    ){
+
+      winnings =
+        bet * Number(result);
+
+    }else{
+
+      winnings =
+        crazyBonus(
+          result,
+          bet
+        );
+
+    }
+
+  }
+
+  state.crazyBankroll += winnings;
+
+  let message = "";
+
+  if(result === choice){
+
+    message = `
+      Hai centrato
+      <b>${result}</b>.<br><br>
+      Hai incassato
+      <b>€${winnings}</b>.
+    `;
+
+  }else{
+
+    message = `
+      È uscito
+      <b>${result}</b>.<br><br>
+      La puntata è persa.
+    `;
+
+  }
+
+  document.getElementById("crazyResult")
+    .innerHTML = `
+
+      <div class="notice ${
+        winnings ? "success" : "fail"
+      }">
+
+        ${message}
+
+      </div>
+
+    `;
+
+  if(
+    result === choice &&
+    [
+      "CASH HUNT",
+      "COIN FLIP",
+      "PACHINKO",
+      "MULTIPLIER"
+    ].includes(result)
+  ){
+
+    document.getElementById("crazyResult")
+      .innerHTML += `
+
+        <div class="notice success">
+
+          <b>BONUS ATTIVATO.</b><br><br>
+
+          Il mini-gioco ha determinato
+          il moltiplicatore della vincita.
+
+        </div>
+
+      `;
+
+  }
+
+  if(
+    state.crazyBankroll >= 650
+  ){
+
+    document.getElementById("crazyResult")
+      .innerHTML += `
+
+        <button
+          class="gold"
+          onclick="complete(5)">
+          BANKROLL OBIETTIVO
+        </button>
+
+      `;
+
+  }
+
+  if(
+    state.crazyBankroll <= 0
+  ){
+
+    document.getElementById("crazyResult")
+      .innerHTML += `
+
+        <button
+          onclick="
+            state.crazyBankroll=300;
+            save();
+            dossier5();
+          ">
+          RIPROVA
+        </button>
+
+      `;
+
+  }
+
+  save();
+
+  document.getElementById("crazyBank")
+    .textContent =
+      state.crazyBankroll;
+}
+
+function crazyBonus(type,bet){
+
+  if(type === "CASH HUNT"){
+
+    return bet *
+      (2 + Math.floor(Math.random()*6));
+
+  }
+
+  if(type === "COIN FLIP"){
+
+    return Math.random() < .5
+      ? bet * 2
+      : 0;
+
+  }
+
+  if(type === "PACHINKO"){
+
+    const r = Math.random();
+
+    if(r < .2) return bet * 8;
+    if(r < .5) return bet * 2;
+
+    return 0;
+  }
+
+  if(type === "MULTIPLIER"){
+
+    return Math.random() < .3
+      ? bet * 10
+      : 0;
+
+  }
+
+  return 0;
+}
+
+/* =========================================================
+   DOSSIER 6 — MEMORIA
+========================================================= */
+
+let memory = {
+  open:[],
+  matched:[],
+  symbols:[]
+};
+
+function dossier6(){
+
+  const symbols = [
+    "▲",
+    "●",
+    "◆",
+    "■",
+    "★",
+    "☀",
+    "✚",
+    "☾",
+    "⬟",
+    "✿"
+  ];
+
+  memory = {
+    open:[],
+    matched:[],
+    symbols:
+      [...symbols,...symbols]
+        .sort(() => Math.random()-.5)
+  };
+
+  shell(
+    "FASCICOLO 06 / PROTOCOLLO 25",
+    "L'ULTIMA PROVA",
+    `
+
+      <div class="rule">
+
+        Questa prova non misura la velocità.
+
+        <br><br>
+
+        Devi recuperare tutte le coppie.
+        Ogni simbolo è una traccia.
+
+        <br><br>
+
+        <b>10 COPPIE.</b>
+
+      </div>
+
+      <div
+        id="memoryBoard"
+        class="memory">
+      </div>
+
+      <div
+        id="memoryResult"
+        class="notice">
+
+        Coppie trovate:
+        <b>0/10</b>
+
+      </div>
+
+    `
+  );
 
   renderMemory();
 }
 
-function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
-  }
-  return arr;
-}
-
 function renderMemory(){
-  const grid=document.getElementById("memoryGrid");
-  if(!grid)return;
 
-  grid.innerHTML=memoryCards.map((value,i)=>`
-    <button
-      class="memory-card"
-      id="mc${i}"
-      onclick="memoryClick(${i})">
-      ${value}
-    </button>
-  `).join("");
+  document.getElementById("memoryBoard")
+    .innerHTML =
+      memory.symbols
+        .map(
+          (symbol,index) => `
+
+            <button
+              class="memory-card"
+              data-index="${index}"
+              data-symbol="${symbol}"
+              onclick="memoryClick(this)">
+
+              ${symbol}
+
+            </button>
+
+          `
+        )
+        .join("");
+
 }
 
-function memoryClick(i){
-  if(memoryLocked)return;
+function memoryClick(card){
 
-  const el=document.getElementById(`mc${i}`);
-
-  if(el.classList.contains("matched")||
-     el.classList.contains("open")){
+  if(
+    memory.open.length >= 2 ||
+    card.classList.contains("matched") ||
+    memory.open.includes(card)
+  ){
     return;
   }
 
-  el.classList.add("open");
+  card.classList.add("open");
 
-  if(memoryFirst===null){
-    memoryFirst=i;
-    return;
+  memory.open.push(card);
+
+  if(memory.open.length === 2){
+
+    const [a,b] = memory.open;
+
+    setTimeout(() => {
+
+      if(
+        a.dataset.symbol ===
+        b.dataset.symbol
+      ){
+
+        a.classList.add("matched");
+        b.classList.add("matched");
+
+        memory.matched.push(
+          a.dataset.symbol
+        );
+
+      }else{
+
+        a.classList.remove("open");
+        b.classList.remove("open");
+
+      }
+
+      memory.open = [];
+
+      document.getElementById("memoryResult")
+        .innerHTML = `
+
+          Coppie trovate:
+          <b>${memory.matched.length}/10</b>
+
+        `;
+
+      if(memory.matched.length === 10){
+
+        document.getElementById("memoryResult")
+          .innerHTML = `
+
+            <div class="notice success">
+
+              <b>TUTTE LE COPPIE RECUPERATE.</b>
+
+              <br><br>
+
+              Il sistema ha riconosciuto
+              tutti i frammenti.
+
+              <br><br>
+
+              <b>CHIAVE AUTORIZZATA.</b>
+
+            </div>
+
+            <button
+              class="gold"
+              onclick="complete(6)">
+              COMPLETA PROTOCOLLO
+            </button>
+
+          `;
+
+      }
+
+    },550);
+
   }
 
-  memorySecond=i;
-  memoryLocked=true;
-
-  const firstValue=memoryCards[memoryFirst];
-  const secondValue=memoryCards[memorySecond];
-
-  if(firstValue===secondValue){
-    document.getElementById(`mc${memoryFirst}`)
-      .classList.add("matched");
-
-    document.getElementById(`mc${memorySecond}`)
-      .classList.add("matched");
-
-    memoryMatched++;
-
-    memoryFirst=null;
-    memorySecond=null;
-    memoryLocked=false;
-
-    if(memoryMatched===10){
-      finishMemory();
-    }
-  }else{
-    setTimeout(()=>{
-      document.getElementById(`mc${memoryFirst}`)
-        .classList.remove("open");
-
-      document.getElementById(`mc${memorySecond}`)
-        .classList.remove("open");
-
-      memoryFirst=null;
-      memorySecond=null;
-      memoryLocked=false;
-    },700);
-  }
-}
-
-function finishMemory(){
-  addItem("ULTIMA PROVA");
-  complete(6);
-  state.keyAuthorized=true;
-  saveState();
-
-  document.getElementById("memoryStatus").innerHTML=`
-    <div class="status success">
-      TUTTE LE COPPIE SONO STATE RECUPERATE.
-      <br><br>
-      La frase ricostruita è:
-      <strong>APRI LA BUSTA</strong>
-    </div>
-  `;
-
-  document.getElementById("finalUnlock").classList.remove("hidden");
 }
 
 /* =========================================================
    FINALE
-   ========================================================= */
+========================================================= */
 
-function finalPage(){
-  layout(`
-    <div class="panel">
-      <div class="dossier-number">PROTOCOLLO 25</div>
-      <h2>OPERAZIONE COMPLETATA</h2>
+function finalScreen(){
 
-      <div class="key-final">
-        <div class="key-icon">🔑</div>
+  document.getElementById("home")
+    .classList.add("hidden");
 
-        <div class="final-message">
-          PROTOCOLLO COMPLETATO.<br><br>
+  document.getElementById("gameScreen")
+    .classList.remove("hidden");
 
-          La procedura digitale termina qui.<br><br>
+  document.getElementById("gameScreen")
+    .innerHTML = `
+
+    <div class="game">
+
+      <div class="final">
+
+        <div class="kicker">
+          FT-25 / SISTEMA TERMINATO
+        </div>
+
+        <h2>
+          PROTOCOLLO COMPLETATO
+        </h2>
+
+        <p class="subtitle">
+
+          Tutte le prove digitali sono state registrate.
+
+          <br><br>
+
+          La procedura digitale termina qui.
+
+          <br><br>
 
           La chiave fisica deve essere consegnata
-          il <strong>24 DICEMBRE</strong>.<br><br>
+          il <b>24 DICEMBRE</b>.
 
-          <strong>
-          NON UTILIZZARE LA CHIAVE PRIMA DELLE 00:00
-          DEL 25 DICEMBRE.
-          </strong><br><br>
+          <br><br>
 
-          Quando arriverà l'ora,<br>
+          <b>
+            NON UTILIZZARE LA CHIAVE
+            PRIMA DELLE 00:00
+            DEL 25 DICEMBRE.
+          </b>
+
+          <br><br>
+
+          Quando arriverà l'ora,
           saprai cosa aprire.
+
+        </p>
+
+        <div class="notice">
+
+          OPERAZIONE 25<br>
+          <b>STATUS: COMPLETED</b>
+
         </div>
+
       </div>
+
     </div>
 
-    <button class="btn" onclick="backHome()">← ARCHIVIO</button>
-  `);
+  `;
 }
 
 /* =========================================================
    AVVIO
-   ========================================================= */
+========================================================= */
 
-home();
+renderHome();
 
 </script>
+
 </body>
 </html>
